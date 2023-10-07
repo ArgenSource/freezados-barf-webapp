@@ -21,7 +21,7 @@ export default function CreateSpace() {
         e.preventDefault();
         if (name !== undefined) {
             create.mutateAsync({ name: name })
-                .then(res => router.push(res.id))
+                .then(res => router.push(`space/${res.id}`))
                 .catch(err => console.error(err))
         }
     }
