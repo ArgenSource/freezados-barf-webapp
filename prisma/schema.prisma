@@ -16,6 +16,7 @@ datasource db {
 
 model Space {
     id  String @id @default(cuid())
+    name String
     ubications Ubication[]
 }
 
