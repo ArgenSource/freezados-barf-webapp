@@ -14,13 +14,38 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Space {
+    id  String @id @default(cuid())
+    ubications Ubication[]
+}
 
-    @@index([name])
+model Ubication {
+    id String @id @default(cuid())
+    name String
+    description String
+    spaceId String
+    space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+    isFreezer Boolean @default(true)
+    storage Food[]
+}
+
+enum FoodTypes {
+    PORK
+    COW
+    SHEEP
+    FISH
+}
+
+model Food {
+    id String @id @default(cuid())
+    name String
+    description String
+    ammount Int
+    storedAt DateTime
+    usedAt DateTime?
+    type FoodTypes
+    ubicationId String?
+    ubication Ubication? @relation(fields: [ubicationId], references: [id], onDelete: Cascade)
 }
 
 // Necessary for Next auth
