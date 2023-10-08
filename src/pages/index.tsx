@@ -1,6 +1,8 @@
 // import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
+import Container from "~/components/common/Container";
+import Loader from "~/components/common/Loader";
 
 // import { api } from "~/utils/api";
 
@@ -15,7 +17,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div>
+        <Container>
           <h1>
             Freezados BARF
           </h1>
@@ -29,7 +31,6 @@ export default function Home() {
                 Un espacio te permitira gestionar distintas ubicaciones de guardado como freezers y heladeras.
               </div>
             </Link>
-
           </div>
           {/* <div className="flex flex-col items-center gap-2">
             <p className="text-2xl text-white">
@@ -37,7 +38,7 @@ export default function Home() {
             </p>
             <AuthShowcase />
           </div> */}
-        </div>
+        </Container>
       </main>
     </>
   );

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { createSpace, getSpace } from "~/utils/schemas/space";
 
 import {
   createTRPCRouter,
@@ -6,11 +6,11 @@ import {
 } from "~/server/api/trpc";
 
 export const spaceRouter = createTRPCRouter({
-    create: publicProcedure.input(z.object({ name: z.string() }))
+    create: publicProcedure.input(createSpace)
     .mutation(({ input, ctx }) => {
         return ctx.db.space.create({ data: { name: input.name }})
     }),
-    getByid: publicProcedure.input(z.object({ id: z.string() }))
+    getByid: publicProcedure.input(getSpace)
     .query(({ input, ctx }) => {
         return ctx.db.space.findUnique({
             where: {

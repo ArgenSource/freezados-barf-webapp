@@ -5,25 +5,27 @@ import { useRouter } from 'next/navigation';
 import Head from "next/head";
 
 import { api } from "~/utils/api";
+import Container from '~/components/common/Container';
+import { createSpace } from '~/utils/schemas/space';
 
 export default function CreateSpace() {
 
     const router = useRouter();
 
     const create = api.space.create.useMutation();
-    const [name, setName] = useState<string>();
 
-    const handleNameInput = (e: ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value);
-    }
-
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (name !== undefined) {
+        const formData = new FormData(e.currentTarget);
+        try {
+            const { name } = createSpace.parse(Object.fromEntries(formData.entries()))
             create.mutateAsync({ name: name })
                 .then(res => router.push(`space/${res.id}`))
                 .catch(err => console.error(err))
+        } catch(err) { 
+            console.error(err)
         }
+
     }
 
     return ( 
@@ -34,12 +36,14 @@ export default function CreateSpace() {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <main>
-            <h1></h1>
+            <Container>
+            <h1>Crea tu espacio</h1>
             <section>
                 <form onSubmit={handleSubmit}>
-                    <input type="text" id="name" name='name' value={name} onChange={handleNameInput} />
+                    <input type="text" id="name" name='name' />
                 </form>
             </section>
+            </Container>
         </main>
     </>
     );
