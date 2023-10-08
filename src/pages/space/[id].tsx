@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import Container from "~/components/common/Container";
 import Loader from "~/components/common/Loader";
 
+import UbicationList from "~/components/ubication/UbicationList";
+
 import { api } from "~/utils/api";
 
 export default function Space() {
@@ -18,9 +20,10 @@ export default function Space() {
                 <Container>
                     {status == "loading" && <Loader />}
                     {status == "success" && 
-                    <section>
-                        {data?.name}
-                    </section>}
+                    <>
+                        <h1>{data?.name}</h1>
+                        <UbicationList ubications={data?.ubications} />
+                    </>}
                 </Container>
             </main>
         </>
