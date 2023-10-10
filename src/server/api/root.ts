@@ -1,6 +1,6 @@
-import { spaceRouter } from "./routers/space";
 import { createTRPCRouter } from "~/server/api/trpc";
-
+import { spaceRouter } from "./routers/space";
+import { foodRouter } from "./routers/food";
 /**
  * This is the primary router for your server.
  *
@@ -8,6 +8,7 @@ import { createTRPCRouter } from "~/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   space: spaceRouter,
+  food: foodRouter,
 });
 
 // export type definition of API
