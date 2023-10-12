@@ -13,22 +13,21 @@ export default function Home() {
     <>
       <Head>
         <title>Freezados BARF</title>
-        <meta name="description" content="App para gestionar tiempos de freezado en dietas BARF" />
+        <meta
+          name="description"
+          content="App para gestionar tiempos de freezado en dietas BARF"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
         <Container>
-          <h1>
-            Freezados BARF
-          </h1>
+          <h1>Freezados BARF</h1>
           <div>
-            <Link
-              href="/create-space"
-              target="_self"
-            >
+            <Link href="/create-space" target="_self">
               <h3 className="text-2xl font-bold">Crear nuevo espacio</h3>
               <div className="text-lg">
-                Un espacio te permitira gestionar distintas ubicaciones de guardado como freezers y heladeras.
+                Un espacio te permitira gestionar distintas ubicaciones de
+                guardado como freezers y heladeras.
               </div>
             </Link>
           </div>

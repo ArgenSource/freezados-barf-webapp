@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export default function AddUbication() {
-  return (
-    <div>add-ubication</div>
-  )
+  return <div>add-ubication</div>;
 }

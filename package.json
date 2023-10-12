@@ -7,7 +7,7 @@
     "db:push": "prisma db push",
     "dev": "next dev",
     "postinstall": "prisma generate",
-    "lint": "next lint",
+    "lint": "next lint --fix",
     "start": "next start"
   },
   "dependencies": {

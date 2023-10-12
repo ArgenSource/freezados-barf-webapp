@@ -34,7 +34,9 @@ export default function AddFood() {
       <main>
         <Container>
           <h1>Add new food</h1>
-          <form onSubmit={handleSubmit}></form>
+          <form onSubmit={handleSubmit}>
+            <input type="text" id="name" name="name" required />
+          </form>
         </Container>
       </main>
     </>

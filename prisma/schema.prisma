@@ -15,19 +15,19 @@ datasource db {
 }
 
 model Space {
-    id  String @id @default(cuid())
-    name String
+    id         String      @id @default(cuid())
+    name       String
     ubications Ubication[]
 }
 
 model Ubication {
-    id String @id @default(cuid())
-    name String
+    id          String  @id @default(cuid())
+    name        String
     description String
-    spaceId String
-    space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-    isFreezer Boolean @default(true)
-    storage Food[]
+    spaceId     String
+    space       Space   @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+    isFreezer   Boolean @default(true)
+    storage     Food[]
 }
 
 enum FoodTypes {
@@ -38,15 +38,15 @@ enum FoodTypes {
 }
 
 model Food {
-    id String @id @default(cuid())
-    name String
+    id          String     @id @default(cuid())
+    name        String
     description String
-    ammount Int
-    storedAt DateTime
-    usedAt DateTime?
-    type FoodTypes
+    ammount     Int
+    storedAt    DateTime
+    usedAt      DateTime?
+    type        FoodTypes
     ubicationId String?
-    ubication Ubication? @relation(fields: [ubicationId], references: [id], onDelete: Cascade)
+    ubication   Ubication? @relation(fields: [ubicationId], references: [id], onDelete: Cascade)
 }
 
 // Necessary for Next auth
@@ -56,12 +56,12 @@ model Account {
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String?  @db.Text
-    access_token      String?  @db.Text
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String?  @db.Text
+    id_token          String? @db.Text
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
