@@ -12,7 +12,7 @@ export const createFood = z.object({
     FoodTypes.COW,
     FoodTypes.FISH,
     FoodTypes.PORK,
-    FoodTypes.SHEEP,
+    FoodTypes.CHICKEN,
   ]),
 });
 
