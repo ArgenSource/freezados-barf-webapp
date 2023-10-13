@@ -4,7 +4,14 @@ import { getFoods, getFoodById, createFood } from "~/utils/schemas/food";
 
 export const foodRouter = createTRPCRouter({
   create: publicProcedure.input(createFood).mutation(({ input, ctx }) => {
-    return null;
+    return ctx.db.food.create({
+      data: {
+        ...input,
+        ammount: parseFloat(input.ammount),
+        storedAt: new Date(),
+        description: input.description ?? "",
+      },
+    });
   }),
   getByid: publicProcedure.input(getFoodById).query(({ input, ctx }) => {
     return null;

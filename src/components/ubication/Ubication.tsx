@@ -22,7 +22,7 @@ export default function Ubication({ data }: { data: TUbication }) {
         </h3>
         <p>{data.description}</p>
       </div>
-      {status === "success" && <FoodList foods={foods} />}
+      {status === "success" && <FoodList foods={foods} ubicationId={data.id} />}
     </section>
   );
 }

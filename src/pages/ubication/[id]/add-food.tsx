@@ -2,19 +2,11 @@ import { type FormEvent } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import { FoodTypes } from "@prisma/client";
-import { Beef, Drumstick, Fish, PiggyBank } from "lucide-react";
+import { type FType, FOOD_ICONS } from "~/utils/icons/foodStyleIcons";
 import Container from "~/components/common/Container";
 
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
-
-const ICONS = {
-  [FoodTypes.COW]: <Beef />,
-  [FoodTypes.FISH]: <Fish />,
-  [FoodTypes.PORK]: <PiggyBank />,
-  [FoodTypes.CHICKEN]: <Drumstick />,
-};
 
 export default function AddFood() {
   const router = useRouter();
@@ -31,7 +23,7 @@ export default function AddFood() {
       const input = createFood.parse(Object.fromEntries(formData.entries()));
       addFood
         .mutateAsync(input)
-        .then((res) => console.log(res))
+        .then(() => router.back())
         .catch((err) => console.error(err));
     } catch (err) {
       console.error(err);
@@ -47,7 +39,7 @@ export default function AddFood() {
           <h1>Add new food</h1>
           <form onSubmit={handleSubmit}>
             <input type="text" id="name" name="name" required />
-            {Object.keys(ICONS).map((opt) => (
+            {[...FOOD_ICONS.keys()].map((opt: FType) => (
               <label htmlFor={`type-${opt}`} key={`type-${opt}`}>
                 <input
                   id={`type-${opt}`}
@@ -55,9 +47,13 @@ export default function AddFood() {
                   value={opt}
                   name="type"
                 />
-                {ICONS[opt as keyof typeof ICONS]}
+                {FOOD_ICONS.get(opt)}
               </label>
             ))}
+            <input type="number" name="ammount" id="ammount" min={1} required />
+            <span>g</span>
+            <textarea name="description" id="description" />
+            <input type="submit" />
           </form>
         </Container>
       </main>

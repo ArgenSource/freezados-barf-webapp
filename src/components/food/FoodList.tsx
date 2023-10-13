@@ -1,16 +1,19 @@
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 import { type Food as TFood } from "@prisma/client";
 
-export default function FoodList({ foods }: { foods: TFood[] }) {
-  const router = useRouter();
-  const { id: spaceId } = router.query;
+export default function FoodList({
+  foods,
+  ubicationId,
+}: {
+  foods: TFood[];
+  ubicationId: string;
+}) {
   if (foods.length < 1)
     return (
       <div>
         <h6>Esta ubicacion esta vacia</h6>
-        <Link href={`/space/${spaceId?.toString()}/add-food`}>
+        <Link href={`/ubication/${ubicationId}/add-food`}>
           Ingresa un alimento
         </Link>
       </div>
