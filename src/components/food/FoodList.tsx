@@ -1,23 +1,6 @@
-import Link from "next/link";
-
 import { type Food as TFood } from "@prisma/client";
 
-export default function FoodList({
-  foods,
-  ubicationId,
-}: {
-  foods: TFood[];
-  ubicationId: string;
-}) {
-  if (foods.length < 1)
-    return (
-      <div>
-        <h6>Esta ubicacion esta vacia</h6>
-        <Link href={`/ubication/${ubicationId}/add-food`}>
-          Ingresa un alimento
-        </Link>
-      </div>
-    );
+export default function FoodList({ foods }: { foods: TFood[] }) {
   return (
     <div className="flex h-full w-full flex-col gap-0">
       {foods.map((f) => (

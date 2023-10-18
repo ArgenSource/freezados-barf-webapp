@@ -2,13 +2,8 @@
 import Head from "next/head";
 import Link from "next/link";
 import Container from "~/components/common/Container";
-import Loader from "~/components/common/Loader";
-
-// import { api } from "~/utils/api";
 
 export default function Home() {
-  // const newSpace = api.space.create.useQuery({ name: "nuevo" });
-
   return (
     <>
       <Head>
@@ -31,12 +26,6 @@ export default function Home() {
               </div>
             </Link>
           </div>
-          {/* <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-            </p>
-            <AuthShowcase />
-          </div> */}
         </Container>
       </main>
     </>

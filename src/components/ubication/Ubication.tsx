@@ -1,9 +1,11 @@
 import { type Ubication as TUbication } from "@prisma/client";
 
-import { ThermometerSnowflake } from "lucide-react";
+import { PlusCircle, ThermometerSnowflake } from "lucide-react";
 
+import Loader from "../common/Loader";
 import { api } from "~/utils/api";
 import FoodList from "../food/FoodList";
+import Link from "next/link";
 
 export default function Ubication({ data }: { data: TUbication }) {
   const { data: foods, status } = api.food.getFromUbication.useQuery({
@@ -22,7 +24,27 @@ export default function Ubication({ data }: { data: TUbication }) {
         </h3>
         <p>{data.description}</p>
       </div>
-      {status === "success" && <FoodList foods={foods} ubicationId={data.id} />}
+      {status === "success" ? (
+        <>
+          {foods.length > 0 ? (
+            <>
+              <FoodList foods={foods} />
+              <Link href={`/ubication/${data.id}/add-food`}>
+                <PlusCircle size={32} />
+              </Link>
+            </>
+          ) : (
+            <div>
+              <h6>Esta ubicacion esta vacia</h6>
+              <Link href={`/ubication/${data.id}/add-food`}>
+                Ingresa un alimento
+              </Link>
+            </div>
+          )}
+        </>
+      ) : (
+        <Loader />
+      )}
     </section>
   );
 }

@@ -4,6 +4,7 @@ import Head from "next/head";
 
 import { type FType, FOOD_ICONS } from "~/utils/icons/foodStyleIcons";
 import Container from "~/components/common/Container";
+import { ChevronLeftCircle } from "lucide-react";
 
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
@@ -36,6 +37,9 @@ export default function AddFood() {
       </Head>
       <main>
         <Container>
+          <button onClick={() => router.back()}>
+            <ChevronLeftCircle size={32} />
+          </button>
           <h1>Add new food</h1>
           <form onSubmit={handleSubmit}>
             <input type="text" id="name" name="name" required />
