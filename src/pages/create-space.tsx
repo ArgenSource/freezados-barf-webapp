@@ -2,6 +2,8 @@ import { type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Head from "next/head";
 
+import { Container as ContainerIcon } from "lucide-react";
+
 import { api } from "~/utils/api";
 import Container from "~/components/common/Container";
 import { createSpace } from "~/utils/schemas/space";
@@ -39,10 +41,28 @@ export default function CreateSpace() {
       </Head>
       <main>
         <Container>
-          <h1>Crea tu espacio</h1>
-          <section>
-            <form onSubmit={handleSubmit}>
-              <input type="text" id="name" name="name" />
+          <h1 className="text-center text-2xl">Crea tu espacio</h1>
+          <section className="mt-8 w-full">
+            <form
+              onSubmit={handleSubmit}
+              className="flex w-full flex-col items-center gap-4"
+            >
+              <label htmlFor="name">
+                <p>Nombre: </p>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="rounded-md border-2 p-1"
+                  autoComplete="none"
+                />
+              </label>
+              <button
+                type="submit"
+                className="flex items-center gap-2 rounded-md bg-cyan-600 p-4 text-xl font-bold text-gray-100"
+              >
+                Crear <ContainerIcon />
+              </button>
             </form>
           </section>
         </Container>

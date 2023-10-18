@@ -10,7 +10,7 @@ export default function UbicationList({
   if (!ubications) return null;
   return (
     <>
-      <h2>Ubicaciones: </h2>
+      <h2 className="text-xl">Ubicaciones: </h2>
       {ubications.map((u) => (
         <Ubication key={u.id} data={u} />
       ))}

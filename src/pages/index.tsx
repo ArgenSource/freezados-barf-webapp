@@ -16,11 +16,13 @@ export default function Home() {
       </Head>
       <main>
         <Container>
-          <h1>Freezados BARF</h1>
-          <div>
+          <h1 className="text-center text-6xl font-bold text-cyan-700">
+            Freezados BARF
+          </h1>
+          <div className="mt-8 rounded-md border-2 bg-cyan-600/30 p-4">
             <Link href="/create-space" target="_self">
-              <h3 className="text-2xl font-bold">Crear nuevo espacio</h3>
-              <div className="text-lg">
+              <h3 className="text-xl font-bold">Crear nuevo espacio</h3>
+              <div className="text-base italic text-gray-600">
                 Un espacio te permitira gestionar distintas ubicaciones de
                 guardado como freezers y heladeras.
               </div>

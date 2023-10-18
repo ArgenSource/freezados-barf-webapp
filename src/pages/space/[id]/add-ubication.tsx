@@ -24,7 +24,7 @@ export default function AddUbication() {
       });
       createUbication
         .mutateAsync(input)
-        .then((res) => console.log(res))
+        .then((res) => router.push(`/space/${spaceId.toString()}`))
         .catch((err) => console.error(err));
     } catch (err) {
       console.error(err);
@@ -33,17 +33,43 @@ export default function AddUbication() {
   return (
     <>
       <Head>
-        <title>Add new ubication</title>
+        <title>Freezados - Add new ubication</title>
       </Head>
       <main>
         <Container>
-          <form onSubmit={handleSubmit}>
-            <input type="text" name="name" id="name" required />
-            <textarea name="description" id="description" />
-            <label htmlFor="isFreezer">
+          <h1 className="text-center text-2xl font-bold">Crea tu ubicacion</h1>
+          <form
+            onSubmit={handleSubmit}
+            className="mt-8 flex w-full flex-col items-center gap-4"
+          >
+            <label htmlFor="name">
+              <p>Nombre</p>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                required
+                className="rounded-md border-2 p-1"
+              />
+            </label>
+            <label htmlFor="description">
+              <p>Descripcion (opcional)</p>
+              <textarea
+                name="description"
+                id="description"
+                className="rounded-md border-2 p-1"
+              />
+            </label>
+            <label htmlFor="isFreezer" className="justify-apart flex gap-4">
               <p>Es un freezer?</p>
               <input type="checkbox" name="isFreezer" id="isFreezer" />
             </label>
+            <button
+              type="submit"
+              className="flex items-center gap-2 rounded-md bg-cyan-600 p-4 text-xl font-bold text-gray-100"
+            >
+              Crear
+            </button>
           </form>
         </Container>
       </main>
