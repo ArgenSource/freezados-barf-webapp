@@ -2,6 +2,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import Container from "~/components/common/Container";
+import SpaceList from "~/components/space/SpaceList";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
           <h1 className="text-center text-6xl font-bold text-cyan-700">
             Freezados BARF
           </h1>
+          <SpaceList />
           <div className="mt-8 rounded-md border-2 bg-cyan-600/30 p-4">
             <Link href="/create-space" target="_self">
               <h3 className="text-xl font-bold">Crear nuevo espacio</h3>

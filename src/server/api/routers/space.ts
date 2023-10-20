@@ -6,6 +6,10 @@ export const spaceRouter = createTRPCRouter({
   create: publicProcedure.input(createSpace).mutation(({ input, ctx }) => {
     return ctx.db.space.create({ data: { name: input.name } });
   }),
+  getAll: publicProcedure.query(({ ctx }) => {
+    // TODO: Change to get only by user (when some king of auth is implemented)
+    return ctx.db.space.findMany();
+  }),
   getByid: publicProcedure.input(getSpace).query(({ input, ctx }) => {
     return ctx.db.space.findUnique({
       where: {
