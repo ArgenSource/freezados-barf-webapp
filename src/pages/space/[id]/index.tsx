@@ -16,6 +16,7 @@ export default function Space() {
     { id: spaceId as string },
     {
       enabled: !!spaceId,
+      refetchOnWindowFocus: false,
     },
   );
 

@@ -8,9 +8,12 @@ import FoodList from "../food/FoodList";
 import Link from "next/link";
 
 export default function Ubication({ data }: { data: TUbication }) {
-  const { data: foods, status } = api.food.getFromUbication.useQuery({
-    ubicationId: data.id,
-  });
+  const { data: foods, status } = api.food.getFromUbication.useQuery(
+    {
+      ubicationId: data.id,
+    },
+    { refetchOnWindowFocus: false },
+  );
 
   return (
     <section className="w-full py-2">

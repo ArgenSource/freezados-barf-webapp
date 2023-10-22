@@ -17,3 +17,8 @@ export const createFood = z.object({
 });
 
 export const getFoodById = z.object({});
+
+export const consume = z.object({
+  id: z.string().min(1),
+  ammount: z.number().min(0),
+});
