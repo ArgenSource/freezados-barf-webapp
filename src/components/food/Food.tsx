@@ -7,6 +7,7 @@ import { api } from "~/utils/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
 import Modal from "../common/Modal";
+import Loader from "../common/Loader";
 
 type ACTION_NAMES = "NONE" | "CONSUME" | "DELETE" | "MOVE";
 
@@ -162,8 +163,33 @@ const ChangeUbication: React.FC<ActionProps> = ({
     {
       id: ubicationId ?? "",
     },
-    { enabled: active && ubicationId },
+    { refetchOnWindowFocus: false },
   );
+
+  const changeUbication = api.food.changeUbication.useMutation();
+
+  // TODO: Create handle select ubication function with mutation
+  const renderOptions = () => {
+    switch (status) {
+      case "loading":
+        return <Loader />;
+      case "success":
+        if (otherUbications) {
+          return (
+            <ul>
+              {otherUbications.map((ubication) => (
+                <li key={ubication.id} onClick={() => console.log("Implement")}>
+                  {ubication.name}
+                </li>
+              ))}
+            </ul>
+          );
+        }
+      case "error":
+      default:
+        return <h6>Oops</h6>;
+    }
+  };
 
   return (
     <div>
@@ -172,11 +198,12 @@ const ChangeUbication: React.FC<ActionProps> = ({
         onClickOutside={closeModal}
         className="w-full max-w-md bg-green-500 p-4"
       >
-        <div className="relative flex h-full w-full items-center justify-center">
+        <div className="relative flex h-full w-full flex-col items-center justify-center">
           <button onClick={closeModal} className="absolute right-0 top-0">
             <XCircle size={20} />
           </button>
-          <h1>Hello</h1>
+          <h6>Choose the new ubication</h6>
+          {renderOptions()}
         </div>
       </Modal>
       <button onClick={openModal}>
