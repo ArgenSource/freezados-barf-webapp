@@ -24,3 +24,8 @@ export const consume = z.object({
   id: z.string().min(1),
   ammount: z.number().min(0),
 });
+
+export const changeUbication = z.object({
+  id: z.string().min(1),
+  newUbicationId: z.string().min(1),
+});

@@ -5,6 +5,7 @@ import {
   getFoodById,
   createFood,
   consume,
+  changeUbication as changeUbicationSchema,
 } from "~/utils/schemas/food";
 
 export const foodRouter = createTRPCRouter({
@@ -60,6 +61,18 @@ export const foodRouter = createTRPCRouter({
     }
     return true;
   }),
+  changeUbication: publicProcedure
+    .input(changeUbicationSchema)
+    .mutation(({ ctx, input }) => {
+      return ctx.db.food.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          ubicationId: input.newUbicationId,
+        },
+      });
+    }),
   deleteById: publicProcedure.input(getFoodById).mutation(({ ctx, input }) => {
     return ctx.db.food.delete({ where: { id: input.id } });
   }),

@@ -157,6 +157,14 @@ const ChangeUbication: React.FC<ActionProps> = ({
 }) => {
   const openModal = () => setSelect("MOVE");
   const closeModal = () => setSelect("NONE");
+
+  const { data: otherUbications, status } = api.ubication.getOthers.useQuery(
+    {
+      id: ubicationId ?? "",
+    },
+    { enabled: active && ubicationId },
+  );
+
   return (
     <div>
       <Modal
@@ -164,7 +172,7 @@ const ChangeUbication: React.FC<ActionProps> = ({
         onClickOutside={closeModal}
         className="w-full max-w-md bg-green-500 p-4"
       >
-        <div className="relative h-full w-full">
+        <div className="relative flex h-full w-full items-center justify-center">
           <button onClick={closeModal} className="absolute right-0 top-0">
             <XCircle size={20} />
           </button>
