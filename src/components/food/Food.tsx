@@ -1,14 +1,17 @@
 import React, { useState, useCallback } from "react";
 import { type Food as TFood } from "@prisma/client";
-import { ArrowBigDownDash, Trash2, Replace } from "lucide-react";
+import { ArrowBigDownDash, Trash2, Replace, XCircle } from "lucide-react";
 
 import { FOOD_ICONS } from "~/utils/icons/foodStyleIcons";
 import { api } from "~/utils/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
+import Modal from "../common/Modal";
+
+type ACTION_NAMES = "NONE" | "CONSUME" | "DELETE" | "MOVE";
 
 export default function Food({ foodData }: { foodData: TFood }) {
-  const [selectedAction, setSelectedAction] = useState<string>("NONE");
+  const [selectedAction, setSelectedAction] = useState<ACTION_NAMES>("NONE");
   const queryClient = useQueryClient();
 
   const refetchUbicationData = useCallback(
@@ -23,12 +26,10 @@ export default function Food({ foodData }: { foodData: TFood }) {
     [queryClient],
   );
 
-  // TODO: Better handle state
-  const handleSelectAction = (name: string) => {
-    if (name !== selectedAction) {
-      setSelectedAction(name);
-    }
-  };
+  const handleSelectAction = useCallback((name: ACTION_NAMES) => {
+    setSelectedAction(name);
+  }, []);
+
   return (
     <div className="flex w-full justify-between rounded-md border-2 bg-slate-200 p-2">
       <div className="flex gap-2">
@@ -38,21 +39,21 @@ export default function Food({ foodData }: { foodData: TFood }) {
         {/* TODO: No repetir codigo, optimizar, refactorizar */}
         <Retrieve
           data={foodData}
-          active={selectedAction == "Retrieve"}
+          active={selectedAction == "CONSUME"}
           refetchFunction={refetchUbicationData}
-          setSelect={() => handleSelectAction("Retrieve")}
+          setSelect={handleSelectAction}
         />
         <Delete
           data={foodData}
-          active={selectedAction == "Delete"}
+          active={selectedAction == "DELETE"}
           refetchFunction={refetchUbicationData}
-          setSelect={() => handleSelectAction("Delete")}
+          setSelect={handleSelectAction}
         />
         <ChangeUbication
           data={foodData}
-          active={selectedAction == "Move"}
+          active={selectedAction == "MOVE"}
           refetchFunction={refetchUbicationData}
-          setSelect={() => handleSelectAction("Move")}
+          setSelect={handleSelectAction}
         />
       </div>
     </div>
@@ -63,7 +64,7 @@ type ActionProps = {
   data: TFood;
   active: boolean;
   refetchFunction: (ubId?: string) => Promise<void>;
-  setSelect: () => void;
+  setSelect: (name: ACTION_NAMES) => void;
 };
 
 const Retrieve: React.FC<ActionProps> = ({
@@ -92,7 +93,10 @@ const Retrieve: React.FC<ActionProps> = ({
     }
   };
   return (
-    <div onClick={setSelect} className="flex items-center gap-1">
+    <div
+      onClick={() => setSelect("CONSUME")}
+      className="flex items-center gap-1"
+    >
       <label
         className={`${active ? "block" : "hidden"} w-min whitespace-nowrap`}
       >
@@ -134,7 +138,10 @@ const Delete: React.FC<ActionProps> = ({
     }
   };
   return (
-    <div onClick={setSelect} className="flex items-center gap-1">
+    <div
+      onClick={() => setSelect("DELETE")}
+      className="flex items-center gap-1"
+    >
       <button onClick={confirmDelete}>
         <Trash2 className={active ? "text-red-600" : "text-gray-500"} />
       </button>
@@ -148,10 +155,24 @@ const ChangeUbication: React.FC<ActionProps> = ({
   refetchFunction,
   setSelect,
 }) => {
+  const openModal = () => setSelect("MOVE");
+  const closeModal = () => setSelect("NONE");
   return (
-    <div onClick={setSelect}>
-      <button>
-        <Replace />
+    <div>
+      <Modal
+        open={active}
+        onClickOutside={closeModal}
+        className="w-full max-w-md bg-green-500 p-4"
+      >
+        <div className="relative h-full w-full">
+          <button onClick={closeModal} className="absolute right-0 top-0">
+            <XCircle size={20} />
+          </button>
+          <h1>Hello</h1>
+        </div>
+      </Modal>
+      <button onClick={openModal}>
+        <Replace className={active ? "text-green-500" : "text-cyan-500"} />
       </button>
     </div>
   );
