@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { type Food as TFood } from "@prisma/client";
-import { ArrowBigDownDash, Trash2 } from "lucide-react";
+import { ArrowBigDownDash, Trash2, Replace } from "lucide-react";
 
 import { FOOD_ICONS } from "~/utils/icons/foodStyleIcons";
 import { api } from "~/utils/api";
@@ -11,16 +11,16 @@ export default function Food({ foodData }: { foodData: TFood }) {
   const [selectedAction, setSelectedAction] = useState<string>("NONE");
   const queryClient = useQueryClient();
 
-  const refetchFunction = useCallback(
-    () =>
+  const refetchUbicationData = useCallback(
+    (ubId?: string) =>
       queryClient.refetchQueries({
         queryKey: getQueryKey(
           api.food.getFromUbication,
-          { ubicationId: foodData.ubicationId ?? undefined },
+          { ubicationId: ubId },
           "query",
         ),
       }),
-    [foodData.ubicationId, queryClient],
+    [queryClient],
   );
 
   // TODO: Better handle state
@@ -39,14 +39,20 @@ export default function Food({ foodData }: { foodData: TFood }) {
         <Retrieve
           data={foodData}
           active={selectedAction == "Retrieve"}
-          refetchFunction={refetchFunction}
+          refetchFunction={refetchUbicationData}
           setSelect={() => handleSelectAction("Retrieve")}
         />
         <Delete
           data={foodData}
           active={selectedAction == "Delete"}
-          refetchFunction={refetchFunction}
+          refetchFunction={refetchUbicationData}
           setSelect={() => handleSelectAction("Delete")}
+        />
+        <ChangeUbication
+          data={foodData}
+          active={selectedAction == "Move"}
+          refetchFunction={refetchUbicationData}
+          setSelect={() => handleSelectAction("Move")}
         />
       </div>
     </div>
@@ -56,12 +62,12 @@ export default function Food({ foodData }: { foodData: TFood }) {
 type ActionProps = {
   data: TFood;
   active: boolean;
-  refetchFunction: () => Promise<void>;
+  refetchFunction: (ubId?: string) => Promise<void>;
   setSelect: () => void;
 };
 
 const Retrieve: React.FC<ActionProps> = ({
-  data: { ammount, id },
+  data: { ammount, id, ubicationId },
   active,
   refetchFunction,
   setSelect,
@@ -70,7 +76,7 @@ const Retrieve: React.FC<ActionProps> = ({
 
   const retrieve = api.food.consume.useMutation({
     onSuccess: async () => {
-      await refetchFunction();
+      await refetchFunction(ubicationId ?? undefined);
     },
   });
 
@@ -111,16 +117,41 @@ const Retrieve: React.FC<ActionProps> = ({
 };
 
 const Delete: React.FC<ActionProps> = ({
-  data: { id },
+  data: { id, ubicationId },
   active,
   refetchFunction,
   setSelect,
 }) => {
-  // TODO: Agregar funcionalidad de delete e implementar aqui
+  const deleteFood = api.food.deleteById.useMutation({
+    onSuccess: async () => {
+      await refetchFunction(ubicationId ?? undefined);
+    },
+  });
+
+  const confirmDelete = () => {
+    if (active) {
+      deleteFood.mutateAsync({ id: id }).catch((err) => console.error(err));
+    }
+  };
   return (
     <div onClick={setSelect} className="flex items-center gap-1">
-      <button onClick={() => console.log("to delete: ", id)}>
+      <button onClick={confirmDelete}>
         <Trash2 className={active ? "text-red-600" : "text-gray-500"} />
+      </button>
+    </div>
+  );
+};
+
+const ChangeUbication: React.FC<ActionProps> = ({
+  data: { id, ubicationId },
+  active,
+  refetchFunction,
+  setSelect,
+}) => {
+  return (
+    <div onClick={setSelect}>
+      <button>
+        <Replace />
       </button>
     </div>
   );

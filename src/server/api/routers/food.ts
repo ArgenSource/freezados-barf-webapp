@@ -60,4 +60,7 @@ export const foodRouter = createTRPCRouter({
     }
     return true;
   }),
+  deleteById: publicProcedure.input(getFoodById).mutation(({ ctx, input }) => {
+    return ctx.db.food.delete({ where: { id: input.id } });
+  }),
 });
