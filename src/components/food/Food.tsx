@@ -1,6 +1,12 @@
 import React, { useState, useCallback } from "react";
 import { type Food as TFood } from "@prisma/client";
-import { ArrowBigDownDash, Trash2, Replace, XCircle } from "lucide-react";
+import {
+  ArrowBigDownDash,
+  Trash2,
+  Replace,
+  XCircle,
+  ThermometerSnowflake,
+} from "lucide-react";
 
 import { FOOD_ICONS } from "~/utils/icons/foodStyleIcons";
 import { api } from "~/utils/api";
@@ -179,7 +185,14 @@ const ChangeUbication: React.FC<ActionProps> = ({
             <ul>
               {otherUbications.map((ubication) => (
                 <li key={ubication.id} onClick={() => console.log("Implement")}>
-                  {ubication.name}
+                  <button className="my-2 flex items-center gap-1 rounded-md bg-cyan-200 p-2 text-black">
+                    {ubication.name}
+                    <ThermometerSnowflake
+                      className={
+                        ubication.isFreezer ? "text-cyan-600" : "text-gray-400"
+                      }
+                    />
+                  </button>
                 </li>
               ))}
             </ul>
@@ -196,9 +209,9 @@ const ChangeUbication: React.FC<ActionProps> = ({
       <Modal
         open={active}
         onClickOutside={closeModal}
-        className="w-full max-w-md bg-green-500 p-4"
+        className="w-full max-w-md rounded-md bg-gray-500 p-4"
       >
-        <div className="relative flex h-full w-full flex-col items-center justify-center">
+        <div className="relative flex h-full w-full flex-col items-center justify-center text-white">
           <button onClick={closeModal} className="absolute right-0 top-0">
             <XCircle size={20} />
           </button>
