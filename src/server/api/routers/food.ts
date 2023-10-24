@@ -19,9 +19,11 @@ export const foodRouter = createTRPCRouter({
       },
     });
   }),
+
   getByid: publicProcedure.input(getFoodById).query(({ input, ctx }) => {
     return null;
   }),
+
   getFromUbication: publicProcedure.input(getFoods).query(({ input, ctx }) => {
     return ctx.db.food.findMany({
       where: {
@@ -33,6 +35,7 @@ export const foodRouter = createTRPCRouter({
       },
     });
   }),
+
   consume: publicProcedure.input(consume).mutation(async ({ input, ctx }) => {
     const updated = await ctx.db.food.update({
       where: { id: input.id, ammount: { gte: input.ammount } },
@@ -61,6 +64,7 @@ export const foodRouter = createTRPCRouter({
     }
     return true;
   }),
+
   changeUbication: publicProcedure
     .input(changeUbicationSchema)
     .mutation(({ ctx, input }) => {
@@ -73,6 +77,7 @@ export const foodRouter = createTRPCRouter({
         },
       });
     }),
+
   deleteById: publicProcedure.input(getFoodById).mutation(({ ctx, input }) => {
     return ctx.db.food.delete({ where: { id: input.id } });
   }),
