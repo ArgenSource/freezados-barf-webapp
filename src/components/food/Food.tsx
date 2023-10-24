@@ -172,9 +172,29 @@ const ChangeUbication: React.FC<ActionProps> = ({
     { refetchOnWindowFocus: false },
   );
 
-  const changeUbication = api.food.changeUbication.useMutation();
+  // TODO: evaluate alternatives, show loading and error status?
+  const [relocateStatus, setRelocateStatus] = useState<string>("idle");
 
-  // TODO: Create handle select ubication function with mutation
+  const changeUbication = api.food.changeUbication.useMutation({
+    onMutate: () => setRelocateStatus("processing"),
+    onError: (error) => {
+      setRelocateStatus("error");
+      // TODO: handle error data
+      console.error(error);
+    },
+  });
+
+  const handleSelectNewUbication = (ubId: string) => {
+    changeUbication
+      .mutateAsync({ id, newUbicationId: ubId })
+      .then(async (res) => {
+        await refetchFunction(res.ubicationId ?? undefined);
+        await refetchFunction(ubicationId ?? undefined);
+        closeModal();
+      })
+      .catch((err) => console.error(err));
+  };
+
   const renderOptions = () => {
     switch (status) {
       case "loading":
@@ -184,8 +204,11 @@ const ChangeUbication: React.FC<ActionProps> = ({
           return (
             <ul>
               {otherUbications.map((ubication) => (
-                <li key={ubication.id} onClick={() => console.log("Implement")}>
-                  <button className="my-2 flex items-center gap-1 rounded-md bg-cyan-200 p-2 text-black">
+                <li key={ubication.id}>
+                  <button
+                    className="my-2 flex items-center gap-1 rounded-md bg-cyan-200 p-2 text-black"
+                    onClick={() => handleSelectNewUbication(ubication.id)}
+                  >
                     {ubication.name}
                     <ThermometerSnowflake
                       className={
