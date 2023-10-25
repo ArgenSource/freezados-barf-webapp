@@ -6,6 +6,7 @@ import {
   Replace,
   XCircle,
   ThermometerSnowflake,
+  Pencil,
 } from "lucide-react";
 
 import { FOOD_ICONS } from "~/utils/icons/foodStyleIcons";
@@ -15,7 +16,7 @@ import { getQueryKey } from "@trpc/react-query";
 import Modal from "../common/Modal";
 import Loader from "../common/Loader";
 
-type ActionNames = "NONE" | "CONSUME" | "DELETE" | "MOVE";
+type ActionNames = "NONE" | "CONSUME" | "DELETE" | "MOVE" | "EDIT";
 
 export default function Food({ foodData }: { foodData: TFood }) {
   const [selectedAction, setSelectedAction] = useState<ActionNames>("NONE");
@@ -61,6 +62,12 @@ export default function Food({ foodData }: { foodData: TFood }) {
         <ChangeUbication
           data={foodData}
           active={selectedAction == "MOVE"}
+          refetchFunction={refetchUbicationData}
+          setSelect={handleSelectAction}
+        />
+        <Edit
+          data={foodData}
+          active={selectedAction == "EDIT"}
           refetchFunction={refetchUbicationData}
           setSelect={handleSelectAction}
         />
@@ -242,18 +249,45 @@ const ChangeUbication: React.FC<ActionProps> = ({
       <Modal
         open={active}
         onClickOutside={closeModal}
-        className="w-full max-w-md rounded-md bg-gray-500 p-4"
+        className="flex w-full max-w-md flex-col items-center justify-center rounded-md bg-gray-500 p-4"
       >
-        <div className="relative flex h-full w-full flex-col items-center justify-center text-white">
-          <button onClick={closeModal} className="absolute right-0 top-0">
-            <XCircle size={20} />
-          </button>
-          <h6>Choose the new ubication</h6>
-          {renderOptions()}
-        </div>
+        <button onClick={closeModal} className="absolute right-2 top-2">
+          <XCircle size={20} />
+        </button>
+        <h6 className="font-bold text-white">Choose the new ubication</h6>
+        {renderOptions()}
       </Modal>
       <button onClick={openModal}>
         <Replace className={active ? "text-green-500" : "text-cyan-500"} />
+      </button>
+    </div>
+  );
+};
+
+const Edit: React.FC<ActionProps> = ({
+  data: food,
+  refetchFunction,
+  active,
+  setSelect,
+}) => {
+  const openModal = () => setSelect("EDIT");
+  const closeModal = () => setSelect("NONE");
+
+  /* TODO: agregar funcion de editar alimento */
+  return (
+    <div>
+      <Modal
+        open={active}
+        onClickOutside={closeModal}
+        className="flex w-full max-w-md flex-col items-center justify-center rounded-md bg-gray-500 p-4"
+      >
+        <button onClick={closeModal} className="absolute right-2 top-2">
+          <XCircle size={20} />
+        </button>
+        <form>{/* TODO: crear formulario con los valores ya presentes */}</form>
+      </Modal>
+      <button onClick={openModal}>
+        <Pencil className={active ? "text-green-500" : "text-cyan-500"} />
       </button>
     </div>
   );
