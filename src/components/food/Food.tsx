@@ -15,10 +15,10 @@ import { getQueryKey } from "@trpc/react-query";
 import Modal from "../common/Modal";
 import Loader from "../common/Loader";
 
-type ACTION_NAMES = "NONE" | "CONSUME" | "DELETE" | "MOVE";
+type ActionNames = "NONE" | "CONSUME" | "DELETE" | "MOVE";
 
 export default function Food({ foodData }: { foodData: TFood }) {
-  const [selectedAction, setSelectedAction] = useState<ACTION_NAMES>("NONE");
+  const [selectedAction, setSelectedAction] = useState<ActionNames>("NONE");
   const queryClient = useQueryClient();
 
   const refetchUbicationData = useCallback(
@@ -33,7 +33,7 @@ export default function Food({ foodData }: { foodData: TFood }) {
     [queryClient],
   );
 
-  const handleSelectAction = useCallback((name: ACTION_NAMES) => {
+  const handleSelectAction = useCallback((name: ActionNames) => {
     setSelectedAction(name);
   }, []);
 
@@ -44,6 +44,8 @@ export default function Food({ foodData }: { foodData: TFood }) {
       </div>
       <div className="flex flex-nowrap items-center gap-1 overflow-hidden rounded-lg bg-cyan-800/5 p-1">
         {/* TODO: No repetir codigo, optimizar, refactorizar */}
+        {/* TODO: Fix? -> Cuando una accion es seleccionada en un alimento los demas de la ubicacion siguen
+          mostrando su seleccion */}
         <Retrieve
           data={foodData}
           active={selectedAction == "CONSUME"}
@@ -71,7 +73,7 @@ type ActionProps = {
   data: TFood;
   active: boolean;
   refetchFunction: (ubId?: string) => Promise<void>;
-  setSelect: (name: ACTION_NAMES) => void;
+  setSelect: (name: ActionNames) => void;
 };
 
 const Retrieve: React.FC<ActionProps> = ({
@@ -156,6 +158,8 @@ const Delete: React.FC<ActionProps> = ({
   );
 };
 
+type RelocateStatus = "idle" | "processing" | "error";
+
 const ChangeUbication: React.FC<ActionProps> = ({
   data: { id, ubicationId },
   active,
@@ -172,8 +176,8 @@ const ChangeUbication: React.FC<ActionProps> = ({
     { refetchOnWindowFocus: false },
   );
 
-  // TODO: evaluate alternatives, show loading and error status?
-  const [relocateStatus, setRelocateStatus] = useState<string>("idle");
+  // TODO: evaluate alternatives, show error status?
+  const [relocateStatus, setRelocateStatus] = useState<RelocateStatus>("idle");
 
   const changeUbication = api.food.changeUbication.useMutation({
     onMutate: () => setRelocateStatus("processing"),
@@ -203,21 +207,27 @@ const ChangeUbication: React.FC<ActionProps> = ({
         if (otherUbications) {
           return (
             <ul>
-              {otherUbications.map((ubication) => (
-                <li key={ubication.id}>
-                  <button
-                    className="my-2 flex items-center gap-1 rounded-md bg-cyan-200 p-2 text-black"
-                    onClick={() => handleSelectNewUbication(ubication.id)}
-                  >
-                    {ubication.name}
-                    <ThermometerSnowflake
-                      className={
-                        ubication.isFreezer ? "text-cyan-600" : "text-gray-400"
-                      }
-                    />
-                  </button>
-                </li>
-              ))}
+              {relocateStatus == "processing" ? (
+                <Loader />
+              ) : (
+                otherUbications.map((ubication) => (
+                  <li key={ubication.id}>
+                    <button
+                      className="my-2 flex items-center gap-1 rounded-md bg-cyan-200 p-2 text-black"
+                      onClick={() => handleSelectNewUbication(ubication.id)}
+                    >
+                      {ubication.name}
+                      <ThermometerSnowflake
+                        className={
+                          ubication.isFreezer
+                            ? "text-cyan-600"
+                            : "text-gray-400"
+                        }
+                      />
+                    </button>
+                  </li>
+                ))
+              )}
             </ul>
           );
         }
