@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-/.vitest-preview
+/.vitest-preview/*
 
 # database
 /prisma/db.sqlite
