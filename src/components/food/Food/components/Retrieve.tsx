@@ -3,6 +3,7 @@ import { ArrowBigDownDash } from "lucide-react";
 
 import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
+import { ACTIONS } from "../constants";
 
 export const Retrieve: FC<ActionProps> = ({
   data: { ammount, id, ubicationId },
@@ -31,7 +32,7 @@ export const Retrieve: FC<ActionProps> = ({
   };
   return (
     <div
-      onClick={() => setSelect("CONSUME")}
+      onClick={() => setSelect(ACTIONS.CONSUME)}
       className="flex items-center gap-1"
     >
       <label

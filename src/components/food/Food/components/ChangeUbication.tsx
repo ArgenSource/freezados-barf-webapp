@@ -5,17 +5,18 @@ import { api } from "~/utils/api";
 import Modal from "../../../common/Modal";
 import Loader from "../../../common/Loader";
 import type { ActionProps } from "../types";
+import { ACTIONS } from "../constants";
 
 type RelocateStatus = "idle" | "processing" | "error";
 
-export const ChangeUbication: React.FC<ActionProps> = ({
+export const ChangeUbication: FC<ActionProps> = ({
   data: { id, ubicationId },
   active,
   refetchFunction,
   setSelect,
 }) => {
-  const openModal = () => setSelect("MOVE");
-  const closeModal = () => setSelect("NONE");
+  const openModal = () => setSelect(ACTIONS.MOVE);
+  const closeModal = () => setSelect(ACTIONS.NONE);
 
   const { data: otherUbications, status } = api.ubication.getOthers.useQuery(
     {

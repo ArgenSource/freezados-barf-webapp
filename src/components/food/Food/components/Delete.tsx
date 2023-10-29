@@ -3,6 +3,7 @@ import { Trash2 } from "lucide-react";
 
 import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
+import { ACTIONS } from "../constants";
 
 export const Delete: FC<ActionProps> = ({
   data: { id, ubicationId },
@@ -23,7 +24,7 @@ export const Delete: FC<ActionProps> = ({
   };
   return (
     <div
-      onClick={() => setSelect("DELETE")}
+      onClick={() => setSelect(ACTIONS.DELETE)}
       className="flex items-center gap-1"
     >
       <button onClick={confirmDelete}>

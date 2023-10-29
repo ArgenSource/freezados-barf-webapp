@@ -5,14 +5,14 @@ import { FOOD_ICONS } from "~/utils/icons/foodStyleIcons";
 import { api } from "~/utils/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
-import { Retrieve } from "./components/Retrieve";
 import type { ActionNames } from "./types";
-import { Delete } from "./components/Delete";
-import { ChangeUbication } from "./components/ChangeUbication";
-import { Edit } from "./components/Edit";
+import { ACTIONS } from "./constants";
+import { ChangeUbication, Delete, Edit, Retrieve } from "./components";
 
 export function Food({ foodData }: { foodData: TFood }) {
-  const [selectedAction, setSelectedAction] = useState<ActionNames>("NONE");
+  const [selectedAction, setSelectedAction] = useState<ActionNames>(
+    ACTIONS.NONE,
+  );
   const queryClient = useQueryClient();
 
   const refetchUbicationData = useCallback(
@@ -42,25 +42,25 @@ export function Food({ foodData }: { foodData: TFood }) {
           mostrando su seleccion */}
         <Retrieve
           data={foodData}
-          active={selectedAction == "CONSUME"}
+          active={selectedAction == ACTIONS.CONSUME}
           refetchFunction={refetchUbicationData}
           setSelect={handleSelectAction}
         />
         <Delete
           data={foodData}
-          active={selectedAction == "DELETE"}
+          active={selectedAction == ACTIONS.DELETE}
           refetchFunction={refetchUbicationData}
           setSelect={handleSelectAction}
         />
         <ChangeUbication
           data={foodData}
-          active={selectedAction == "MOVE"}
+          active={selectedAction == ACTIONS.MOVE}
           refetchFunction={refetchUbicationData}
           setSelect={handleSelectAction}
         />
         <Edit
           data={foodData}
-          active={selectedAction == "EDIT"}
+          active={selectedAction == ACTIONS.EDIT}
           refetchFunction={refetchUbicationData}
           setSelect={handleSelectAction}
         />

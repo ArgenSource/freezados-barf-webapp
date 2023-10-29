@@ -2,6 +2,7 @@ import { XCircle, Pencil } from "lucide-react";
 
 import Modal from "../../../common/Modal";
 import type { ActionProps } from "../types";
+import { ACTIONS } from "../constants";
 
 export const Edit: React.FC<ActionProps> = ({
   data: food,
@@ -9,8 +10,8 @@ export const Edit: React.FC<ActionProps> = ({
   active,
   setSelect,
 }) => {
-  const openModal = () => setSelect("EDIT");
-  const closeModal = () => setSelect("NONE");
+  const openModal = () => setSelect(ACTIONS.EDIT);
+  const closeModal = () => setSelect(ACTIONS.NONE);
 
   /* TODO: agregar funcion de editar alimento */
   return (
