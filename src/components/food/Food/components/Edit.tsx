@@ -31,13 +31,8 @@ export const Edit: React.FC<ActionProps> = ({
         </button>
         <form className="flex flex-col gap-2" onSubmit={onSubmit}>
           {/* TODO: Usar libreria de forms */}
+          <input value={name} onChange={(e) => setName(e.target.value)} />
           <input
-            placeholder="Nombre"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            placeholder="Cantidad en gramos"
             type="number"
             value={ammount}
             onChange={(e) => setAmmount(Number(e.target.value))}
