@@ -15,18 +15,19 @@ export const ChangeUbication: FC<ActionProps> = ({
   refetchFunction,
   setSelect,
 }) => {
+  // TODO: evaluate alternatives, show error status?
+  const [relocateStatus, setRelocateStatus] = useState<RelocateStatus>("idle");
+
   const openModal = () => setSelect(ACTIONS.MOVE);
   const closeModal = () => setSelect(ACTIONS.NONE);
 
-  const { data: otherUbications, status } = api.ubication.getOthers.useQuery(
-    {
-      id: ubicationId ?? "",
-    },
-    { refetchOnWindowFocus: false },
-  );
-
-  // TODO: evaluate alternatives, show error status?
-  const [relocateStatus, setRelocateStatus] = useState<RelocateStatus>("idle");
+  const { data: otherUbications, status: statusOtherUbications } =
+    api.ubication.getOthers.useQuery(
+      {
+        id: ubicationId ?? "",
+      },
+      { refetchOnWindowFocus: false },
+    );
 
   const changeUbication = api.food.changeUbication.useMutation({
     onMutate: () => setRelocateStatus("processing"),
@@ -48,8 +49,8 @@ export const ChangeUbication: FC<ActionProps> = ({
       .catch((err) => console.error(err));
   };
 
-  const renderOptions = () => {
-    switch (status) {
+  const renderUbicationOptions = () => {
+    switch (statusOtherUbications) {
       case "loading":
         return <Loader />;
       case "success":
@@ -87,23 +88,23 @@ export const ChangeUbication: FC<ActionProps> = ({
   };
 
   return (
-    <div>
-      <Modal
-        open={active}
-        onClickOutside={closeModal}
-        className="flex w-full max-w-md flex-col items-center justify-center rounded-md bg-gray-500 p-4"
-      >
-        <button onClick={closeModal} className="absolute right-2 top-2">
-          <XCircle size={20} />
-        </button>
-        <h6 className="font-bold text-white">Choose the new ubication</h6>
-        {renderOptions()}
-      </Modal>
-      {!!otherUbications?.length && (
+    !!otherUbications?.length && (
+      <>
+        <Modal
+          open={active}
+          onClickOutside={closeModal}
+          className="flex w-full max-w-md flex-col items-center justify-center rounded-md bg-gray-500 p-4"
+        >
+          <button onClick={closeModal} className="absolute right-2 top-2">
+            <XCircle size={20} />
+          </button>
+          <h6 className="font-bold text-white">Choose the new ubication</h6>
+          {renderUbicationOptions()}
+        </Modal>
         <button onClick={openModal}>
           <Replace className={active ? "text-green-500" : "text-cyan-500"} />
         </button>
-      )}
-    </div>
+      </>
+    )
   );
 };
