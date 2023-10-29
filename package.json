@@ -10,7 +10,10 @@
     "postinstall": "prisma generate",
     "lint": "next lint --fix",
     "start": "next start",
-    "test": "vitest"
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "test-preview": "vitest-preview"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
@@ -51,7 +54,8 @@
     "prisma": "^5.1.1",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.1.6",
-    "vitest": "^0.34.6"
+    "vitest": "^0.34.6",
+    "vitest-preview": "^0.0.1"
   },
   "ct3aMetadata": {
     "initVersion": "7.20.2"

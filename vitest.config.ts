@@ -8,6 +8,8 @@ export default defineConfig({
   test: {
     exclude: [...configDefaults.exclude, "**/e2e/**"],
     environment: "jsdom",
+    css: true,
+    setupFiles: ["./src/utils/test/setup.ts"],
   },
   resolve: {
     alias: {
