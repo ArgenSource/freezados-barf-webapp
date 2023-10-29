@@ -6,6 +6,7 @@ import Modal from "../../../common/Modal";
 import Loader from "../../../common/Loader";
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
+import { Error } from "~/components/common/Error";
 
 type RelocateStatus = "idle" | "processing" | "error";
 
@@ -83,7 +84,7 @@ export const ChangeUbication: FC<ActionProps> = ({
         }
       case "error":
       default:
-        return <h6>Oops</h6>;
+        return <Error />;
     }
   };
 

@@ -5,6 +5,7 @@ import Loader from "~/components/common/Loader";
 
 import { api } from "~/utils/api";
 import Container from "~/components/common/Container";
+import { Error } from "~/components/common/Error";
 
 export default function UbicationPage() {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function UbicationPage() {
         }
       case "error":
       default:
-        return <h1>oops</h1>;
+        return <Error />;
     }
   };
   return (

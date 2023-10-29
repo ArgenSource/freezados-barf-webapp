@@ -5,6 +5,7 @@ import { Space } from "@prisma/client";
 import Loader from "../common/Loader";
 
 import { api } from "~/utils/api";
+import { Error } from "../common/Error";
 
 export default function SpaceList() {
   const { data: spaces, status } = api.space.getAll.useQuery();
@@ -26,7 +27,7 @@ export default function SpaceList() {
           );
       case "error":
       default:
-        return <h6>Oops</h6>;
+        return <Error />;
     }
   };
   return (

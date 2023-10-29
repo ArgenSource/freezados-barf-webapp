@@ -30,6 +30,7 @@ export default function AddFood() {
       console.error(err);
     }
   };
+
   return (
     <>
       <Head>
