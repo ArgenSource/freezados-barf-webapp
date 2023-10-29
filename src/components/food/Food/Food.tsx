@@ -7,8 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
 import type { ActionNames } from "./types";
 import { ACTIONS } from "./constants";
-import { ChangeUbication, Delete, Edit } from "./components";
-import { Consume } from "./components/Consume";
+import { ChangeUbication, Delete, Edit, Consume } from "./components";
 
 export function Food({ foodData }: { foodData: TFood }) {
   const [selectedAction, setSelectedAction] = useState<ActionNames>(
