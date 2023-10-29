@@ -10,7 +10,7 @@
     "postinstall": "prisma generate",
     "lint": "next lint --fix",
     "start": "next start",
-    "test": "vitest",
+    "test": "vitest --coverage=false --watch=false",
     "test:watch": "vitest --watch --coverage=false",
     "test:coverage": "vitest --coverage --watch=false ",
     "test:preview": "vitest-preview",
