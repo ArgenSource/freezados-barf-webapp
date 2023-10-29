@@ -8,6 +8,7 @@ import Loader from "~/components/common/Loader";
 import UbicationList from "~/components/ubication/UbicationList";
 
 import { api } from "~/utils/api";
+import Head from "next/head";
 
 export default function Space() {
   const router = useRouter();
@@ -22,6 +23,9 @@ export default function Space() {
 
   return (
     <>
+      <Head>
+        <title>{data ? `Espacio - ${data?.name}` : "Freezados BARF"}</title>
+      </Head>
       <main>
         <Container>
           {status == "loading" && <Loader />}
