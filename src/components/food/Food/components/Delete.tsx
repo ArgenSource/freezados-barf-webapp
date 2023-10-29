@@ -2,7 +2,7 @@ import { type FC } from "react";
 import { Trash2 } from "lucide-react";
 
 import { api } from "~/utils/api";
-import type { ActionProps } from "./types";
+import type { ActionProps } from "../types";
 
 export const Delete: FC<ActionProps> = ({
   data: { id, ubicationId },

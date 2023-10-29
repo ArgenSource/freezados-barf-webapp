@@ -2,7 +2,7 @@ import { useState, type FC } from "react";
 import { ArrowBigDownDash } from "lucide-react";
 
 import { api } from "~/utils/api";
-import type { ActionProps } from "./types";
+import type { ActionProps } from "../types";
 
 export const Retrieve: FC<ActionProps> = ({
   data: { ammount, id, ubicationId },

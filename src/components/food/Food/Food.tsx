@@ -5,13 +5,13 @@ import { FOOD_ICONS } from "~/utils/icons/foodStyleIcons";
 import { api } from "~/utils/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
-import { Retrieve } from "./Retrieve";
+import { Retrieve } from "./components/Retrieve";
 import type { ActionNames } from "./types";
-import { Delete } from "./Delete";
-import { ChangeUbication } from "./ChangeUbication";
-import { Edit } from "./Edit";
+import { Delete } from "./components/Delete";
+import { ChangeUbication } from "./components/ChangeUbication";
+import { Edit } from "./components/Edit";
 
-export default function Food({ foodData }: { foodData: TFood }) {
+export function Food({ foodData }: { foodData: TFood }) {
   const [selectedAction, setSelectedAction] = useState<ActionNames>("NONE");
   const queryClient = useQueryClient();
 

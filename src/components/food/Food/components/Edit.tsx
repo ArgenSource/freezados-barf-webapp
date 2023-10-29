@@ -1,7 +1,7 @@
 import { XCircle, Pencil } from "lucide-react";
 
-import Modal from "../../common/Modal";
-import type { ActionProps } from "./types";
+import Modal from "../../../common/Modal";
+import type { ActionProps } from "../types";
 
 export const Edit: React.FC<ActionProps> = ({
   data: food,
