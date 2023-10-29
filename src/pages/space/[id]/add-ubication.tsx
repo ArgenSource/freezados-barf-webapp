@@ -24,7 +24,7 @@ export default function AddUbication() {
       });
       createUbication
         .mutateAsync(input)
-        .then((res) => router.push(`/space/${spaceId.toString()}`))
+        .then(() => router.push(`/space/${spaceId.toString()}`))
         .catch((err) => console.error(err));
     } catch (err) {
       console.error(err);
