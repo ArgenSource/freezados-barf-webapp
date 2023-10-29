@@ -36,7 +36,7 @@ export function Food({ foodData }: { foodData: TFood }) {
       <div className="flex gap-2">
         {FOOD_ICONS.get(foodData.type)} {foodData.name} {foodData.ammount}g
       </div>
-      <div className="flex flex-nowrap items-center gap-1 overflow-hidden rounded-lg bg-cyan-800/5 p-1">
+      <div className="flex flex-nowrap items-center gap-2 overflow-hidden rounded-lg bg-cyan-800/5 p-1">
         {/* TODO: No repetir codigo, optimizar, refactorizar */}
         {/* TODO: Fix? -> Cuando una accion es seleccionada en un alimento los demas de la ubicacion siguen
           mostrando su seleccion */}
