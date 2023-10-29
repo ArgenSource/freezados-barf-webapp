@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { type Food as TFood } from "@prisma/client";
 
-import { FOOD_ICONS } from "~/utils/icons/foodStyleIcons";
+import { FOOD_ICONS } from "~/features/food/utils/foodStyleIcons";
 import { api } from "~/utils/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";

@@ -2,7 +2,7 @@ import { type FormEvent } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import Container from "~/components/common/Container";
+import Container from "~/features/common/Container";
 
 import { createUbication as createSchema } from "~/utils/schemas/ubication";
 import { api } from "~/utils/api";

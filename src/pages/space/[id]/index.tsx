@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 
 import { Container as ContainerIcon } from "lucide-react";
 
-import Container from "~/components/common/Container";
-import Loader from "~/components/common/Loader";
-import UbicationList from "~/components/ubication/UbicationList";
+import Container from "~/features/common/Container";
+import Loader from "~/features/common/Loader";
+import UbicationList from "~/features/ubication/UbicationList";
 
 import { api } from "~/utils/api";
 import Head from "next/head";

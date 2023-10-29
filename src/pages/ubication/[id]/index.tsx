@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 
-import Ubication from "~/components/ubication/Ubication";
-import Loader from "~/components/common/Loader";
+import Ubication from "~/features/ubication/Ubication";
+import Loader from "~/features/common/Loader";
 
 import { api } from "~/utils/api";
-import Container from "~/components/common/Container";
-import { Error } from "~/components/common/Error";
+import Container from "~/features/common/Container";
+import { Error } from "~/features/common/Error";
 
 export default function UbicationPage() {
   const router = useRouter();
