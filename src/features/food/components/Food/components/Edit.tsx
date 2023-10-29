@@ -1,13 +1,13 @@
 import { XCircle, Pencil } from "lucide-react";
 
-import Modal from "../../../common/Modal";
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
 import { useState } from "react";
+import Modal from "~/features/common/Modal";
 
 export const Edit: React.FC<ActionProps> = ({
   data: food,
-  refetchFunction,
+  // refetchFunction,
   active,
   setSelect,
 }) => {
@@ -15,6 +15,7 @@ export const Edit: React.FC<ActionProps> = ({
   const closeModal = () => setSelect(ACTIONS.NONE);
   const [name, setName] = useState(food.name);
   const [ammount, setAmmount] = useState(food.ammount);
+
   /* TODO: agregar funcion de editar alimento */
 
   const onSubmit = () => ({ name, ammount });

@@ -2,8 +2,8 @@ import { type FormEvent } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import { type FType, FOOD_ICONS } from "~/utils/icons/foodStyleIcons";
-import Container from "~/components/common/Container";
+import { type FType, FOOD_ICONS } from "~/features/food/utils/foodStyleIcons";
+import Container from "~/features/common/Container";
 import { ChevronLeftCircle } from "lucide-react";
 
 import { api } from "~/utils/api";

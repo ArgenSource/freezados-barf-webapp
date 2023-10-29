@@ -2,11 +2,11 @@ import { useState, type FC } from "react";
 import { Replace, XCircle, ThermometerSnowflake } from "lucide-react";
 
 import { api } from "~/utils/api";
-import Modal from "../../../common/Modal";
-import Loader from "../../../common/Loader";
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
-import { Error } from "~/components/common/Error";
+import { Error } from "~/features/common/Error";
+import Loader from "~/features/common/Loader";
+import Modal from "~/features/common/Modal";
 
 type RelocateStatus = "idle" | "processing" | "error";
 
