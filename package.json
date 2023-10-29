@@ -13,7 +13,7 @@
     "test": "vitest",
     "test:watch": "vitest --watch --coverage=false",
     "test:coverage": "vitest --coverage --watch=false ",
-    "test-preview": "vitest-preview",
+    "test:preview": "vitest-preview",
     "test:ui": "vitest --ui"
   },
   "dependencies": {
