@@ -9,23 +9,21 @@ import {
 } from "~/utils/schemas/food";
 
 export const foodRouter = createTRPCRouter({
-  create: publicProcedure.input(createFood).mutation(({ input, ctx }) => {
-    return ctx.db.food.create({
+  create: publicProcedure.input(createFood).mutation(({ input, ctx }) =>
+    ctx.db.food.create({
       data: {
         ...input,
         ammount: parseFloat(input.ammount),
         storedAt: new Date(),
         description: input.description ?? "",
       },
-    });
-  }),
+    }),
+  ),
 
-  getByid: publicProcedure.input(getFoodById).query(({ input, ctx }) => {
-    return null;
-  }),
+  getByid: publicProcedure.input(getFoodById).query(({ input, ctx }) => null),
 
-  getFromUbication: publicProcedure.input(getFoods).query(({ input, ctx }) => {
-    return ctx.db.food.findMany({
+  getFromUbication: publicProcedure.input(getFoods).query(({ input, ctx }) =>
+    ctx.db.food.findMany({
       where: {
         ubicationId: input.ubicationId,
         usedAt: null,
@@ -33,8 +31,8 @@ export const foodRouter = createTRPCRouter({
       orderBy: {
         storedAt: "asc",
       },
-    });
-  }),
+    }),
+  ),
 
   consume: publicProcedure.input(consume).mutation(async ({ input, ctx }) => {
     const updated = await ctx.db.food.update({
@@ -67,18 +65,20 @@ export const foodRouter = createTRPCRouter({
 
   changeUbication: publicProcedure
     .input(changeUbicationSchema)
-    .mutation(({ ctx, input }) => {
-      return ctx.db.food.update({
+    .mutation(({ ctx, input }) =>
+      ctx.db.food.update({
         where: {
           id: input.id,
         },
         data: {
           ubicationId: input.newUbicationId,
         },
-      });
-    }),
+      }),
+    ),
 
-  deleteById: publicProcedure.input(getFoodById).mutation(({ ctx, input }) => {
-    return ctx.db.food.delete({ where: { id: input.id } });
-  }),
+  deleteById: publicProcedure
+    .input(getFoodById)
+    .mutation(({ ctx, input }) =>
+      ctx.db.food.delete({ where: { id: input.id } }),
+    ),
 });
