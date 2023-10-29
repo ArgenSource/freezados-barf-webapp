@@ -13,7 +13,7 @@ import Head from "next/head";
 export default function Space() {
   const router = useRouter();
   const { id: spaceId } = router.query;
-  const { data, status } = api.space.getByid.useQuery(
+  const { data: space, status } = api.space.getByid.useQuery(
     { id: spaceId as string },
     {
       enabled: !!spaceId,
@@ -24,19 +24,19 @@ export default function Space() {
   return (
     <>
       <Head>
-        <title>{data ? `Espacio - ${data?.name}` : "Freezados BARF"}</title>
+        <title>{space ? `Espacio - ${space?.name}` : "Freezados BARF"}</title>
       </Head>
       <main>
         <Container>
           {status == "loading" && <Loader />}
-          {status == "success" && data && (
+          {status == "success" && space && (
             <>
               <div className="flex w-full items-center justify-center gap-2 text-2xl font-bold text-gray-300">
                 <ContainerIcon />
-                <h1>{data.name}</h1>
+                <h1>{space.name}</h1>
               </div>
-              {data.ubications.length > 0 ? (
-                <UbicationList ubications={data?.ubications} />
+              {space.ubications.length > 0 ? (
+                <UbicationList ubications={space?.ubications} />
               ) : (
                 <div className="mt-8 flex flex-col items-center gap-6">
                   <h2 className="text-center text-xl font-bold text-gray-600">
