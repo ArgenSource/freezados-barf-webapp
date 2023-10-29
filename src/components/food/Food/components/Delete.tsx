@@ -22,6 +22,7 @@ export const Delete: FC<ActionProps> = ({
       deleteFood.mutateAsync({ id: id }).catch((err) => console.error(err));
     }
   };
+
   return (
     <div
       onClick={() => setSelect(ACTIONS.DELETE)}

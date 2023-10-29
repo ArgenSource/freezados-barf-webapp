@@ -30,6 +30,7 @@ export const Retrieve: FC<ActionProps> = ({
         .catch((err) => console.error(err));
     }
   };
+
   return (
     <div
       onClick={() => setSelect(ACTIONS.CONSUME)}
