@@ -7,7 +7,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
 import type { ActionNames } from "./types";
 import { ACTIONS } from "./constants";
-import { ChangeUbication, Delete, Edit, Retrieve } from "./components";
+import { ChangeUbication, Delete, Edit } from "./components";
+import { Consume } from "./components/Consume";
 
 export function Food({ foodData }: { foodData: TFood }) {
   const [selectedAction, setSelectedAction] = useState<ActionNames>(
@@ -40,7 +41,7 @@ export function Food({ foodData }: { foodData: TFood }) {
         {/* TODO: No repetir codigo, optimizar, refactorizar */}
         {/* TODO: Fix? -> Cuando una accion es seleccionada en un alimento los demas de la ubicacion siguen
           mostrando su seleccion */}
-        <Retrieve
+        <Consume
           data={foodData}
           active={selectedAction == ACTIONS.CONSUME}
           refetchFunction={refetchUbicationData}

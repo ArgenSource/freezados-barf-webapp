@@ -1,4 +1,4 @@
 export { ChangeUbication } from "./ChangeUbication";
-export { Retrieve } from "./Retrieve";
+export { Consume } from "./Consume";
 export { Delete } from "./Delete";
 export { Edit } from "./Edit";
