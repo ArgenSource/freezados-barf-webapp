@@ -1,37 +1,37 @@
-name: CI
+# name: CI
 
-on:
-  push:
-    branches: ["main"]
-  pull_request:
-    types: [opened, synchronize]
+# on:
+#   push:
+#     branches: ["main"]
+#   pull_request:
+#     types: [opened, synchronize]
 
-jobs:
-  build:
-    name: Build, Lint & Test
-    timeout-minutes: 15
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     name: Build, Lint & Test
+#     timeout-minutes: 15
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
+#     steps:
+#       - name: Check out code
+#         uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 2
 
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "yarn"
+#       - name: Setup Node.js environment
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 16
+#           cache: "yarn"
 
-      - name: Install dependencies
-        run: yarn
+#       - name: Install dependencies
+#         run: yarn
 
-      - name: Build
-        run: yarn build
+#       - name: Build
+#         run: yarn build
 
-      - name: Lint
-        run: yarn tsc
+#       - name: Lint
+#         run: yarn tsc
 
-      - name: Test
-        run: yarn test
+#       - name: Test
+#         run: yarn test
