@@ -99,9 +99,11 @@ export const ChangeUbication: FC<ActionProps> = ({
         <h6 className="font-bold text-white">Choose the new ubication</h6>
         {renderOptions()}
       </Modal>
-      <button onClick={openModal}>
-        <Replace className={active ? "text-green-500" : "text-cyan-500"} />
-      </button>
+      {!!otherUbications?.length && (
+        <button onClick={openModal}>
+          <Replace className={active ? "text-green-500" : "text-cyan-500"} />
+        </button>
+      )}
     </div>
   );
 };
