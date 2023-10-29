@@ -1,0 +1,1 @@
+export { Food } from "./Food";

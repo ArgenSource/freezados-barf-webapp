@@ -24,6 +24,7 @@ const config = {
       },
     ],
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "arrow-body-style": ["error", "as-needed"],
   },
 };
 
