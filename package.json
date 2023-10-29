@@ -9,7 +9,6 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint --fix",
-    "tsc": "npx tsc -b",
     "start": "next start"
   },
   "dependencies": {
