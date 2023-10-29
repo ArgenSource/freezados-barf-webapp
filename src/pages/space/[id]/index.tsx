@@ -35,6 +35,9 @@ export default function Space() {
                 <ContainerIcon />
                 <h1>{space.name}</h1>
               </div>
+              <Link href="/" className="mb-4 text-gray-400">
+                Volver al listado de espacios
+              </Link>
               {space.ubications.length > 0 ? (
                 <UbicationList ubications={space?.ubications} />
               ) : (
