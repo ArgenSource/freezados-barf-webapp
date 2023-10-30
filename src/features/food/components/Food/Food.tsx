@@ -8,7 +8,7 @@ import { getQueryKey } from "@trpc/react-query";
 import type { ActionNames } from "./types";
 import { ACTIONS } from "./constants";
 import { ChangeUbication, Delete, Edit, Consume } from "./components";
-import { isFreezingComplete } from "../../utils/isFreezingComplete";
+import { calculateFreezerTime } from "../../utils/calculateFreezerTime";
 
 export function Food({ foodData }: { foodData: TFood }) {
   const [selectedAction, setSelectedAction] = useState<ActionNames>(
@@ -31,7 +31,12 @@ export function Food({ foodData }: { foodData: TFood }) {
   const handleSelectAction = useCallback((name: ActionNames) => {
     setSelectedAction(name);
   }, []);
-
+  console.log(
+    calculateFreezerTime({
+      foodType: foodData.type,
+      storedAt: foodData.storedAt,
+    }),
+  );
   return (
     <div className="flex w-full justify-between rounded-md border-2 bg-slate-200 p-2">
       <div className="flex flex-col gap-2">
@@ -43,10 +48,12 @@ export function Food({ foodData }: { foodData: TFood }) {
         </div>
         {/* TODO: Mejorar como indicamos el tiempo cumplido */}
         <p>
-          {isFreezingComplete({
+          {calculateFreezerTime({
             foodType: foodData.type,
             storedAt: foodData.storedAt,
-          }) && "TIEMPO CUMPLIDO"}
+          }) === "ready"
+            ? ":)"
+            : "FALTA"}
         </p>
       </div>
       <div className="flex flex-nowrap items-center gap-2 overflow-hidden rounded-lg bg-cyan-800/5 p-1">
