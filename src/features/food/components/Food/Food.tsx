@@ -37,6 +37,12 @@ export function Food({ foodData }: { foodData: TFood }) {
       storedAt: foodData.storedAt,
     }),
   );
+
+  const timeInFreezer = calculateFreezerTime({
+    foodType: foodData.type,
+    storedAt: foodData.storedAt,
+  });
+
   return (
     <div className="flex w-full justify-between rounded-md border-2 bg-slate-200 p-2">
       <div className="flex flex-col gap-2">
@@ -47,14 +53,7 @@ export function Food({ foodData }: { foodData: TFood }) {
           </p>
         </div>
         {/* TODO: Mejorar como indicamos el tiempo cumplido */}
-        <p>
-          {calculateFreezerTime({
-            foodType: foodData.type,
-            storedAt: foodData.storedAt,
-          }) === "ready"
-            ? ":)"
-            : "FALTA"}
-        </p>
+        <p>{timeInFreezer === "ready" ? ":)" : timeInFreezer}</p>
       </div>
       <div className="flex flex-nowrap items-center gap-2 overflow-hidden rounded-lg bg-cyan-800/5 p-1">
         {/* TODO: No repetir codigo, optimizar, refactorizar */}
