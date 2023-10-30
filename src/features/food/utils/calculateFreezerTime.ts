@@ -8,23 +8,34 @@ export const calculateFreezerTime = ({
   foodType: FoodTypes;
   storedAt: Date;
 }): string => {
-  const storedInMilliseconds = new Date().getTime() - storedAt.getTime();
+  const storedTimeInMilliseconds = new Date().getTime() - storedAt.getTime();
 
   const daysInMilliseconds = (days: number) => days * 24 * 60 * 60 * 1000;
 
-  const formattedDuration = formatDuration({
-    seconds: Math.floor(storedInMilliseconds / 1000),
-  });
+  const calculatePendingTime = (days: number) =>
+    formatDuration(
+      {
+        days: 0,
+        hours: 0,
+        seconds: (daysInMilliseconds(days) - storedTimeInMilliseconds) / 1000,
+      },
+      { format: ["days", "hours", "seconds"] },
+    );
+
+  const isReadyOrPending = (days: number) =>
+    storedTimeInMilliseconds >= daysInMilliseconds(days)
+      ? "ready"
+      : calculatePendingTime(days);
 
   switch (foodType) {
     case FoodTypes.COW:
     case FoodTypes.CHICKEN:
-      if (storedInMilliseconds >= daysInMilliseconds(3)) return "ready";
+      return isReadyOrPending(3);
     case FoodTypes.FISH:
-      if (storedInMilliseconds >= daysInMilliseconds(7)) return "ready";
+      return isReadyOrPending(7);
     case FoodTypes.PORK:
-      if (storedInMilliseconds >= daysInMilliseconds(14)) return "ready";
+      return isReadyOrPending(14);
     default:
-      return formattedDuration;
+      return "Not ready";
   }
 };
