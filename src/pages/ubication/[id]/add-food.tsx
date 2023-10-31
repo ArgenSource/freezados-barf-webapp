@@ -8,6 +8,7 @@ import { ChevronLeftCircle } from "lucide-react";
 
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
+import SelectType from "~/features/food/components/Food/components/SelectType";
 
 export default function AddFood() {
   const router = useRouter();
@@ -57,19 +58,7 @@ export default function AddFood() {
               />
             </label>
             <p>Tipo</p>
-            <div className="flex w-full max-w-xs items-center justify-evenly">
-              {[...FOOD_ICONS.keys()].map((opt: FType) => (
-                <label htmlFor={`type-${opt}`} key={`type-${opt}`}>
-                  <input
-                    id={`type-${opt}`}
-                    type="radio"
-                    value={opt}
-                    name="type"
-                  />
-                  {FOOD_ICONS.get(opt)}
-                </label>
-              ))}
-            </div>
+            <SelectType />
             <label htmlFor="ammount">
               <p>Cantidad</p>
               <input

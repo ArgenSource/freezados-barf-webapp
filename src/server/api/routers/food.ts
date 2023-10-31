@@ -6,6 +6,7 @@ import {
   createFood,
   consume,
   changeUbication as changeUbicationSchema,
+  editFood,
 } from "~/utils/schemas/food";
 
 export const foodRouter = createTRPCRouter({
@@ -62,6 +63,18 @@ export const foodRouter = createTRPCRouter({
     }
     return true;
   }),
+
+  editFoodData: publicProcedure.input(editFood).mutation(({ ctx, input }) =>
+    ctx.db.food.update({
+      where: { id: input.id },
+      data: {
+        ammount: input.ammount ? parseFloat(input.ammount) : undefined,
+        type: input.type,
+        name: input.name,
+        description: input.description,
+      },
+    }),
+  ),
 
   changeUbication: publicProcedure
     .input(changeUbicationSchema)

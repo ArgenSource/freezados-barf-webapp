@@ -16,6 +16,19 @@ export const createFood = z.object({
   ]),
 });
 
+export const editFood = z.object({
+  id: z.string().min(1),
+  name: z.string().optional(),
+  description: z.string().optional(),
+  ammount: z.string().optional(),
+  type: z.enum([
+    FoodTypes.COW,
+    FoodTypes.FISH,
+    FoodTypes.PORK,
+    FoodTypes.CHICKEN,
+  ]),
+});
+
 export const getFoodById = z.object({
   id: z.string().min(1),
 });
