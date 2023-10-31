@@ -7,6 +7,7 @@
 
 # testing
 /coverage
+/.vitest-preview/*
 
 # database
 /prisma/db.sqlite
@@ -40,3 +41,4 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
