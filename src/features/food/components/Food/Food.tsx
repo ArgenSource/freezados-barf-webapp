@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
 import type { ActionNames } from "./types";
-import { ACTIONS } from "./constants";
+import { ACTIONS, READY } from "./constants";
 import {
   ChangeFoodUbication,
   DeleteFood,
@@ -43,10 +43,11 @@ export function Food({ foodData }: { foodData: TFood }) {
     }),
   );
 
-  const timeInFreezer = calculateFreezerTime({
+  const pendingFreezerTime = calculateFreezerTime({
     foodType: foodData.type,
     storedAt: foodData.storedAt,
   });
+  const isFoodReady = pendingFreezerTime === READY;
 
   const { CONSUME, EDIT, DELETE, MOVE } = ACTIONS;
 
@@ -67,9 +68,7 @@ export function Food({ foodData }: { foodData: TFood }) {
           </p>
         </div>
         {/* TODO: Mejorar como indicamos el tiempo cumplido */}
-        <p>
-          {timeInFreezer === "ready" ? ":)" : `${timeInFreezer} pendientes`}
-        </p>
+        <p>{isFoodReady ? ":)" : `${pendingFreezerTime} pendientes`}</p>
       </div>
       <div className="flex flex-nowrap items-center gap-2 overflow-hidden rounded-lg bg-cyan-800/5 p-1">
         {/* TODO: Fix? -> Cuando una accion es seleccionada en un alimento los demas de la ubicacion siguen
