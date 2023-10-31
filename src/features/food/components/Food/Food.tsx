@@ -53,7 +53,9 @@ export function Food({ foodData }: { foodData: TFood }) {
           </p>
         </div>
         {/* TODO: Mejorar como indicamos el tiempo cumplido */}
-        <p>{timeInFreezer === "ready" ? ":)" : timeInFreezer}</p>
+        <p>
+          {timeInFreezer === "ready" ? ":)" : `${timeInFreezer} pendientes`}
+        </p>
       </div>
       <div className="flex flex-nowrap items-center gap-2 overflow-hidden rounded-lg bg-cyan-800/5 p-1">
         {/* TODO: No repetir codigo, optimizar, refactorizar */}

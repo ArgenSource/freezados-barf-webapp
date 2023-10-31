@@ -31,5 +31,6 @@ export const calculateFreezerTime = ({
 }): string => {
   const readyBy = getReadyDate(foodType, storedAt);
 
+  // TODO: Traducir formatDistanceToNowStrict a español:
   return isFuture(readyBy) ? formatDistanceToNowStrict(readyBy) : "ready";
 };
