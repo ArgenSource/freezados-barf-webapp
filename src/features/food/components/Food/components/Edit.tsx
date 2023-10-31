@@ -6,7 +6,6 @@ import { editFood } from "~/utils/schemas/food";
 
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
-// import { useState } from "react";
 import Modal from "~/features/common/Modal";
 import SelectType from "./SelectType";
 
@@ -18,8 +17,6 @@ export const Edit: React.FC<ActionProps> = ({
 }) => {
   const openModal = () => setSelect(ACTIONS.EDIT);
   const closeModal = () => setSelect(ACTIONS.NONE);
-  // const [name, setName] = useState(food.name);
-  // const [ammount, setAmmount] = useState(food.ammount);
 
   const edit = api.food.editFoodData.useMutation();
 
@@ -56,21 +53,16 @@ export const Edit: React.FC<ActionProps> = ({
           <XCircle size={20} />
         </button>
         <form className="flex flex-col gap-2" onSubmit={onSubmit}>
-          {/* TODO: Usar libreria de forms */}
           <input
             id="name"
             name="name"
             defaultValue={food.name}
-            // value={name}
-            // onChange={(e) => setName(e.target.value)}
           />
           <input
             type="number"
             defaultValue={food.ammount}
             name="ammount"
             id="ammount"
-            // value={ammount}
-            // onChange={(e) => setAmmount(Number(e.target.value))}
           />
           <SelectType defaultOpt={food.type} />
           <textarea
