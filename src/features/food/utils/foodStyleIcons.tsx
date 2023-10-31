@@ -6,6 +6,6 @@ export type FType = keyof typeof FoodTypes;
 export const FOOD_ICONS = new Map<FType, React.JSX.Element>([
   ["CHICKEN", <Drumstick key="chickenIcon" />],
   ["COW", <BeefIcon key="beefIcon" />],
-  ["FISH", <Fish key="fishIcon" />],
+  ["FISH", <Fish key="fishIcon" data-testid="fish-icon" />],
   ["PORK", <PiggyBank key="pigIcon" />],
 ]);
