@@ -7,7 +7,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
 import type { ActionNames } from "./types";
 import { ACTIONS } from "./constants";
-import { ChangeUbication, Delete, Edit, Consume } from "./components";
+import {
+  ChangeFoodUbication,
+  DeleteFood,
+  EditFood,
+  ConsumeFood,
+} from "./components";
 import { calculateFreezerTime } from "../../utils/calculateFreezerTime";
 
 export function Food({ foodData }: { foodData: TFood }) {
@@ -61,25 +66,25 @@ export function Food({ foodData }: { foodData: TFood }) {
         {/* TODO: No repetir codigo, optimizar, refactorizar */}
         {/* TODO: Fix? -> Cuando una accion es seleccionada en un alimento los demas de la ubicacion siguen
           mostrando su seleccion */}
-        <Consume
+        <ConsumeFood
           data={foodData}
           active={selectedAction == ACTIONS.CONSUME}
           refetchFunction={refetchUbicationData}
           setSelect={handleSelectAction}
         />
-        <Delete
+        <DeleteFood
           data={foodData}
           active={selectedAction == ACTIONS.DELETE}
           refetchFunction={refetchUbicationData}
           setSelect={handleSelectAction}
         />
-        <ChangeUbication
+        <ChangeFoodUbication
           data={foodData}
           active={selectedAction == ACTIONS.MOVE}
           refetchFunction={refetchUbicationData}
           setSelect={handleSelectAction}
         />
-        <Edit
+        <EditFood
           data={foodData}
           active={selectedAction == ACTIONS.EDIT}
           refetchFunction={refetchUbicationData}

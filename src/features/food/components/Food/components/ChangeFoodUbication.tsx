@@ -10,7 +10,7 @@ import Modal from "~/features/common/Modal";
 
 type RelocateStatus = "idle" | "processing" | "error";
 
-export const ChangeUbication: FC<ActionProps> = ({
+export const ChangeFoodUbication: FC<ActionProps> = ({
   data: { id, ubicationId },
   active,
   refetchFunction,

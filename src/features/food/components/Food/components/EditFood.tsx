@@ -5,7 +5,7 @@ import { ACTIONS } from "../constants";
 import { useState } from "react";
 import Modal from "~/features/common/Modal";
 
-export const Edit: React.FC<ActionProps> = ({
+export const EditFood: React.FC<ActionProps> = ({
   data: food,
   // refetchFunction,
   active,
