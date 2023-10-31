@@ -1,9 +1,9 @@
 import { FoodTypes } from "@prisma/client";
-import { formatDistanceStrict, isFuture } from "date-fns";
+import { formatDistanceToNowStrict, isFuture } from "date-fns";
 
 const daysInMilliseconds = (days: number) => days * 24 * 60 * 60 * 1000;
 
-const getReadyDate = (foodType: FoodTypes, storedAt: Date) => {
+const getReadyDate = (foodType: FoodTypes, storedAt: Date): Date => {
   let freezeTime = 0;
   switch (foodType) {
     case FoodTypes.COW:
@@ -31,5 +31,5 @@ export const calculateFreezerTime = ({
 }): string => {
   const readyBy = getReadyDate(foodType, storedAt);
   if (!isFuture(readyBy)) return "ready";
-  return formatDistanceStrict(readyBy, new Date());
+  return formatDistanceToNowStrict(readyBy);
 };
