@@ -6,9 +6,12 @@ import { editFood } from "~/utils/schemas/food";
 
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
-// import { useState } from "react";
+
 import Modal from "~/features/common/Modal";
 import SelectType from "./SelectType";
+
+import { Input, Textarea } from "~/features/common/Form";
+import { ZodError } from "zod";
 
 export const Edit: React.FC<ActionProps> = ({
   data: food,
@@ -18,9 +21,6 @@ export const Edit: React.FC<ActionProps> = ({
 }) => {
   const openModal = () => setSelect(ACTIONS.EDIT);
   const closeModal = () => setSelect(ACTIONS.NONE);
-  // const [name, setName] = useState(food.name);
-  // const [ammount, setAmmount] = useState(food.ammount);
-
   const edit = api.food.editFoodData.useMutation();
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -41,7 +41,9 @@ export const Edit: React.FC<ActionProps> = ({
         })
         .catch((err) => console.error(err));
     } catch (err) {
-      console.error(err);
+      if (err instanceof ZodError) {
+        console.log(err);
+      }
     }
   };
 
@@ -56,29 +58,20 @@ export const Edit: React.FC<ActionProps> = ({
           <XCircle size={20} />
         </button>
         <form className="flex flex-col gap-2" onSubmit={onSubmit}>
-          {/* TODO: Usar libreria de forms */}
-          <input
-            id="name"
+          <Input
             name="name"
+            displayName="Nombre"
             defaultValue={food.name}
-            // value={name}
-            // onChange={(e) => setName(e.target.value)}
+            type="text"
           />
-          <input
+          <Input
             type="number"
             defaultValue={food.ammount}
             name="ammount"
-            id="ammount"
-            // value={ammount}
-            // onChange={(e) => setAmmount(Number(e.target.value))}
+            displayName="Cantidad"
           />
           <SelectType defaultOpt={food.type} />
-          <textarea
-            name="description"
-            id="description"
-            className="rounded-md border-2 p-1"
-            defaultValue={food.description}
-          />
+          <Textarea name="description" defaultValue={food.description} />
           <button type="submit">GUARDAR</button>
         </form>
       </Modal>
