@@ -1,5 +1,6 @@
 import { FoodTypes } from "@prisma/client";
 import { formatDistanceToNowStrict, isFuture } from "date-fns";
+import { es } from "date-fns/locale";
 
 const daysInMilliseconds = (days: number) => days * 24 * 60 * 60 * 1000;
 
@@ -31,6 +32,7 @@ export const calculateFreezerTime = ({
 }): string => {
   const readyBy = getReadyDate(foodType, storedAt);
 
-  // TODO: Traducir formatDistanceToNowStrict a español:
-  return isFuture(readyBy) ? formatDistanceToNowStrict(readyBy) : "ready";
+  return isFuture(readyBy)
+    ? formatDistanceToNowStrict(readyBy, { locale: es })
+    : "ready";
 };
