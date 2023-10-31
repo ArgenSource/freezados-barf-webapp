@@ -30,6 +30,6 @@ export const calculateFreezerTime = ({
   storedAt: Date;
 }): string => {
   const readyBy = getReadyDate(foodType, storedAt);
-  if (!isFuture(readyBy)) return "ready";
-  return formatDistanceToNowStrict(readyBy);
+
+  return isFuture(readyBy) ? formatDistanceToNowStrict(readyBy) : "ready";
 };
