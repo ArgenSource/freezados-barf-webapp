@@ -8,6 +8,7 @@ import { ChevronLeftCircle } from "lucide-react";
 
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
+import { Input } from "~/features/common/Input";
 
 export default function AddFood() {
   const router = useRouter();
@@ -48,13 +49,7 @@ export default function AddFood() {
           >
             <label htmlFor="name">
               <p>Nombre</p>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                className="rounded-md border-2 p-1"
-                required
-              />
+              <Input type="text" id="name" name="name" required />
             </label>
             <p>Tipo</p>
             <div className="flex w-full max-w-xs items-center justify-evenly">
@@ -72,12 +67,12 @@ export default function AddFood() {
             </div>
             <label htmlFor="ammount">
               <p>Cantidad</p>
-              <input
+              <Input
                 type="number"
                 name="ammount"
                 id="ammount"
                 min={1}
-                className="rounded-md border-2 p-1 text-right"
+                className="text-right"
                 required
               />
               <span className="ml-2">g</span>
