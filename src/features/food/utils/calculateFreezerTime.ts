@@ -1,5 +1,26 @@
 import { FoodTypes } from "@prisma/client";
-import { formatDuration } from "date-fns";
+import { formatDistanceStrict, isFuture } from "date-fns";
+
+const daysInMilliseconds = (days: number) => days * 24 * 60 * 60 * 1000;
+
+const getReadyDate = (foodType: FoodTypes, storedAt: Date) => {
+  let freezeTime = 0;
+  switch (foodType) {
+    case FoodTypes.COW:
+    case FoodTypes.CHICKEN:
+      freezeTime = daysInMilliseconds(3);
+      break;
+    case FoodTypes.FISH:
+      freezeTime = daysInMilliseconds(7);
+      break;
+    case FoodTypes.PORK:
+      freezeTime = daysInMilliseconds(14);
+      break;
+    default:
+      freezeTime - Infinity;
+  }
+  return new Date(storedAt.getTime() + freezeTime);
+};
 
 export const calculateFreezerTime = ({
   foodType,
@@ -8,34 +29,7 @@ export const calculateFreezerTime = ({
   foodType: FoodTypes;
   storedAt: Date;
 }): string => {
-  const storedTimeInMilliseconds = new Date().getTime() - storedAt.getTime();
-
-  const daysInMilliseconds = (days: number) => days * 24 * 60 * 60 * 1000;
-
-  const calculatePendingTime = (days: number) =>
-    formatDuration(
-      {
-        days: 0,
-        hours: 0,
-        seconds: (daysInMilliseconds(days) - storedTimeInMilliseconds) / 1000,
-      },
-      { format: ["days", "hours", "seconds"] },
-    );
-
-  const isReadyOrPending = (days: number) =>
-    storedTimeInMilliseconds >= daysInMilliseconds(days)
-      ? "ready"
-      : calculatePendingTime(days);
-
-  switch (foodType) {
-    case FoodTypes.COW:
-    case FoodTypes.CHICKEN:
-      return isReadyOrPending(3);
-    case FoodTypes.FISH:
-      return isReadyOrPending(7);
-    case FoodTypes.PORK:
-      return isReadyOrPending(14);
-    default:
-      return "Not ready";
-  }
+  const readyBy = getReadyDate(foodType, storedAt);
+  if (!isFuture(readyBy)) return "ready";
+  return formatDistanceStrict(readyBy, new Date());
 };
