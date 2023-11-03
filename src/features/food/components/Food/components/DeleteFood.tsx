@@ -5,7 +5,7 @@ import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
 
-export const Delete: FC<ActionProps> = ({
+export const DeleteFood: FC<ActionProps> = ({
   data: { id, ubicationId },
   active,
   refetchFunction,

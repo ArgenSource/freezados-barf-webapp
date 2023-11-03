@@ -13,7 +13,7 @@ import SelectType from "./SelectType";
 import { Input, Textarea } from "~/features/common/Form";
 import { ZodError } from "zod";
 
-export const Edit: React.FC<ActionProps> = ({
+export const EditFood: React.FC<ActionProps> = ({
   data: food,
   refetchFunction,
   active,
