@@ -10,6 +10,7 @@ import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
 import { Input } from "~/features/common/Input";
 import SelectType from "~/features/food/components/Food/components/SelectType";
+import { Error } from "~/features/common/Error";
 
 export default function AddFood() {
   const router = useRouter();
@@ -51,6 +52,7 @@ export default function AddFood() {
             <label htmlFor="name">
               <p>Nombre</p>
               <Input type="text" id="name" name="name" required />
+              <Error />
             </label>
             <p>Tipo</p>
             <SelectType />
