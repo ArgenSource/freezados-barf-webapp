@@ -8,7 +8,7 @@ import { ChevronLeftCircle } from "lucide-react";
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
 import { Input } from "~/features/common/Input";
-import SelectType from "~/features/food/components/Food/components/SelectType";
+import { SelectFoodType } from "~/features/food/components/Food/components";
 
 export default function AddFood() {
   const router = useRouter();
@@ -52,7 +52,7 @@ export default function AddFood() {
               <Input type="text" id="name" name="name" required />
             </label>
             <p>Tipo</p>
-            <SelectType />
+            <SelectFoodType />
             <label htmlFor="ammount">
               <p>Cantidad</p>
               <Input

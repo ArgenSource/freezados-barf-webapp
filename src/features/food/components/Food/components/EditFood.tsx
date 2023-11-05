@@ -7,7 +7,7 @@ import { editFood } from "~/utils/schemas/food";
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
 import Modal from "~/features/common/Modal";
-import SelectType from "./SelectType";
+import { SelectFoodType } from "./SelectFoodType";
 
 export const EditFood: React.FC<ActionProps> = ({
   data: food,
@@ -53,18 +53,14 @@ export const EditFood: React.FC<ActionProps> = ({
           <XCircle size={20} />
         </button>
         <form className="flex flex-col gap-2" onSubmit={onSubmit}>
-          <input
-            id="name"
-            name="name"
-            defaultValue={food.name}
-          />
+          <input id="name" name="name" defaultValue={food.name} />
           <input
             type="number"
             defaultValue={food.ammount}
             name="ammount"
             id="ammount"
           />
-          <SelectType defaultOpt={food.type} />
+          <SelectFoodType defaultOpt={food.type} />
           <textarea
             name="description"
             id="description"
