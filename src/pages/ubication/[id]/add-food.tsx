@@ -2,12 +2,12 @@ import { type FormEvent } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import { type FType, FOOD_ICONS } from "~/features/food/utils/foodStyleIcons";
 import Container from "~/features/common/Container";
 import { ChevronLeftCircle } from "lucide-react";
 
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
+import { Input } from "~/features/common/Input";
 import SelectType from "~/features/food/components/Food/components/SelectType";
 
 export default function AddFood() {
@@ -49,24 +49,18 @@ export default function AddFood() {
           >
             <label htmlFor="name">
               <p>Nombre</p>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                className="rounded-md border-2 p-1"
-                required
-              />
+              <Input type="text" id="name" name="name" required />
             </label>
             <p>Tipo</p>
             <SelectType />
             <label htmlFor="ammount">
               <p>Cantidad</p>
-              <input
+              <Input
                 type="number"
                 name="ammount"
                 id="ammount"
                 min={1}
-                className="rounded-md border-2 p-1 text-right"
+                className="text-right"
                 required
               />
               <span className="ml-2">g</span>
