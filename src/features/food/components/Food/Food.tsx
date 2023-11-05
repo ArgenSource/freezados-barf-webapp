@@ -14,6 +14,7 @@ import {
   ConsumeFood,
 } from "./components";
 import { calculateFreezerTime } from "../../utils/calculateFreezerTime";
+import { twMerge } from "tailwind-merge";
 
 export function Food({ foodData }: { foodData: TFood }) {
   const [selectedAction, setSelectedAction] = useState<ActionNames>(
@@ -59,7 +60,12 @@ export function Food({ foodData }: { foodData: TFood }) {
   ];
 
   return (
-    <div className="flex w-full justify-between rounded-md border-2 bg-slate-200 p-2">
+    <div
+      className={twMerge(
+        "flex w-full justify-between rounded-md border-2 p-2",
+        isFoodReady ? "border-green-200 bg-green-100" : "bg-slate-200",
+      )}
+    >
       <div className="flex flex-col gap-2">
         <div className="flex">
           {FOOD_ICONS.get(foodData.type)}
@@ -67,8 +73,7 @@ export function Food({ foodData }: { foodData: TFood }) {
             {foodData.name} {foodData.ammount}g
           </p>
         </div>
-        {/* TODO: Mejorar como indicamos el tiempo cumplido */}
-        <p>{isFoodReady ? ":)" : `${pendingFreezerTime} pendientes`}</p>
+        <p>{!isFoodReady && `${pendingFreezerTime} pendientes`}</p>
       </div>
       <div className="flex flex-nowrap items-center gap-2 overflow-hidden rounded-lg bg-cyan-800/5 p-1">
         {/* TODO: Fix? -> Cuando una accion es seleccionada en un alimento los demas de la ubicacion siguen
