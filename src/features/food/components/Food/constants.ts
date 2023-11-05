@@ -7,3 +7,5 @@ export const ACTIONS: Record<ActionNames, ActionNames> = {
   MOVE: "MOVE",
   EDIT: "EDIT",
 };
+
+export const READY = "ready";

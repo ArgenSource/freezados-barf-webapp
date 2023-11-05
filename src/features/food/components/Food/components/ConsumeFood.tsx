@@ -6,7 +6,7 @@ import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
 import Modal from "~/features/common/Modal";
 
-export const Consume: FC<ActionProps> = ({
+export const ConsumeFood: FC<ActionProps> = ({
   data: { ammount, id, ubicationId },
   active,
   refetchFunction,

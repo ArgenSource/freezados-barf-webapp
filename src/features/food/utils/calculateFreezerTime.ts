@@ -1,6 +1,7 @@
 import { FoodTypes } from "@prisma/client";
 import { formatDistanceToNowStrict, isFuture } from "date-fns";
 import { es } from "date-fns/locale";
+import { READY } from "../components/Food/constants";
 
 const daysInMilliseconds = (days: number) => days * 24 * 60 * 60 * 1000;
 
@@ -34,5 +35,5 @@ export const calculateFreezerTime = ({
 
   return isFuture(readyBy)
     ? formatDistanceToNowStrict(readyBy, { locale: es })
-    : "ready";
+    : READY;
 };

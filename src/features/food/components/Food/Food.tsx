@@ -6,8 +6,13 @@ import { api } from "~/utils/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
 import type { ActionNames } from "./types";
-import { ACTIONS } from "./constants";
-import { ChangeUbication, Delete, Edit, Consume } from "./components";
+import { ACTIONS, READY } from "./constants";
+import {
+  ChangeFoodUbication,
+  DeleteFood,
+  EditFood,
+  ConsumeFood,
+} from "./components";
 import { calculateFreezerTime } from "../../utils/calculateFreezerTime";
 
 export function Food({ foodData }: { foodData: TFood }) {
@@ -38,10 +43,20 @@ export function Food({ foodData }: { foodData: TFood }) {
     }),
   );
 
-  const timeInFreezer = calculateFreezerTime({
+  const pendingFreezerTime = calculateFreezerTime({
     foodType: foodData.type,
     storedAt: foodData.storedAt,
   });
+  const isFoodReady = pendingFreezerTime === READY;
+
+  const { CONSUME, EDIT, DELETE, MOVE } = ACTIONS;
+
+  const actionComponents = [
+    { Component: ConsumeFood, action: CONSUME },
+    { Component: DeleteFood, action: DELETE },
+    { Component: ChangeFoodUbication, action: MOVE },
+    { Component: EditFood, action: EDIT },
+  ];
 
   return (
     <div className="flex w-full justify-between rounded-md border-2 bg-slate-200 p-2">
@@ -53,38 +68,24 @@ export function Food({ foodData }: { foodData: TFood }) {
           </p>
         </div>
         {/* TODO: Mejorar como indicamos el tiempo cumplido */}
-        <p>
-          {timeInFreezer === "ready" ? ":)" : `${timeInFreezer} pendientes`}
-        </p>
+        <p>{isFoodReady ? ":)" : `${pendingFreezerTime} pendientes`}</p>
       </div>
       <div className="flex flex-nowrap items-center gap-2 overflow-hidden rounded-lg bg-cyan-800/5 p-1">
-        {/* TODO: No repetir codigo, optimizar, refactorizar */}
         {/* TODO: Fix? -> Cuando una accion es seleccionada en un alimento los demas de la ubicacion siguen
           mostrando su seleccion */}
-        <Consume
-          data={foodData}
-          active={selectedAction == ACTIONS.CONSUME}
-          refetchFunction={refetchUbicationData}
-          setSelect={handleSelectAction}
-        />
-        <Delete
-          data={foodData}
-          active={selectedAction == ACTIONS.DELETE}
-          refetchFunction={refetchUbicationData}
-          setSelect={handleSelectAction}
-        />
-        <ChangeUbication
-          data={foodData}
-          active={selectedAction == ACTIONS.MOVE}
-          refetchFunction={refetchUbicationData}
-          setSelect={handleSelectAction}
-        />
-        <Edit
-          data={foodData}
-          active={selectedAction == ACTIONS.EDIT}
-          refetchFunction={refetchUbicationData}
-          setSelect={handleSelectAction}
-        />
+
+        {actionComponents.map((action) => {
+          const { Component, action: actionName } = action;
+          return (
+            <Component
+              key={actionName}
+              data={foodData}
+              active={selectedAction == actionName}
+              refetchFunction={refetchUbicationData}
+              setSelect={handleSelectAction}
+            />
+          );
+        })}
       </div>
     </div>
   );

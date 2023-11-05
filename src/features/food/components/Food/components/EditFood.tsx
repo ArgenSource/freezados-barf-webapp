@@ -9,7 +9,7 @@ import { ACTIONS } from "../constants";
 import Modal from "~/features/common/Modal";
 import SelectType from "./SelectType";
 
-export const Edit: React.FC<ActionProps> = ({
+export const EditFood: React.FC<ActionProps> = ({
   data: food,
   refetchFunction,
   active,
