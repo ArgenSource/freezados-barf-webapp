@@ -2,13 +2,13 @@ import { type FormEvent } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import { type FType, FOOD_ICONS } from "~/features/food/utils/foodStyleIcons";
 import Container from "~/features/common/Container";
 import { ChevronLeftCircle } from "lucide-react";
 
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
 import { Input } from "~/features/common/Input";
+import SelectType from "~/features/food/components/Food/components/SelectType";
 
 export default function AddFood() {
   const router = useRouter();
@@ -52,19 +52,7 @@ export default function AddFood() {
               <Input type="text" id="name" name="name" required />
             </label>
             <p>Tipo</p>
-            <div className="flex w-full max-w-xs items-center justify-evenly">
-              {[...FOOD_ICONS.keys()].map((opt: FType) => (
-                <label htmlFor={`type-${opt}`} key={`type-${opt}`}>
-                  <input
-                    id={`type-${opt}`}
-                    type="radio"
-                    value={opt}
-                    name="type"
-                  />
-                  {FOOD_ICONS.get(opt)}
-                </label>
-              ))}
-            </div>
+            <SelectType />
             <label htmlFor="ammount">
               <p>Cantidad</p>
               <Input
