@@ -72,7 +72,7 @@ export default function AddFood() {
                       name="ammount"
                       id="ammount"
                       min={1}
-                      className="text-right after:content-['g']"
+                      className="text-right"
                       required
                     />
                     <span className="ml-2">g</span>
