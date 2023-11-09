@@ -2,15 +2,13 @@ import { type FormEvent } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import { type FType, FOOD_ICONS } from "~/features/food/utils/foodStyleIcons";
 import Container from "~/features/common/Container";
 import { ChevronLeftCircle } from "lucide-react";
 
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
-import { Input } from "~/features/common/Input";
 import SelectType from "~/features/food/components/Food/components/SelectType";
-import { Error } from "~/features/common/Error";
+import { Input, FormInput, Textarea } from "~/features/common/Form";
 
 export default function AddFood() {
   const router = useRouter();
@@ -49,14 +47,40 @@ export default function AddFood() {
             onSubmit={handleSubmit}
             className="mt-8 flex w-full flex-col items-center gap-4"
           >
-            <label htmlFor="name">
+            <FormInput
+              fieldName="name"
+              displayName="Nombre"
+              required
+              error={undefined}
+            />
+            {/* <label htmlFor="name">
               <p>Nombre</p>
               <Input type="text" id="name" name="name" required />
               <Error />
-            </label>
+            </label> */}
             <p>Tipo</p>
             <SelectType />
-            <label htmlFor="ammount">
+            <FormInput
+              fieldName="ammount"
+              displayName="Cantidad"
+              error={undefined}
+              elements={{
+                input: (
+                  <div>
+                    <Input
+                      type="number"
+                      name="ammount"
+                      id="ammount"
+                      min={1}
+                      className="text-right after:content-['g']"
+                      required
+                    />
+                    <span className="ml-2">g</span>
+                  </div>
+                ),
+              }}
+            />
+            {/* <label htmlFor="ammount">
               <p>Cantidad</p>
               <Input
                 type="number"
@@ -67,15 +91,29 @@ export default function AddFood() {
                 required
               />
               <span className="ml-2">g</span>
-            </label>
-            <label htmlFor="description">
+            </label> */}
+            <FormInput
+              fieldName="description"
+              displayName="Descripcion (opcional)"
+              error={undefined}
+              elements={{
+                input: (
+                  <Textarea
+                    name="description"
+                    id="description"
+                    className="rounded-md border-2 p-1"
+                  />
+                ),
+              }}
+            />
+            {/* <label htmlFor="description">
               <p>Descripcion (opcional)</p>
               <textarea
                 name="description"
                 id="description"
                 className="rounded-md border-2 p-1"
               />
-            </label>
+            </label> */}
             <button
               type="submit"
               className="flex items-center gap-2 rounded-md bg-cyan-600 p-4 text-xl font-bold text-gray-100"

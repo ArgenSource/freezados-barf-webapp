@@ -4,7 +4,7 @@ import { Replace, XCircle, ThermometerSnowflake } from "lucide-react";
 import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
-import { Error } from "~/features/common/Error";
+import { Error } from "~/features/common/Form/Error";
 import Loader from "~/features/common/Loader";
 import Modal from "~/features/common/Modal";
 
