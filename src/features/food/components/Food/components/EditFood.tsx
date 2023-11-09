@@ -58,18 +58,8 @@ export const EditFood: React.FC<ActionProps> = ({
           <XCircle size={20} />
         </button>
         <form className="flex flex-col gap-2" onSubmit={onSubmit}>
-          <Input
-            name="name"
-            displayName="Nombre"
-            defaultValue={food.name}
-            type="text"
-          />
-          <Input
-            type="number"
-            defaultValue={food.ammount}
-            name="ammount"
-            displayName="Cantidad"
-          />
+          <Input name="name" defaultValue={food.name} type="text" />
+          <Input type="number" defaultValue={food.ammount} name="ammount" />
           <SelectType defaultOpt={food.type} />
           <Textarea name="description" defaultValue={food.description} />
           <button type="submit">GUARDAR</button>
