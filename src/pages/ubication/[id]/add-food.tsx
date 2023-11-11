@@ -7,8 +7,8 @@ import { ChevronLeftCircle } from "lucide-react";
 
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
-import SelectType from "~/features/food/components/Food/components/SelectType";
 import { Input, FormInput, Textarea } from "~/features/common/Form";
+import { SelectFoodType } from "~/features/food/components/Food/components";
 
 export default function AddFood() {
   const router = useRouter();
@@ -59,7 +59,7 @@ export default function AddFood() {
               <Error />
             </label> */}
             <p>Tipo</p>
-            <SelectType />
+            <SelectFoodType />
             <FormInput
               fieldName="ammount"
               displayName="Cantidad"

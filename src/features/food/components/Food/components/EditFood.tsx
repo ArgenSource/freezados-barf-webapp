@@ -8,7 +8,7 @@ import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
 
 import Modal from "~/features/common/Modal";
-import SelectType from "./SelectType";
+import { SelectFoodType } from "./SelectFoodType";
 
 import { Input, Textarea } from "~/features/common/Form";
 import { ZodError } from "zod";
@@ -21,6 +21,7 @@ export const EditFood: React.FC<ActionProps> = ({
 }) => {
   const openModal = () => setSelect(ACTIONS.EDIT);
   const closeModal = () => setSelect(ACTIONS.NONE);
+
   const edit = api.food.editFoodData.useMutation();
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -60,7 +61,7 @@ export const EditFood: React.FC<ActionProps> = ({
         <form className="flex flex-col gap-2" onSubmit={onSubmit}>
           <Input name="name" defaultValue={food.name} type="text" />
           <Input type="number" defaultValue={food.ammount} name="ammount" />
-          <SelectType defaultOpt={food.type} />
+          <SelectFoodType defaultOpt={food.type} />
           <Textarea name="description" defaultValue={food.description} />
           <button type="submit">GUARDAR</button>
         </form>
