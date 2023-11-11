@@ -35,11 +35,17 @@ export default function Space() {
                 <ContainerIcon />
                 <h1>{space.name}</h1>
               </div>
-              <Link href="/" className="mb-4 text-gray-400">
+              <Link
+                href="/"
+                className="mb-4 w-fit text-gray-400 hover:text-gray-600"
+              >
                 Volver al listado de espacios
               </Link>
               {space.ubications.length > 0 ? (
-                <UbicationList ubications={space?.ubications} />
+                <UbicationList
+                  ubications={space?.ubications}
+                  spaceId={spaceId as string}
+                />
               ) : (
                 <div className="mt-8 flex flex-col items-center gap-6">
                   <h2 className="text-center text-xl font-bold text-gray-600">
