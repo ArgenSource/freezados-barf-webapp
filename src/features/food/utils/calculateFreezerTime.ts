@@ -1,11 +1,25 @@
 import { FoodTypes } from "@prisma/client";
 import { formatDistanceToNowStrict, isFuture } from "date-fns";
 import { es } from "date-fns/locale";
-import { READY } from "../components/Food/constants";
+import { FREEZE_STATES, type FreezeState } from "../components/Food/constants";
+
+type PausedState = {
+  state: typeof FREEZE_STATES.STOPPED;
+};
+
+type ActiveState = {
+  state: typeof FREEZE_STATES.COUNTING;
+  time: string;
+};
+
+type ReadyState = {
+  state: typeof FREEZE_STATES.READY;
+};
+type FreezeStatus = PausedState | ActiveState | ReadyState;
 
 const daysInMilliseconds = (days: number) => days * 24 * 60 * 60 * 1000;
 
-const getReadyDate = (foodType: FoodTypes, storedAt: Date): Date => {
+const getReadyDate = (foodType: FoodTypes, freezedAt: Date): Date => {
   let freezeTime = 0;
   switch (foodType) {
     case FoodTypes.COW:
@@ -21,19 +35,26 @@ const getReadyDate = (foodType: FoodTypes, storedAt: Date): Date => {
     default:
       freezeTime - Infinity;
   }
-  return new Date(storedAt.getTime() + freezeTime);
+  return new Date(freezedAt.getTime() + freezeTime);
 };
 
 export const calculateFreezerTime = ({
   foodType,
-  storedAt,
+  freezedAt,
 }: {
   foodType: FoodTypes;
-  storedAt: Date;
-}): string => {
-  const readyBy = getReadyDate(foodType, storedAt);
+  freezedAt?: Date;
+}): FreezeStatus => {
+  if (!freezedAt)
+    return {
+      state: FREEZE_STATES.STOPPED,
+    };
+  const readyBy = getReadyDate(foodType, freezedAt);
 
   return isFuture(readyBy)
-    ? formatDistanceToNowStrict(readyBy, { locale: es })
-    : READY;
+    ? {
+        state: FREEZE_STATES.COUNTING,
+        time: formatDistanceToNowStrict(readyBy, { locale: es }),
+      }
+    : { state: FREEZE_STATES.READY };
 };

@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
 import type { ActionNames } from "./types";
-import { ACTIONS, READY } from "./constants";
+import { ACTIONS, FREEZE_STATES } from "./constants";
 import {
   ChangeFoodUbication,
   DeleteFood,
@@ -40,15 +40,15 @@ export function Food({ foodData }: { foodData: TFood }) {
   console.log(
     calculateFreezerTime({
       foodType: foodData.type,
-      storedAt: foodData.storedAt,
+      freezedAt: foodData.storedAt,
     }),
   );
 
-  const pendingFreezerTime = calculateFreezerTime({
+  const freezeStatus = calculateFreezerTime({
     foodType: foodData.type,
-    storedAt: foodData.storedAt,
+    freezedAt: foodData.freezedAt ?? undefined,
   });
-  const isFoodReady = pendingFreezerTime === READY;
+  const isFoodReady = freezeStatus.state === FREEZE_STATES.READY;
 
   const { CONSUME, EDIT, DELETE, MOVE } = ACTIONS;
 
@@ -73,7 +73,10 @@ export function Food({ foodData }: { foodData: TFood }) {
             {foodData.name} {foodData.ammount}g
           </p>
         </div>
-        <p>{!isFoodReady && `${pendingFreezerTime} pendientes`}</p>
+        <p>
+          {freezeStatus.state == FREEZE_STATES.COUNTING &&
+            `${freezeStatus.time} pendientes`}
+        </p>
       </div>
       <div className="flex flex-nowrap items-center gap-2 overflow-hidden rounded-lg bg-cyan-800/5 p-1">
         {/* TODO: Fix? -> Cuando una accion es seleccionada en un alimento los demas de la ubicacion siguen
