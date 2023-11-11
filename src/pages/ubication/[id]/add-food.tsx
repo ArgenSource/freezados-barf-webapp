@@ -33,7 +33,7 @@ export default function AddFood() {
         .then(() => router.back())
         .catch((err) => console.error(err));
     } catch (err) {
-      // console.error(err);
+      console.error(err);
     }
   };
 

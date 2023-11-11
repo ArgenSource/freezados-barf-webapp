@@ -2,6 +2,7 @@ import { type HTMLProps } from "react";
 import { twMerge } from "tailwind-merge";
 import { Label, Input, Error } from "./index";
 
+// Quizas corresponda a algo mas general?
 type ParsedErrors = {
   _errors: string[];
 };
@@ -44,6 +45,7 @@ export const FormInput = ({
           required={required}
         />
       )}
+      {/* Si el usuario pasa uno se renderiza solo ese? Agregar la posibilidad de pasar una lista de componentes de errores? */}
       {elements?.error ??
         errors?._errors.map((msg, index) => (
           <Error message={msg} key={`${fieldName}-error-message-${index}`} />
