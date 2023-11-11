@@ -10,11 +10,15 @@ import { createFood } from "~/utils/schemas/food";
 import { Input, FormInput, Textarea } from "~/features/common/Form";
 import { SelectFoodType } from "~/features/food/components/Food/components";
 
+import useFormErrors from "~/utils/hooks/useFormErrors";
+
 export default function AddFood() {
   const router = useRouter();
   const { id: ubicationId } = router.query;
 
   const addFood = api.food.create.useMutation();
+
+  const { errors, parseErrors } = useFormErrors(createFood);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,13 +26,14 @@ export default function AddFood() {
     const formData = new FormData(e.currentTarget);
     formData.append("ubicationId", ubicationId.toString());
     try {
+      parseErrors(Object.fromEntries(formData.entries()));
       const input = createFood.parse(Object.fromEntries(formData.entries()));
       addFood
         .mutateAsync(input)
         .then(() => router.back())
         .catch((err) => console.error(err));
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -51,19 +56,21 @@ export default function AddFood() {
               fieldName="name"
               displayName="Nombre"
               required
-              error={undefined}
+              errors={errors?.name}
             />
-            {/* <label htmlFor="name">
-              <p>Nombre</p>
-              <Input type="text" id="name" name="name" required />
-              <Error />
-            </label> */}
-            <p>Tipo</p>
-            <SelectFoodType />
+            <FormInput
+              fieldName="type"
+              displayName="Tipo"
+              required
+              errors={errors?.type}
+              elements={{
+                input: <SelectFoodType />,
+              }}
+            />
             <FormInput
               fieldName="ammount"
               displayName="Cantidad"
-              error={undefined}
+              errors={errors?.ammount}
               elements={{
                 input: (
                   <div>
@@ -80,22 +87,10 @@ export default function AddFood() {
                 ),
               }}
             />
-            {/* <label htmlFor="ammount">
-              <p>Cantidad</p>
-              <Input
-                type="number"
-                name="ammount"
-                id="ammount"
-                min={1}
-                className="text-right"
-                required
-              />
-              <span className="ml-2">g</span>
-            </label> */}
             <FormInput
               fieldName="description"
               displayName="Descripcion (opcional)"
-              error={undefined}
+              errors={errors?.description}
               elements={{
                 input: (
                   <Textarea
@@ -106,14 +101,6 @@ export default function AddFood() {
                 ),
               }}
             />
-            {/* <label htmlFor="description">
-              <p>Descripcion (opcional)</p>
-              <textarea
-                name="description"
-                id="description"
-                className="rounded-md border-2 p-1"
-              />
-            </label> */}
             <button
               type="submit"
               className="flex items-center gap-2 rounded-md bg-cyan-600 p-4 text-xl font-bold text-gray-100"

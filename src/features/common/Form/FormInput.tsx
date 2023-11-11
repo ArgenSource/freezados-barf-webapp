@@ -2,6 +2,10 @@ import { type HTMLProps } from "react";
 import { twMerge } from "tailwind-merge";
 import { Label, Input, Error } from "./index";
 
+type ParsedErrors = {
+  _errors: string[];
+};
+
 type FormElements = {
   label?: JSX.Element;
   input?: JSX.Element;
@@ -10,7 +14,7 @@ type FormElements = {
 
 type FormInputProps = {
   fieldName: string;
-  error?: string;
+  errors?: ParsedErrors;
   displayName?: string;
   elements?: FormElements;
   required?: boolean;
@@ -21,7 +25,7 @@ type FormInputProps = {
 export const FormInput = ({
   fieldName,
   displayName,
-  error,
+  errors,
   elements,
   required = false,
   ...props
@@ -40,9 +44,10 @@ export const FormInput = ({
           required={required}
         />
       )}
-      {elements?.error ?? (
-        <Error message={error} id={`${fieldName}-error-message`} />
-      )}
+      {elements?.error ??
+        errors?._errors.map((msg, index) => (
+          <Error message={msg} key={`${fieldName}-error-message-${index}`} />
+        ))}
     </div>
   );
 };
