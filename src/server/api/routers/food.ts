@@ -10,16 +10,21 @@ import {
 } from "~/utils/schemas/food";
 
 export const foodRouter = createTRPCRouter({
-  create: publicProcedure.input(createFood).mutation(({ input, ctx }) =>
-    ctx.db.food.create({
+  create: publicProcedure.input(createFood).mutation(async ({ input, ctx }) => {
+    const { isFreezer } = await ctx.db.ubication.findUniqueOrThrow({
+      where: { id: input.ubicationId },
+      select: { isFreezer: true },
+    });
+    return ctx.db.food.create({
       data: {
         ...input,
         ammount: parseFloat(input.ammount),
         storedAt: new Date(),
+        freezedAt: isFreezer ? new Date() : undefined,
         description: input.description ?? "",
       },
-    }),
-  ),
+    });
+  }),
 
   getByid: publicProcedure.input(getFoodById).query(({ input, ctx }) => null),
 
@@ -78,16 +83,20 @@ export const foodRouter = createTRPCRouter({
 
   changeUbication: publicProcedure
     .input(changeUbicationSchema)
-    .mutation(({ ctx, input }) =>
-      ctx.db.food.update({
+    .mutation(async ({ ctx, input }) => {
+      const newUbication = await ctx.db.ubication.findUniqueOrThrow({
+        where: { id: input.newUbicationId },
+        select: { id: true, isFreezer: true },
+      });
+      return ctx.db.food.update({
         where: {
           id: input.id,
         },
         data: {
-          ubicationId: input.newUbicationId,
+          ubicationId: newUbication.id,
         },
-      }),
-    ),
+      });
+    }),
 
   deleteById: publicProcedure
     .input(getFoodById)

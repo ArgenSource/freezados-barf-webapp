@@ -43,6 +43,7 @@ model Food {
     description String
     ammount     Int
     storedAt    DateTime
+    freezedAt   DateTime?
     usedAt      DateTime?
     type        FoodTypes
     ubicationId String?
