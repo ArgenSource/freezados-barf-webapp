@@ -1,3 +1,5 @@
+import { FREEZE_STATES } from "~/features/food/components/Food/constants";
+import { calculateFreezerTime } from "~/features/food/utils/calculateFreezerTime";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 import {
@@ -10,16 +12,21 @@ import {
 } from "~/utils/schemas/food";
 
 export const foodRouter = createTRPCRouter({
-  create: publicProcedure.input(createFood).mutation(({ input, ctx }) =>
-    ctx.db.food.create({
+  create: publicProcedure.input(createFood).mutation(async ({ input, ctx }) => {
+    const { isFreezer } = await ctx.db.ubication.findUniqueOrThrow({
+      where: { id: input.ubicationId },
+      select: { isFreezer: true },
+    });
+    return ctx.db.food.create({
       data: {
         ...input,
         ammount: parseFloat(input.ammount),
         storedAt: new Date(),
+        freezedAt: isFreezer ? new Date() : undefined,
         description: input.description ?? "",
       },
-    }),
-  ),
+    });
+  }),
 
   getByid: publicProcedure.input(getFoodById).query(({ input, ctx }) => null),
 
@@ -78,16 +85,37 @@ export const foodRouter = createTRPCRouter({
 
   changeUbication: publicProcedure
     .input(changeUbicationSchema)
-    .mutation(({ ctx, input }) =>
-      ctx.db.food.update({
+    .mutation(async ({ ctx, input }) => {
+      const { freezedAt, type: foodType } = await ctx.db.food.findUniqueOrThrow(
+        {
+          where: { id: input.id },
+        },
+      );
+      const { isFreezer, id: newUbicationId } =
+        await ctx.db.ubication.findUniqueOrThrow({
+          where: { id: input.newUbicationId },
+          select: { id: true, isFreezer: true },
+        });
+
+      let newFreezedTime = freezedAt;
+      if (!isFreezer) {
+        const freezeStatus = calculateFreezerTime({ foodType, freezedAt });
+        if (freezeStatus.state != FREEZE_STATES.READY) {
+          newFreezedTime = null;
+        }
+      } else if (!freezedAt) {
+        newFreezedTime = new Date();
+      }
+      return ctx.db.food.update({
         where: {
           id: input.id,
         },
         data: {
-          ubicationId: input.newUbicationId,
+          ubicationId: newUbicationId,
+          freezedAt: newFreezedTime,
         },
-      }),
-    ),
+      });
+    }),
 
   deleteById: publicProcedure
     .input(getFoodById)
