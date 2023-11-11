@@ -1,9 +1,9 @@
 import { useState } from "react";
-import {
-  type ZodObject,
-  type ZodFormattedError,
-  type baseObjectInputType,
-  type ZodRawShape,
+import type {
+  ZodObject,
+  ZodFormattedError,
+  baseObjectInputType,
+  ZodRawShape,
 } from "zod";
 
 export default function useFormErrors<T extends ZodRawShape>(
@@ -16,14 +16,15 @@ export default function useFormErrors<T extends ZodRawShape>(
         string
       >
     >();
+
   const parseErrors = (inputs: unknown) => {
     const parsed = schema.safeParse(inputs);
     if (parsed.success) {
-      // Cambiar porque devuelva parsed.data ? -> deberia ser el objeto todo OK
+      // TODO: Cambiar porque devuelva parsed.data ? -> deberia ser el objeto todo OK
       return true;
     } else {
       setErrors(parsed.error.format());
-      // Cambiar por un throw? Conviene manejarlo con bool o directamente en el catch?
+      // TODO: Cambiar por un throw? Conviene manejarlo con bool o directamente en el catch?
       return false;
     }
   };
