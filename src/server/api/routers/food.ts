@@ -1,3 +1,5 @@
+import { FREEZE_STATES } from "~/features/food/components/Food/constants";
+import { calculateFreezerTime } from "~/features/food/utils/calculateFreezerTime";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 import {
@@ -84,16 +86,33 @@ export const foodRouter = createTRPCRouter({
   changeUbication: publicProcedure
     .input(changeUbicationSchema)
     .mutation(async ({ ctx, input }) => {
-      const newUbication = await ctx.db.ubication.findUniqueOrThrow({
-        where: { id: input.newUbicationId },
-        select: { id: true, isFreezer: true },
-      });
+      const { freezedAt, type: foodType } = await ctx.db.food.findUniqueOrThrow(
+        {
+          where: { id: input.id },
+        },
+      );
+      const { isFreezer, id: newUbicationId } =
+        await ctx.db.ubication.findUniqueOrThrow({
+          where: { id: input.newUbicationId },
+          select: { id: true, isFreezer: true },
+        });
+
+      let newFreezedTime = freezedAt;
+      if (!isFreezer) {
+        const freezeStatus = calculateFreezerTime({ foodType, freezedAt });
+        if (freezeStatus.state != FREEZE_STATES.READY) {
+          newFreezedTime = null;
+        }
+      } else if (!freezedAt) {
+        newFreezedTime = new Date();
+      }
       return ctx.db.food.update({
         where: {
           id: input.id,
         },
         data: {
-          ubicationId: newUbication.id,
+          ubicationId: newUbicationId,
+          freezedAt: newFreezedTime,
         },
       });
     }),

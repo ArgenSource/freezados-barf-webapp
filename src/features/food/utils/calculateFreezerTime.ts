@@ -1,7 +1,7 @@
-import { FoodTypes } from "@prisma/client";
+import { FoodTypes, $Enums } from "@prisma/client";
 import { formatDistanceToNowStrict, isFuture } from "date-fns";
 import { es } from "date-fns/locale";
-import { FREEZE_STATES, type FreezeState } from "../components/Food/constants";
+import { FREEZE_STATES } from "../components/Food/constants";
 
 type PausedState = {
   state: typeof FREEZE_STATES.STOPPED;
@@ -43,7 +43,7 @@ export const calculateFreezerTime = ({
   freezedAt,
 }: {
   foodType: FoodTypes;
-  freezedAt?: Date;
+  freezedAt: Date | null;
 }): FreezeStatus => {
   if (!freezedAt)
     return {

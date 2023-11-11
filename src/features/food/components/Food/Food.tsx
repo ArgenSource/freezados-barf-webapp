@@ -46,7 +46,7 @@ export function Food({ foodData }: { foodData: TFood }) {
 
   const freezeStatus = calculateFreezerTime({
     foodType: foodData.type,
-    freezedAt: foodData.freezedAt ?? undefined,
+    freezedAt: foodData.freezedAt,
   });
   const isFoodReady = freezeStatus.state === FREEZE_STATES.READY;
 
