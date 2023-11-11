@@ -5,7 +5,7 @@ import Loader from "~/features/common/Loader";
 
 import { api } from "~/utils/api";
 import Container from "~/features/common/Container";
-import { Error } from "~/features/common/Error";
+import { Error } from "~/features/common/Form/Error";
 
 export default function UbicationPage() {
   const router = useRouter();

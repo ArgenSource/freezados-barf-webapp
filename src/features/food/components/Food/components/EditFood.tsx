@@ -6,8 +6,12 @@ import { editFood } from "~/utils/schemas/food";
 
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
+
 import Modal from "~/features/common/Modal";
 import { SelectFoodType } from "./SelectFoodType";
+
+import { Input, Textarea } from "~/features/common/Form";
+import { ZodError } from "zod";
 
 export const EditFood: React.FC<ActionProps> = ({
   data: food,
@@ -38,7 +42,9 @@ export const EditFood: React.FC<ActionProps> = ({
         })
         .catch((err) => console.error(err));
     } catch (err) {
-      console.error(err);
+      if (err instanceof ZodError) {
+        console.log(err);
+      }
     }
   };
 
@@ -53,20 +59,10 @@ export const EditFood: React.FC<ActionProps> = ({
           <XCircle size={20} />
         </button>
         <form className="flex flex-col gap-2" onSubmit={onSubmit}>
-          <input id="name" name="name" defaultValue={food.name} />
-          <input
-            type="number"
-            defaultValue={food.ammount}
-            name="ammount"
-            id="ammount"
-          />
+          <Input name="name" defaultValue={food.name} type="text" />
+          <Input type="number" defaultValue={food.ammount} name="ammount" />
           <SelectFoodType defaultOpt={food.type} />
-          <textarea
-            name="description"
-            id="description"
-            className="rounded-md border-2 p-1"
-            defaultValue={food.description}
-          />
+          <Textarea name="description" defaultValue={food.description} />
           <button type="submit">GUARDAR</button>
         </form>
       </Modal>

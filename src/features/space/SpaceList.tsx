@@ -5,7 +5,7 @@ import { Space } from "@prisma/client";
 import Loader from "../common/Loader";
 
 import { api } from "~/utils/api";
-import { Error } from "../common/Error";
+import { Error } from "../common/Form/Error";
 
 export default function SpaceList() {
   const { data: spaces, status } = api.space.getAll.useQuery();

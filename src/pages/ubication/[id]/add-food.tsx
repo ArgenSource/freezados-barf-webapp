@@ -7,8 +7,10 @@ import { ChevronLeftCircle } from "lucide-react";
 
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
-import { Input } from "~/features/common/Input";
+import { Input, FormInput, Textarea } from "~/features/common/Form";
 import { SelectFoodType } from "~/features/food/components/Food/components";
+
+import useFormErrors from "~/utils/hooks/useFormErrors";
 
 export default function AddFood() {
   const router = useRouter();
@@ -16,12 +18,15 @@ export default function AddFood() {
 
   const addFood = api.food.create.useMutation();
 
+  const { errors, parseErrors } = useFormErrors(createFood);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!ubicationId) return;
     const formData = new FormData(e.currentTarget);
     formData.append("ubicationId", ubicationId.toString());
     try {
+      parseErrors(Object.fromEntries(formData.entries()));
       const input = createFood.parse(Object.fromEntries(formData.entries()));
       addFood
         .mutateAsync(input)
@@ -47,32 +52,55 @@ export default function AddFood() {
             onSubmit={handleSubmit}
             className="mt-8 flex w-full flex-col items-center gap-4"
           >
-            <label htmlFor="name">
-              <p>Nombre</p>
-              <Input type="text" id="name" name="name" required />
-            </label>
-            <p>Tipo</p>
-            <SelectFoodType />
-            <label htmlFor="ammount">
-              <p>Cantidad</p>
-              <Input
-                type="number"
-                name="ammount"
-                id="ammount"
-                min={1}
-                className="text-right"
-                required
-              />
-              <span className="ml-2">g</span>
-            </label>
-            <label htmlFor="description">
-              <p>Descripcion (opcional)</p>
-              <textarea
-                name="description"
-                id="description"
-                className="rounded-md border-2 p-1"
-              />
-            </label>
+            <FormInput
+              fieldName="name"
+              displayName="Nombre"
+              required
+              errors={errors?.name}
+            />
+            <FormInput
+              fieldName="type"
+              displayName="Tipo"
+              required
+              errors={errors?.type}
+              elements={{
+                input: <SelectFoodType />,
+              }}
+            />
+            <FormInput
+              fieldName="ammount"
+              displayName="Cantidad"
+              errors={errors?.ammount}
+              elements={{
+                input: (
+                  <div>
+                    <Input
+                      type="number"
+                      name="ammount"
+                      id="ammount"
+                      min={1}
+                      className="text-right"
+                      required
+                    />
+                    <span className="ml-2">g</span>
+                  </div>
+                ),
+              }}
+            />
+            <FormInput
+              fieldName="description"
+              displayName="Descripcion (opcional)"
+              errors={errors?.description}
+              elements={{
+                input: (
+                  <Textarea
+                    name="description"
+                    id="description"
+                    className="rounded-md border-2 p-1"
+                  />
+                ),
+              }}
+            />
             <button
               type="submit"
               className="flex items-center gap-2 rounded-md bg-cyan-600 p-4 text-xl font-bold text-gray-100"
