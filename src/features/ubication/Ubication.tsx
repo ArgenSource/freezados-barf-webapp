@@ -1,11 +1,11 @@
+import { useRouter } from "next/router";
+import Link from "next/link";
 import { type Ubication as TUbication } from "@prisma/client";
-
 import { PlusCircle, ThermometerSnowflake } from "lucide-react";
 
-import { Loader } from "../common/components";
 import { api } from "~/utils/api";
+import { Loader } from "../common/components";
 import FoodList from "../food/components/FoodList";
-import Link from "next/link";
 
 export default function Ubication({ data }: { data: TUbication }) {
   const { data: foods, status } = api.food.getFromUbication.useQuery(
@@ -14,6 +14,9 @@ export default function Ubication({ data }: { data: TUbication }) {
     },
     { refetchOnWindowFocus: false },
   );
+
+  const router = useRouter();
+  const { id: spaceId } = router.query;
 
   return (
     <section className="w-full py-2">

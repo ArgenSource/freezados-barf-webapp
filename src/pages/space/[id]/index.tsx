@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { Container as ContainerIcon } from "lucide-react";
 
 import UbicationList from "~/features/ubication/UbicationList";
 import { Container, Loader } from "~/features/common/components";
 import { api } from "~/utils/api";
+import { SpaceHeader } from "~/features/space/SpaceHeader";
 
 export default function Space() {
   const router = useRouter();
@@ -28,16 +28,11 @@ export default function Space() {
           {status == "loading" && <Loader />}
           {status == "success" && space && (
             <>
-              <div className="mb-4 flex w-full items-center justify-center gap-2 text-2xl font-bold text-gray-300">
-                <ContainerIcon />
-                <h1>{space.name}</h1>
-              </div>
-              <Link
+              <SpaceHeader
+                spaceName={space.name}
+                linkText="Volver al listado de espacios"
                 href="/"
-                className="mb-4 w-fit text-gray-400 hover:text-gray-600"
-              >
-                Volver al listado de espacios
-              </Link>
+              />
               {space.ubications.length > 0 ? (
                 <UbicationList
                   ubications={space?.ubications}
@@ -57,6 +52,14 @@ export default function Space() {
                 </div>
               )}
             </>
+          )}
+          {typeof spaceId === "string" && (
+            <Link
+              href={`${spaceId}/history`}
+              className="tracking-wider text-fuchsia-600/60"
+            >
+              Ver historial
+            </Link> // TODO: Can this href can be improved?
           )}
         </Container>
       </main>
