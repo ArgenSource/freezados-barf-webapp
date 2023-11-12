@@ -15,17 +15,17 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className="h-screen bg-zinc-900 text-zinc-300">
         <AuthShowcase />
         <Container>
-          <h1 className="text-center text-6xl font-bold text-cyan-700">
+          <h1 className="text-center text-6xl font-bold text-cyan-300">
             Freezados BARF
           </h1>
           <SpaceList />
           <div className="mt-8 rounded-md border-2 bg-cyan-600/30 p-4">
             <Link href="/create-space" target="_self">
               <h3 className="text-xl font-bold">Crear nuevo espacio</h3>
-              <div className="text-base italic text-gray-600">
+              <div className="text-base italic text-gray-300">
                 Un espacio te permitira gestionar distintas ubicaciones de
                 guardado como freezers y heladeras.
               </div>
@@ -41,12 +41,12 @@ function AuthShowcase() {
   const { data: sessionData } = useSession();
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-center text-2xl text-black">
+    <div className="flex flex-col items-center justify-center gap-4 ">
+      <p className="text-center text-2xl">
         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
       </p>
       <button
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-black no-underline transition hover:bg-white/20"
+        className="rounded-full bg-white/10 px-10 py-3 font-semibold  no-underline transition hover:bg-white/20"
         onClick={sessionData ? () => void signOut() : () => void signIn()}
       >
         {sessionData ? "Sign out" : "Sign in"}
