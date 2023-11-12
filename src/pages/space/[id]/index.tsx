@@ -26,7 +26,7 @@ export default function Space() {
       <Head>
         <title>{space ? `Espacio - ${space?.name}` : "Freezados BARF"}</title>
       </Head>
-      <main>
+      <main className="h-screen bg-zinc-900 text-zinc-300">
         <Container>
           {status == "loading" && <Loader />}
           {status == "success" && space && (

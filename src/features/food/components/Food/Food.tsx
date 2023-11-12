@@ -62,21 +62,20 @@ export function Food({ foodData }: { foodData: TFood }) {
   return (
     <div
       className={twMerge(
-        "flex w-full justify-between rounded-md border-2 p-2",
-        isFoodReady ? "border-green-200 bg-green-100" : "bg-slate-200",
+        "flex w-full justify-between rounded-md border-2 border-slate-500 p-2",
+        isFoodReady ? "border-green-200 bg-green-100" : "bg-slate-600",
       )}
     >
-      <div className="flex flex-col gap-2">
-        <div className="flex">
+      <div className="flex flex-col justify-center gap-2">
+        <div className="flex gap-2">
           {FOOD_ICONS.get(foodData.type)}
           <p>
             {foodData.name} {foodData.ammount}g
           </p>
         </div>
-        <p>
-          {freezeStatus.state == FREEZE_STATES.COUNTING &&
-            `${freezeStatus.time} pendientes`}
-        </p>
+        {freezeStatus.state == FREEZE_STATES.COUNTING && (
+          <p> `${freezeStatus.time} pendientes`</p>
+        )}
       </div>
       <div className="flex flex-nowrap items-center gap-2 overflow-hidden rounded-lg bg-cyan-800/5 p-1">
         {/* TODO: Fix? -> Cuando una accion es seleccionada en un alimento los demas de la ubicacion siguen
