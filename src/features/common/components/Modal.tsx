@@ -12,12 +12,12 @@ type ModalProps = {
   onClickOutside?: () => void;
 };
 
-export default function Modal({
+export const Modal = ({
   children,
   open,
   onClickOutside,
   className,
-}: PropsWithChildren<ModalProps & HTMLAttributes<HTMLDivElement>>) {
+}: PropsWithChildren<ModalProps & HTMLAttributes<HTMLDivElement>>) => {
   const modalRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleClickOutside = (ev: PointerEvent) => {
@@ -50,4 +50,4 @@ export default function Modal({
       </div>
     </>
   );
-}
+};

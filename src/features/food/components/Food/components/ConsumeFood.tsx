@@ -4,7 +4,7 @@ import { ArrowBigDownDash } from "lucide-react";
 import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
-import Modal from "~/features/common/Modal";
+import { Modal } from "~/features/common/components";
 
 export const ConsumeFood: FC<ActionProps> = ({
   data: { ammount, id, ubicationId },

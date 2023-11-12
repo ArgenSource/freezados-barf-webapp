@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Container as ContainerIcon } from "lucide-react";
 
 import { Space } from "@prisma/client";
-import Loader from "../common/Loader";
+import { Loader } from "../common/components";
 
 import { api } from "~/utils/api";
 import { Error } from "../common/Form/Error";

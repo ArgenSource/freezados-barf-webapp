@@ -1,12 +1,11 @@
 import { useState, type FC } from "react";
-import { Replace, XCircle, ThermometerSnowflake } from "lucide-react";
+import { Replace, ThermometerSnowflake } from "lucide-react";
 
 import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
 import { Error } from "~/features/common/Form/Error";
-import Loader from "~/features/common/Loader";
-import Modal from "~/features/common/Modal";
+import { Loader, Modal, Button } from "~/features/common/components/";
 
 type RelocateStatus = "idle" | "processing" | "error";
 
@@ -57,14 +56,14 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
       case "success":
         if (otherUbications) {
           return (
-            <ul>
+            <ul className="flex flex-col gap-2">
               {relocateStatus == "processing" ? (
                 <Loader />
               ) : (
                 otherUbications.map((ubication) => (
                   <li key={ubication.id}>
-                    <button
-                      className="my-2 flex items-center gap-1 rounded-md bg-cyan-200 p-2 text-black"
+                    <Button
+                      className="gap-1"
                       onClick={() => handleSelectNewUbication(ubication.id)}
                     >
                       {ubication.name}
@@ -75,7 +74,7 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
                             : "text-gray-400"
                         }
                       />
-                    </button>
+                    </Button>
                   </li>
                 ))
               )}
@@ -96,12 +95,11 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
           onClickOutside={closeModal}
           className="flex w-full max-w-md flex-col items-center justify-center rounded-md bg-gray-500 p-4"
         >
-          <button onClick={closeModal} className="absolute right-2 top-2">
-            <XCircle size={20} />
-          </button>
+          <Button.Close onClick={closeModal} />
           <h6 className="font-bold text-white">Choose the new ubication</h6>
           {renderUbicationOptions()}
         </Modal>
+        {/* // TODO: Add IconButton */}
         <button onClick={openModal}>
           <Replace className={active ? "text-green-500" : "text-cyan-500"} />
         </button>

@@ -2,7 +2,7 @@ import { type FormEvent } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import Container from "~/features/common/Container";
+import Container from "~/features/common/components/Container";
 import { ChevronLeftCircle } from "lucide-react";
 
 import { api } from "~/utils/api";

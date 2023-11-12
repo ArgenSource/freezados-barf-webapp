@@ -2,7 +2,7 @@ import { type Ubication as TUbication } from "@prisma/client";
 
 import { PlusCircle, ThermometerSnowflake } from "lucide-react";
 
-import Loader from "../common/Loader";
+import { Loader } from "../common/components";
 import { api } from "~/utils/api";
 import FoodList from "../food/components/FoodList";
 import Link from "next/link";

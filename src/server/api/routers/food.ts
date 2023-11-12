@@ -3,7 +3,7 @@ import { calculateFreezerTime } from "~/features/food/utils/calculateFreezerTime
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 import {
-  getFoods,
+  getFoodsFromUbication,
   getFoodById,
   createFood,
   consume,
@@ -28,19 +28,22 @@ export const foodRouter = createTRPCRouter({
     });
   }),
 
+  // TODO: replace null?
   getByid: publicProcedure.input(getFoodById).query(({ input, ctx }) => null),
 
-  getFromUbication: publicProcedure.input(getFoods).query(({ input, ctx }) =>
-    ctx.db.food.findMany({
-      where: {
-        ubicationId: input.ubicationId,
-        usedAt: null,
-      },
-      orderBy: {
-        storedAt: "asc",
-      },
-    }),
-  ),
+  getFromUbication: publicProcedure
+    .input(getFoodsFromUbication)
+    .query(({ input, ctx }) =>
+      ctx.db.food.findMany({
+        where: {
+          ubicationId: input.ubicationId,
+          usedAt: null,
+        },
+        orderBy: {
+          storedAt: "asc",
+        },
+      }),
+    ),
 
   consume: publicProcedure.input(consume).mutation(async ({ input, ctx }) => {
     const updated = await ctx.db.food.update({

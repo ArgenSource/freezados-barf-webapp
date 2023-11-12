@@ -1,17 +1,16 @@
 import { type FormEvent } from "react";
 import { XCircle, Pencil } from "lucide-react";
+import { ZodError } from "zod";
 
 import { api } from "~/utils/api";
 import { editFood } from "~/utils/schemas/food";
-
-import type { ActionProps } from "../types";
-import { ACTIONS } from "../constants";
-
-import Modal from "~/features/common/Modal";
-import { SelectFoodType } from "./SelectFoodType";
-
+import { Modal } from "~/features/common/components";
 import { Input, Textarea } from "~/features/common/Form";
-import { ZodError } from "zod";
+
+import { ACTIONS } from "../constants";
+import type { ActionProps } from "../types";
+
+import { SelectFoodType } from "./SelectFoodType";
 
 export const EditFood: React.FC<ActionProps> = ({
   data: food,

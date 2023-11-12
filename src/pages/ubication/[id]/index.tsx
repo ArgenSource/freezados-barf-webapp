@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
 
 import Ubication from "~/features/ubication/Ubication";
-import Loader from "~/features/common/Loader";
 
 import { api } from "~/utils/api";
-import Container from "~/features/common/Container";
+import { Container, Loader } from "~/features/common/components";
 import { Error } from "~/features/common/Form/Error";
 
 export default function UbicationPage() {
