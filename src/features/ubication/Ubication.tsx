@@ -27,13 +27,13 @@ export default function Ubication({ data }: { data: TUbication }) {
         </h3>
       </div>
       {status === "success" ? (
-        <div className="rounded-lg border-2 border-dashed p-2">
+        <div className="rounded-lg border-2 border-dashed border-gray-500 p-2">
           {foods.length > 0 ? (
             <>
               <FoodList foods={foods} />
               <Link
                 href={`/ubication/${data.id}/add-food`}
-                className="my-2 flex w-full items-center justify-center rounded-lg bg-cyan-700/50 py-2 text-white"
+                className="my-2 flex w-full items-center justify-center rounded-lg bg-fuchsia-700/50 py-2 text-white"
               >
                 <PlusCircle size={32} />
               </Link>

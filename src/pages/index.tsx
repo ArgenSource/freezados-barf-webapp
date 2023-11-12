@@ -15,14 +15,14 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="h-screen bg-zinc-900 text-zinc-300">
+      <main className="h-screen bg-zinc-900 text-violet-300">
         <AuthShowcase />
         <Container>
-          <h1 className="text-center text-6xl font-bold text-cyan-300">
+          <h1 className="mb-6 text-center text-6xl font-bold text-violet-300">
             Freezados BARF
           </h1>
           <SpaceList />
-          <div className="mt-8 rounded-md border-2 bg-cyan-600/30 p-4">
+          <div className="mt-8 rounded-md border-2 bg-violet-600/30 p-4">
             <Link href="/create-space" target="_self">
               <h3 className="text-xl font-bold">Crear nuevo espacio</h3>
               <div className="text-base italic text-gray-300">
