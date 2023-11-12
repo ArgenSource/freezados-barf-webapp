@@ -6,6 +6,7 @@ import Loader from "../common/Loader";
 import { api } from "~/utils/api";
 import FoodList from "../food/components/FoodList";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Ubication({ data }: { data: TUbication }) {
   const { data: foods, status } = api.food.getFromUbication.useQuery(
@@ -14,6 +15,9 @@ export default function Ubication({ data }: { data: TUbication }) {
     },
     { refetchOnWindowFocus: false },
   );
+
+  const router = useRouter();
+  const { id: spaceId } = router.query;
 
   return (
     <section className="w-full py-2">
@@ -50,6 +54,14 @@ export default function Ubication({ data }: { data: TUbication }) {
                 Ingresa un alimento
               </Link>
             </div>
+          )}
+          {typeof spaceId === "string" && (
+            <Link
+              href={`${spaceId}/history/${data.id}`}
+              className="tracking-wider text-fuchsia-600/60"
+            >
+              Ver historial
+            </Link> // TODO: Can this href can be improved?
           )}
         </div>
       ) : (

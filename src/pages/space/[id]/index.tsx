@@ -1,14 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { Container as ContainerIcon } from "lucide-react";
-
 import Container from "~/features/common/Container";
 import Loader from "~/features/common/Loader";
 import UbicationList from "~/features/ubication/UbicationList";
 
 import { api } from "~/utils/api";
 import Head from "next/head";
+import { SpaceHeader } from "~/features/space/SpaceHeader";
 
 export default function Space() {
   const router = useRouter();
@@ -31,16 +30,7 @@ export default function Space() {
           {status == "loading" && <Loader />}
           {status == "success" && space && (
             <>
-              <div className="mb-4 flex w-full items-center justify-center gap-2 text-2xl font-bold text-gray-300">
-                <ContainerIcon />
-                <h1>{space.name}</h1>
-              </div>
-              <Link
-                href="/"
-                className="mb-4 w-fit text-gray-400 hover:text-gray-600"
-              >
-                Volver al listado de espacios
-              </Link>
+              <SpaceHeader spaceName={space.name} />
               {space.ubications.length > 0 ? (
                 <UbicationList
                   ubications={space?.ubications}
