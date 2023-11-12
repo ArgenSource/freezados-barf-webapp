@@ -11,17 +11,17 @@ interface IProps {
 export default function UbicationList({ ubications, spaceId }: IProps) {
   if (!ubications) return null;
   return (
-    <>
+    <div className="mb-4">
       <h2 className="text-xl">Ubicaciones: </h2>
       <Link
         href={`/space/${spaceId?.toString()}/add-ubication`}
-        className="w-fit rounded-md text-gray-400 hover:text-gray-600"
+        className="mb-4 w-fit rounded-md text-gray-400 hover:text-gray-600"
       >
-        <h3>Agregar ubicacion</h3>
+        <h3 className="mb-2">Agregar ubicacion</h3>
       </Link>
       {ubications.map((u) => (
         <Ubication key={u.id} data={u} />
       ))}
-    </>
+    </div>
   );
 }

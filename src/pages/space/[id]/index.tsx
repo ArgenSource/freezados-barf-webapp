@@ -26,12 +26,12 @@ export default function Space() {
       <Head>
         <title>{space ? `Espacio - ${space?.name}` : "Freezados BARF"}</title>
       </Head>
-      <main className="h-screen bg-zinc-900 text-zinc-300">
+      <main className="h-screen bg-zinc-900 text-violet-300">
         <Container>
           {status == "loading" && <Loader />}
           {status == "success" && space && (
             <>
-              <div className="flex w-full items-center justify-center gap-2 text-2xl font-bold text-gray-300">
+              <div className="mb-4 flex w-full items-center justify-center gap-2 text-2xl font-bold text-gray-300">
                 <ContainerIcon />
                 <h1>{space.name}</h1>
               </div>

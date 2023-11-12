@@ -17,7 +17,7 @@ export default function SpaceList() {
       case "success":
         if (spaces)
           return (
-            <ul>
+            <ul className="flex flex-col gap-2">
               {spaces.map((space) => (
                 <li key={space.id}>
                   <Space data={space} />
@@ -31,7 +31,7 @@ export default function SpaceList() {
     }
   };
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       {spaces && spaces.length > 0 && <h3>Tus espacios: </h3>}
       {renderData()}
     </div>
