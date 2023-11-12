@@ -37,12 +37,6 @@ export function Food({ foodData }: { foodData: TFood }) {
   const handleSelectAction = useCallback((name: ActionNames) => {
     setSelectedAction(name);
   }, []);
-  console.log(
-    calculateFreezerTime({
-      foodType: foodData.type,
-      freezedAt: foodData.storedAt,
-    }),
-  );
 
   const freezeStatus = calculateFreezerTime({
     foodType: foodData.type,
