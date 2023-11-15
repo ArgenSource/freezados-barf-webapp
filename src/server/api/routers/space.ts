@@ -7,7 +7,7 @@ import {
 } from "~/server/api/trpc";
 
 export const spaceRouter = createTRPCRouter({
-  create: publicProcedure
+  create: protectedProcedure
     .input(createSpace)
     .mutation(({ input, ctx }) =>
       ctx.db.space.create({ data: { name: input.name } }),
