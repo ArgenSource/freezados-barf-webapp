@@ -1,21 +1,37 @@
 import { createSpace, getSpace } from "~/utils/schemas/space";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 
 export const spaceRouter = createTRPCRouter({
-  create: publicProcedure.input(createSpace).mutation(({ input, ctx }) => ctx.db.space.create({ data: { name: input.name } })),
-
-  getAll: publicProcedure.query(({ ctx }) => 
-    // TODO: Change to get only by user (when some kind of auth is implemented)
-     ctx.db.space.findMany()
+  create: protectedProcedure.input(createSpace).mutation(({ input, ctx }) =>
+    ctx.db.space.create({
+      data: { name: input.name, ownerId: ctx.session.user.id },
+    }),
   ),
 
-  getByid: publicProcedure.input(getSpace).query(({ input, ctx }) => ctx.db.space.findUnique({
+  getAll: protectedProcedure.query(({ ctx }) =>
+    ctx.db.space.findMany({
+      where: {
+        OR: [
+          { ownerId: ctx.session.user.id },
+          { users: { some: { id: ctx.session.user.id } } },
+        ],
+      },
+    }),
+  ),
+
+  getByid: publicProcedure.input(getSpace).query(({ input, ctx }) =>
+    ctx.db.space.findUnique({
       where: {
         id: input.id,
       },
       include: {
         ubications: true,
       },
-    })),
+    }),
+  ),
 });

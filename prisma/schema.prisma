@@ -14,10 +14,20 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+enum SharedConfig {
+    PRIVATE
+    INVITATION
+    PUBLIC_LINK
+}
+
 model Space {
-    id         String      @id @default(cuid())
-    name       String
-    ubications Ubication[]
+    id           String       @id @default(cuid())
+    name         String
+    ubications   Ubication[]
+    owner        User         @relation(fields: [ownerId], references: [id], name: "ownership")
+    ownerId      String
+    users        User[]
+    sharedConfig SharedConfig @default(PRIVATE)
 }
 
 model Ubication {
@@ -85,6 +95,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    ownedSpaces   Space[]   @relation(name: "ownership")
+    sharedSpaces  Space[]
 }
 
 model VerificationToken {
