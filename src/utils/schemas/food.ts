@@ -9,8 +9,9 @@ const FIELD_NAMES = {
   DESCRIPTION: "Descripción",
   TYPE: "Tipo",
   ID: "ID",
-} as const;
+};
 
+// ----- BASE SCHEMAS -----
 const ubicationId = z
   .string({
     required_error: requiredError(FIELD_NAMES.UBICATION),
@@ -23,6 +24,7 @@ const name = z
     required_error: requiredError(FIELD_NAMES.NAME),
     invalid_type_error: notValidError(FIELD_NAMES.NAME),
   })
+  .trim()
   .min(1, { message: requiredError(FIELD_NAMES.NAME) });
 
 const description = z.string({
@@ -51,6 +53,9 @@ const id = z
   })
   .min(1, { message: requiredError(FIELD_NAMES.ID) });
 
+// --------------------------
+
+// ----- ACTUAL SCHEMAS -----
 export const getFoods = z.object({
   ubicationId: ubicationId,
 });
