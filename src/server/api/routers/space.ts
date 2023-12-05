@@ -24,7 +24,7 @@ export const spaceRouter = createTRPCRouter({
     }),
   ),
 
-  getByid: publicProcedure.input(getSpace).query(({ input, ctx }) =>
+  getByid: protectedProcedure.input(getSpace).query(({ input, ctx }) =>
     ctx.db.space.findUnique({
       where: {
         id: input.id,
