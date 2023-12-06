@@ -26,7 +26,7 @@ export const foodRouter = createTRPCRouter({
       return ctx.db.food.create({
         data: {
           ...input,
-          ammount: parseFloat(input.ammount),
+          ammount: input.ammount,
           storedAt: new Date(),
           freezedAt: isFreezer ? new Date() : undefined,
           description: input.description ?? "",
@@ -83,7 +83,7 @@ export const foodRouter = createTRPCRouter({
     ctx.db.food.update({
       where: { id: input.id },
       data: {
-        ammount: input.ammount ? parseFloat(input.ammount) : undefined,
+        ammount: input.ammount ?? undefined,
         type: input.type,
         name: input.name,
         description: input.description,
