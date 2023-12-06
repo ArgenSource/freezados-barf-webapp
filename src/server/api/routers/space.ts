@@ -1,4 +1,9 @@
-import { createSpace, getSpace } from "~/utils/schemas/space";
+import {
+  createSpace,
+  getSpace,
+  joinRequest,
+  setPrivacy,
+} from "~/utils/schemas/space";
 
 import {
   createTRPCRouter,
@@ -34,4 +39,34 @@ export const spaceRouter = createTRPCRouter({
       },
     }),
   ),
+
+  changePrivacyConfig: protectedProcedure
+    .input(setPrivacy)
+    .mutation(({ input, ctx }) =>
+      ctx.db.space.update({
+        where: { id: input.id },
+        data: {
+          sharedConfig: input.config,
+        },
+      }),
+    ),
+
+  join: protectedProcedure
+    .input(joinRequest)
+    .mutation(async ({ input, ctx }) => {
+      const space = await ctx.db.space.findUniqueOrThrow({
+        where: { id: input.spaceId },
+      });
+      if (space.sharedConfig === "PRIVATE")
+        throw new Error("This space is private");
+      if (space.sharedConfig === "PUBLIC_LINK") {
+        return ctx.db.space.update({
+          where: { id: space.id },
+          data: {
+            users: { connect: { id: ctx.session.user.id } },
+          },
+        });
+      }
+      throw new Error("Not implemented");
+    }),
 });
