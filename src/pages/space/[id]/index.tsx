@@ -20,7 +20,7 @@ export default function Space() {
     status,
     error,
     refetch,
-  } = api.space.getByid.useQuery(
+  } = api.space.getWithUbications.useQuery(
     { id: spaceId as string },
     {
       enabled: !!spaceId,

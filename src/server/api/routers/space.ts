@@ -29,16 +29,26 @@ export const spaceRouter = createTRPCRouter({
     }),
   ),
 
-  getByid: protectedProcedure.input(getSpace).query(({ input, ctx }) =>
+  getById: protectedProcedure.input(getSpace).query(({ input, ctx }) =>
     ctx.db.space.findUnique({
       where: {
         id: input.id,
       },
-      include: {
-        ubications: true,
-      },
     }),
   ),
+
+  getWithUbications: protectedProcedure
+    .input(getSpace)
+    .query(({ input, ctx }) =>
+      ctx.db.space.findUnique({
+        where: {
+          id: input.id,
+        },
+        include: {
+          ubications: true,
+        },
+      }),
+    ),
 
   changePrivacyConfig: protectedProcedure
     .input(setPrivacy)
@@ -56,14 +66,22 @@ export const spaceRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const space = await ctx.db.space.findUniqueOrThrow({
         where: { id: input.spaceId },
+        include: {
+          users: true,
+        },
       });
       if (space.sharedConfig === "PRIVATE")
-        throw new Error("This space is private");
+        throw new Error("Este espacio es privado");
+      if ([space.ownerId, ...space.users].includes(ctx.session.user.id))
+        throw new Error("Ya perteneces a este espacio");
       if (space.sharedConfig === "PUBLIC_LINK") {
         return ctx.db.space.update({
           where: { id: space.id },
           data: {
             users: { connect: { id: ctx.session.user.id } },
+          },
+          select: {
+            id: true,
           },
         });
       }
