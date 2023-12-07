@@ -19,3 +19,12 @@ export const setPrivacy = z.object({
 export const joinRequest = z.object({
   spaceId: z.string().min(1),
 });
+
+export const joinWithInvitationRequest = z.object({
+  spaceId: z.string().min(1),
+  invitationId: z.string().min(1),
+});
+
+export const invitation = z.object({
+  spaceId: z.string().min(1),
+});

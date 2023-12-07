@@ -28,6 +28,15 @@ model Space {
     ownerId      String
     users        User[]
     sharedConfig SharedConfig @default(PRIVATE)
+    invitations  Invitation[]
+}
+
+model Invitation {
+    id        String    @id @default(cuid())
+    Space     Space     @relation(fields: [spaceId], references: [id])
+    spaceId   String
+    createdAt DateTime  @default(now())
+    expires   DateTime?
 }
 
 model Ubication {
