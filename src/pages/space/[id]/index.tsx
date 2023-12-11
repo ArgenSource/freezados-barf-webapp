@@ -11,6 +11,7 @@ import { api } from "~/utils/api";
 import Head from "next/head";
 
 import QueryErrorBoundary from "~/features/common/Error/QueryErrorBoundary";
+import Share from "~/features/space/share";
 
 export default function Space() {
   const router = useRouter();
@@ -42,6 +43,7 @@ export default function Space() {
                 <div className="mb-4 flex w-full items-center justify-center gap-2 text-2xl font-bold text-gray-300">
                   <ContainerIcon />
                   <h1>{space.name}</h1>
+                  <Share space={space} />
                 </div>
                 <Link
                   href="/"
