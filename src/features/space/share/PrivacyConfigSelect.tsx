@@ -41,11 +41,7 @@ export default function PrivacyConfigSelect({ space }: ShareProps) {
   const privacy = api.space.changePrivacyConfig.useMutation({
     onSuccess: () =>
       queryClient.refetchQueries({
-        queryKey: getQueryKey(
-          api.space.getWithUbications,
-          { id: space.id },
-          "query",
-        ),
+        queryKey: getQueryKey(api.space.getById, { id: space.id }, "query"),
       }),
   });
   const handleSubmit = (val: SharedConfig) => {
