@@ -1,4 +1,11 @@
-import { createSpace, getSpace } from "~/utils/schemas/space";
+import {
+  createSpace,
+  getSpace,
+  invitation,
+  joinRequest,
+  joinWithInvitationRequest,
+  setPrivacy,
+} from "~/utils/schemas/space";
 
 import {
   createTRPCRouter,
@@ -24,14 +31,92 @@ export const spaceRouter = createTRPCRouter({
     }),
   ),
 
-  getByid: protectedProcedure.input(getSpace).query(({ input, ctx }) =>
+  getById: publicProcedure.input(getSpace).query(({ input, ctx }) =>
     ctx.db.space.findUnique({
       where: {
         id: input.id,
       },
-      include: {
-        ubications: true,
+    }),
+  ),
+
+  getWithUbications: protectedProcedure
+    .input(getSpace)
+    .query(({ input, ctx }) =>
+      ctx.db.space.findUnique({
+        where: {
+          id: input.id,
+        },
+        include: {
+          ubications: true,
+        },
+      }),
+    ),
+
+  changePrivacyConfig: protectedProcedure
+    .input(setPrivacy)
+    .mutation(({ input, ctx }) =>
+      ctx.db.space.update({
+        where: { id: input.id },
+        data: {
+          sharedConfig: input.config,
+        },
+      }),
+    ),
+
+  join: protectedProcedure.input(joinRequest).mutation(({ input, ctx }) =>
+    ctx.db.space.update({
+      where: {
+        id: input.spaceId,
+        sharedConfig: "PUBLIC_LINK",
+        ownerId: { not: ctx.session.user.id },
+        users: {
+          none: { id: ctx.session.user.id },
+        },
+      },
+      data: {
+        users: { connect: { id: ctx.session.user.id } },
       },
     }),
   ),
+
+  joinWithInvitation: protectedProcedure
+    .input(joinWithInvitationRequest)
+    .mutation(({ input, ctx }) =>
+      ctx.db.space.update({
+        where: {
+          id: input.spaceId,
+          sharedConfig: {
+            not: "PRIVATE",
+          },
+          ownerId: {
+            not: ctx.session.user.id,
+          },
+          invitations: {
+            some: { id: input.invitationId },
+          },
+          users: {
+            none: { id: ctx.session.user.id },
+          },
+        },
+        data: {
+          users: {
+            connect: { id: ctx.session.user.id },
+          },
+          invitations: {
+            delete: { id: input.invitationId },
+          },
+        },
+      }),
+    ),
+
+  createInvitation: protectedProcedure
+    .input(invitation)
+    .mutation(({ input, ctx }) =>
+      ctx.db.invitation.create({
+        data: {
+          spaceId: input.spaceId,
+          expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+        },
+      }),
+    ),
 });
