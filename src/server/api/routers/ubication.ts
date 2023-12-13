@@ -1,5 +1,9 @@
 import { createTRPCRouter, protectedProcedure } from "../trpc";
-import { createUbication, getUbicationById } from "~/utils/schemas/ubication";
+import {
+  createUbication,
+  getOthersFromSpace,
+  getUbicationById,
+} from "~/utils/schemas/ubication";
 
 export const ubicationRouter = createTRPCRouter({
   getById: protectedProcedure
@@ -9,10 +13,10 @@ export const ubicationRouter = createTRPCRouter({
     ),
 
   getOthers: protectedProcedure
-    .input(getUbicationById)
+    .input(getOthersFromSpace)
     .query(({ input, ctx }) =>
       ctx.db.ubication.findMany({
-        where: { id: { not: input.id } },
+        where: { id: { not: input.id }, spaceId: input.spaceId },
         select: {
           name: true,
           id: true,

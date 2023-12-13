@@ -41,3 +41,18 @@ export const getUbicationById = z.object({
     })
     .min(1, { message: requiredError(FIELD_NAMES.ID) }),
 });
+
+export const getOthersFromSpace = z.object({
+  id: z
+  .string({
+    required_error: requiredError(FIELD_NAMES.ID),
+    invalid_type_error: notValidError(FIELD_NAMES.ID),
+  })
+  .min(1, { message: requiredError(FIELD_NAMES.ID) }),
+  spaceId: z
+  .string({
+    required_error: requiredError(FIELD_NAMES.SPACE_ID),
+    invalid_type_error: notValidError(FIELD_NAMES.SPACE_ID),
+  })
+  .min(1, { message: requiredError(FIELD_NAMES.SPACE_ID) }),
+})
