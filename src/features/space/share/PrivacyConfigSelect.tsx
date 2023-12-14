@@ -15,7 +15,7 @@ type SharedConfigDetails = {
   icon: ReactNode;
 };
 
-const PublicConfigNames: Record<SharedConfig, SharedConfigDetails> = {
+const PUBLIC_CONFIG_NAMES: Record<SharedConfig, SharedConfigDetails> = {
   INVITATION: {
     name: "Por invitación",
     description: "Solo aquellas personas que invites pueden acceder",
@@ -65,10 +65,10 @@ export default function PrivacyConfigSelect({ space }: ShareProps) {
               val == privacyConfig ? "" : "border-slate-500 text-slate-500"
             }`}
           >
-            <h6>{PublicConfigNames[val].name}</h6>
-            {PublicConfigNames[val].icon}
+            <h6>{PUBLIC_CONFIG_NAMES[val].name}</h6>
+            {PUBLIC_CONFIG_NAMES[val].icon}
             <p className="text-sm italic">
-              {PublicConfigNames[val].description}
+              {PUBLIC_CONFIG_NAMES[val].description}
             </p>
             <input
               type="radio"
