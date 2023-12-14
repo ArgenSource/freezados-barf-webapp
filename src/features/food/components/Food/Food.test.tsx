@@ -12,6 +12,7 @@ const mockFoodData: TFood = {
   ubicationId: "1",
   usedAt: null,
   storedAt: new Date(),
+  freezedAt: null,
 };
 
 test("should render Food name and amount", () => {

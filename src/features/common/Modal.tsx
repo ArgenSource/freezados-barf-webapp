@@ -17,6 +17,7 @@ export default function Modal({
   open,
   onClickOutside,
   className,
+  ...props
 }: PropsWithChildren<ModalProps & HTMLAttributes<HTMLDivElement>>) {
   const modalRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -45,6 +46,7 @@ export default function Modal({
           className,
         )}
         ref={modalRef}
+        {...props}
       >
         {children}
       </div>

@@ -34,7 +34,7 @@ export default function QueryErrorBoundary({
       refetch().catch((err) => console.error(err));
     };
     return (
-      renderErrorData(error.code) ?? (
+      renderErrorData(error.code) || (
         <div>
           <h2>Algo no funciono correctamente</h2>
           <p>{error.code}</p>
