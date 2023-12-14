@@ -36,37 +36,35 @@ export default function Join() {
     }
   };
   return (
-    <>
-      <Container>
-        <QueryErrorBoundary error={error?.data} refetch={refetch}>
-          {isLoading || !space ? (
-            <Loader />
-          ) : (
-            <>
-              <h1>Unirse a {space.name}</h1>
-              {session.data?.user ? (
-                <>
-                  {space?.sharedConfig === "PUBLIC_LINK" ? (
-                    <button onClick={handleJoin}>Unirse</button>
-                  ) : (
-                    <div>
-                      <h6>Este espacio no es publico</h6>
-                      <button onClick={() => alert("Not implemented")}>
-                        Solicitar acceso
-                      </button>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div>
-                  <h6>Para unirte a un espacio debes estar registrado</h6>
-                  <button onClick={() => void signIn()}>Ingresar</button>
-                </div>
-              )}
-            </>
-          )}
-        </QueryErrorBoundary>
-      </Container>
-    </>
+    <Container>
+      <QueryErrorBoundary error={error?.data} refetch={refetch}>
+        {isLoading || !space ? (
+          <Loader />
+        ) : (
+          <>
+            <h1>Unirse a {space.name}</h1>
+            {session.data?.user ? (
+              <>
+                {space?.sharedConfig === "PUBLIC_LINK" ? (
+                  <button onClick={handleJoin}>Unirse</button>
+                ) : (
+                  <div>
+                    <h6>Este espacio no es publico</h6>
+                    <button onClick={() => alert("Not implemented")}>
+                      Solicitar acceso
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div>
+                <h6>Para unirte a un espacio debes estar registrado</h6>
+                <button onClick={() => void signIn()}>Ingresar</button>
+              </div>
+            )}
+          </>
+        )}
+      </QueryErrorBoundary>
+    </Container>
   );
 }
