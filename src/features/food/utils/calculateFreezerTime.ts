@@ -1,4 +1,4 @@
-import { FoodTypes, $Enums } from "@prisma/client";
+import { FoodTypes } from "@prisma/client";
 import { formatDistanceToNowStrict, isFuture } from "date-fns";
 import { es } from "date-fns/locale";
 import { FREEZE_STATES } from "../components/Food/constants";
