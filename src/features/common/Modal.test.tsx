@@ -1,20 +1,6 @@
-import { useState } from "react";
 import Modal from "./Modal";
 import { expect, describe, test, vi, beforeEach } from "vitest";
 import { render, screen, cleanup, fireEvent } from "~/utils/test/test-utils";
-
-// const MockModal = () => {
-//   const [open, setOpen] = useState<boolean>(true);
-//   return (
-//     <Modal
-//       open={open}
-//       onClickOutside={() => setOpen(false)}
-//       className="text-red-500"
-//     >
-//       <div id="modal-children">Children</div>
-//     </Modal>
-//   );
-// };
 
 describe("Modal component", () => {
   beforeEach(() => {
