@@ -30,9 +30,9 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
     api.ubication.getOthers.useQuery(
       {
         id: ubicationId ?? "",
-        spaceId: spaceId as string,
+        spaceId: spaceId?.toString() ?? "",
       },
-      { refetchOnWindowFocus: false },
+      { refetchOnWindowFocus: false, enabled: !!spaceId && !!ubicationId },
     );
 
   const changeUbication = api.food.changeUbication.useMutation({
