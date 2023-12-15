@@ -13,9 +13,12 @@ export default function Share() {
   const [isConfig, setIsConfig] = useState<boolean>(false);
   const router = useRouter();
   const { id } = router.query;
-  const { data: space } = api.space.getById.useQuery({
-    id: id as string,
-  });
+  const { data: space } = api.space.getById.useQuery(
+    {
+      id: id?.toString() ?? "",
+    },
+    { enabled: !!id },
+  );
 
   const renderShare = () => {
     if (!space) return;

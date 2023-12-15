@@ -14,7 +14,10 @@ export default function JoinWithIvitation() {
     error,
     refetch,
     isLoading,
-  } = api.space.getById.useQuery({ id: spaceId as string });
+  } = api.space.getById.useQuery(
+    { id: spaceId?.toString() ?? "" },
+    { enabled: !!spaceId },
+  );
   const join = api.space.joinWithInvitation.useMutation();
 
   const handleJoin = () => {
@@ -22,7 +25,7 @@ export default function JoinWithIvitation() {
       join
         .mutateAsync({
           spaceId: space.id,
-          invitationId: invitationId as string,
+          invitationId: invitationId.toString() ?? "",
         })
         .then((res) => router.push(`/space/${res.id}`))
         .catch((err) => console.error(err));

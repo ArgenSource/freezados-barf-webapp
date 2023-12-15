@@ -17,7 +17,7 @@ export default function Join() {
     error,
     refetch,
   } = api.space.getById.useQuery(
-    { id: spaceId as string },
+    { id: spaceId?.toString() ?? "" },
     {
       enabled: !!spaceId,
       refetchOnWindowFocus: false,

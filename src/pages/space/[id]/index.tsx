@@ -22,7 +22,7 @@ export default function Space() {
     error,
     refetch,
   } = api.space.getWithUbications.useQuery(
-    { id: spaceId as string },
+    { id: spaceId?.toString() ?? "" },
     {
       enabled: !!spaceId,
       refetchOnWindowFocus: false,
@@ -43,7 +43,7 @@ export default function Space() {
                 <div className="mb-4 flex w-full items-center justify-center gap-2 text-2xl font-bold text-gray-300">
                   <ContainerIcon />
                   <h1>{space.name}</h1>
-                  <Share space={space} />
+                  <Share />
                 </div>
                 <Link
                   href="/"
@@ -54,7 +54,7 @@ export default function Space() {
                 {space.ubications.length > 0 ? (
                   <UbicationList
                     ubications={space?.ubications}
-                    spaceId={spaceId as string}
+                    spaceId={spaceId?.toString() ?? ""}
                   />
                 ) : (
                   <div className="mt-8 flex flex-col items-center gap-6">
