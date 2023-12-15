@@ -8,10 +8,10 @@ describe("Modal component", () => {
   });
   test("should render modal when open & not when closed", () => {
     render(<Modal open={true} data-testid="modal" />);
-    expect(screen.getByTestId("modal")).toBeDefined();
+    const modal = screen.queryByTestId("modal");
+    expect(modal).toBeDefined();
     cleanup();
     render(<Modal open={false} data-testid="modal" />);
-    const modal = screen.queryByTestId("modal");
     expect(modal).not.toBeInTheDocument();
   });
 
