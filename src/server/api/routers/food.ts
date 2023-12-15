@@ -1,6 +1,10 @@
 import { FREEZE_STATES } from "~/features/food/components/Food/constants";
 import { calculateFreezerTime } from "~/features/food/utils/calculateFreezerTime";
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  publicProcedure,
+  protectedProcedure,
+} from "~/server/api/trpc";
 
 import {
   getFoods,
@@ -12,25 +16,27 @@ import {
 } from "~/utils/schemas/food";
 
 export const foodRouter = createTRPCRouter({
-  create: publicProcedure.input(createFood).mutation(async ({ input, ctx }) => {
-    const { isFreezer } = await ctx.db.ubication.findUniqueOrThrow({
-      where: { id: input.ubicationId },
-      select: { isFreezer: true },
-    });
-    return ctx.db.food.create({
-      data: {
-        ...input,
-        ammount: parseFloat(input.ammount),
-        storedAt: new Date(),
-        freezedAt: isFreezer ? new Date() : undefined,
-        description: input.description ?? "",
-      },
-    });
-  }),
+  create: protectedProcedure
+    .input(createFood)
+    .mutation(async ({ input, ctx }) => {
+      const { isFreezer } = await ctx.db.ubication.findUniqueOrThrow({
+        where: { id: input.ubicationId },
+        select: { isFreezer: true },
+      });
+      return ctx.db.food.create({
+        data: {
+          ...input,
+          ammount: input.ammount,
+          storedAt: new Date(),
+          freezedAt: isFreezer ? new Date() : undefined,
+          description: input.description ?? "",
+        },
+      });
+    }),
 
   getByid: publicProcedure.input(getFoodById).query(({ input, ctx }) => null),
 
-  getFromUbication: publicProcedure.input(getFoods).query(({ input, ctx }) =>
+  getFromUbication: protectedProcedure.input(getFoods).query(({ input, ctx }) =>
     ctx.db.food.findMany({
       where: {
         ubicationId: input.ubicationId,
@@ -42,40 +48,42 @@ export const foodRouter = createTRPCRouter({
     }),
   ),
 
-  consume: publicProcedure.input(consume).mutation(async ({ input, ctx }) => {
-    const updated = await ctx.db.food.update({
-      where: { id: input.id, ammount: { gte: input.ammount } },
-      data: {
-        ammount: {
-          decrement: input.ammount,
-        },
-      },
-    });
-    if (updated.ammount == 0) {
-      await ctx.db.food.update({
-        where: { id: updated.id },
+  consume: protectedProcedure
+    .input(consume)
+    .mutation(async ({ input, ctx }) => {
+      const updated = await ctx.db.food.update({
+        where: { id: input.id, ammount: { gte: input.ammount } },
         data: {
-          usedAt: new Date(),
+          ammount: {
+            decrement: input.ammount,
+          },
         },
       });
-    } else {
-      await ctx.db.food.create({
-        data: {
-          ...updated,
-          id: undefined,
-          ammount: 0,
-          usedAt: new Date(),
-        },
-      });
-    }
-    return true;
-  }),
+      if (updated.ammount == 0) {
+        await ctx.db.food.update({
+          where: { id: updated.id },
+          data: {
+            usedAt: new Date(),
+          },
+        });
+      } else {
+        await ctx.db.food.create({
+          data: {
+            ...updated,
+            id: undefined,
+            ammount: 0,
+            usedAt: new Date(),
+          },
+        });
+      }
+      return true;
+    }),
 
-  editFoodData: publicProcedure.input(editFood).mutation(({ ctx, input }) =>
+  editFoodData: protectedProcedure.input(editFood).mutation(({ ctx, input }) =>
     ctx.db.food.update({
       where: { id: input.id },
       data: {
-        ammount: input.ammount ? parseFloat(input.ammount) : undefined,
+        ammount: input.ammount ?? undefined,
         type: input.type,
         name: input.name,
         description: input.description,
@@ -83,7 +91,7 @@ export const foodRouter = createTRPCRouter({
     }),
   ),
 
-  changeUbication: publicProcedure
+  changeUbication: protectedProcedure
     .input(changeUbicationSchema)
     .mutation(async ({ ctx, input }) => {
       const { freezedAt, type: foodType } = await ctx.db.food.findUniqueOrThrow(
@@ -117,7 +125,7 @@ export const foodRouter = createTRPCRouter({
       });
     }),
 
-  deleteById: publicProcedure
+  deleteById: protectedProcedure
     .input(getFoodById)
     .mutation(({ ctx, input }) =>
       ctx.db.food.delete({ where: { id: input.id } }),

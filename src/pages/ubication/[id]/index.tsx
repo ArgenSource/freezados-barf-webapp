@@ -5,13 +5,14 @@ import Loader from "~/features/common/Loader";
 
 import { api } from "~/utils/api";
 import Container from "~/features/common/Container";
-import { Error } from "~/features/common/Form/Error";
+import { Error as FormError } from "~/features/common/Form/Error";
+import QueryErrorBoundary from "~/features/common/Error/QueryErrorBoundary";
 
 export default function UbicationPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data, status } = api.ubication.getById.useQuery(
+  const { data, status, error, refetch } = api.ubication.getById.useQuery(
     { id: id?.toString() ?? "" },
     { enabled: !!id },
   );
@@ -26,13 +27,15 @@ export default function UbicationPage() {
         }
       case "error":
       default:
-        return <Error />;
+        return <FormError />;
     }
   };
   return (
     <>
       <main>
-        <Container>{renderData()}</Container>
+        <QueryErrorBoundary error={error?.data} refetch={refetch}>
+          <Container>{renderData()}</Container>
+        </QueryErrorBoundary>
       </main>
     </>
   );

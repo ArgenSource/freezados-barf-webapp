@@ -4,12 +4,22 @@
  *
  * We also create a few inference helpers for input and output types.
  */
-import { httpBatchLink, loggerLink } from "@trpc/client";
+import { TRPCClientError, httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
-import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
+import {
+  TRPCError,
+  type inferRouterInputs,
+  type inferRouterOutputs,
+} from "@trpc/server";
 import superjson from "superjson";
 
 import { type AppRouter } from "~/server/api/root";
+
+export function isTRPCClientError(
+  cause: unknown,
+): cause is TRPCClientError<AppRouter> {
+  return cause instanceof TRPCClientError;
+}
 
 const getBaseUrl = () => {
   if (typeof window !== "undefined") return ""; // browser should use relative url
@@ -43,6 +53,19 @@ export const api = createTRPCNext<AppRouter>({
           url: `${getBaseUrl()}/api/trpc`,
         }),
       ],
+      queryClientConfig: {
+        defaultOptions: {
+          queries: {
+            // Deshabilitar retry para errores de 401
+            retry(_, error) {
+              if (isTRPCClientError(error)) {
+                if (error.data?.code == "UNAUTHORIZED") return false;
+              }
+              return true;
+            },
+          },
+        },
+      },
     };
   },
   /**

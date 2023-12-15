@@ -1,44 +1,96 @@
 import { z } from "zod";
 import { FoodTypes } from "@prisma/client";
+import { requiredError, notValidError, outOfBoundsError } from "./helper";
 
-export const getFoods = z.object({ ubicationId: z.string().min(1) });
+const FIELD_NAMES = {
+  UBICATION: "Ubicación",
+  NAME: "Nombre",
+  AMMOUNT: "Cantidad",
+  DESCRIPTION: "Descripción",
+  TYPE: "Tipo",
+  ID: "ID",
+};
+
+// ----- BASE SCHEMAS -----
+const ubicationId = z
+  .string({
+    required_error: requiredError(FIELD_NAMES.UBICATION),
+    invalid_type_error: notValidError(FIELD_NAMES.UBICATION),
+  })
+  .min(1, { message: requiredError(FIELD_NAMES.UBICATION) });
+
+const name = z
+  .string({
+    required_error: requiredError(FIELD_NAMES.NAME),
+    invalid_type_error: notValidError(FIELD_NAMES.NAME),
+  })
+  .trim()
+  .min(1, { message: requiredError(FIELD_NAMES.NAME) });
+
+const description = z.string({
+  invalid_type_error: notValidError(FIELD_NAMES.DESCRIPTION),
+});
+
+const ammount = z.coerce
+  .number({
+    required_error: requiredError(FIELD_NAMES.AMMOUNT),
+    invalid_type_error: notValidError(FIELD_NAMES.AMMOUNT),
+  })
+  .min(1, { message: outOfBoundsError(FIELD_NAMES.AMMOUNT, 1) });
+
+const type = z.enum(
+  [FoodTypes.COW, FoodTypes.FISH, FoodTypes.PORK, FoodTypes.CHICKEN],
+  {
+    required_error: requiredError(FIELD_NAMES.TYPE),
+    invalid_type_error: notValidError(FIELD_NAMES.TYPE),
+  },
+);
+
+const id = z
+  .string({
+    required_error: requiredError(FIELD_NAMES.ID),
+    invalid_type_error: notValidError(FIELD_NAMES.ID),
+  })
+  .min(1, { message: requiredError(FIELD_NAMES.ID) });
+
+// --------------------------
+
+// ----- ACTUAL SCHEMAS -----
+export const getFoods = z.object({
+  ubicationId: ubicationId,
+});
 
 export const createFood = z.object({
-  ubicationId: z.string().min(1),
-  name: z.string().min(1),
-  description: z.string().nullish(),
-  ammount: z.string().min(1),
-  type: z.enum([
-    FoodTypes.COW,
-    FoodTypes.FISH,
-    FoodTypes.PORK,
-    FoodTypes.CHICKEN,
-  ]),
+  ubicationId: ubicationId,
+  name: name,
+  description: description.nullish(),
+  ammount: ammount,
+  type: type,
 });
 
 export const editFood = z.object({
-  id: z.string().min(1),
-  name: z.string().optional(),
-  description: z.string().optional(),
-  ammount: z.string().optional(),
-  type: z.enum([
-    FoodTypes.COW,
-    FoodTypes.FISH,
-    FoodTypes.PORK,
-    FoodTypes.CHICKEN,
-  ]),
+  id: id,
+  name: name.optional(),
+  description: description.optional(),
+  ammount: ammount.optional(),
+  type: type,
 });
 
 export const getFoodById = z.object({
-  id: z.string().min(1),
+  id: id,
 });
 
 export const consume = z.object({
-  id: z.string().min(1),
-  ammount: z.number().min(0),
+  id: id,
+  ammount: z.coerce
+    .number({
+      required_error: requiredError(FIELD_NAMES.AMMOUNT),
+      invalid_type_error: notValidError(FIELD_NAMES.AMMOUNT),
+    })
+    .min(0, { message: outOfBoundsError(FIELD_NAMES.AMMOUNT, 0) }),
 });
 
 export const changeUbication = z.object({
-  id: z.string().min(1),
-  newUbicationId: z.string().min(1),
+  id: id,
+  newUbicationId: ubicationId,
 });

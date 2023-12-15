@@ -7,6 +7,7 @@ import { ACTIONS } from "../constants";
 import { Error } from "~/features/common/Form/Error";
 import Loader from "~/features/common/Loader";
 import Modal from "~/features/common/Modal";
+import { useRouter } from "next/router";
 
 type RelocateStatus = "idle" | "processing" | "error";
 
@@ -19,6 +20,9 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
   // TODO: evaluate alternatives, show error status?
   const [relocateStatus, setRelocateStatus] = useState<RelocateStatus>("idle");
 
+  const router = useRouter();
+  const { id: spaceId } = router.query;
+
   const openModal = () => setSelect(ACTIONS.MOVE);
   const closeModal = () => setSelect(ACTIONS.NONE);
 
@@ -26,8 +30,9 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
     api.ubication.getOthers.useQuery(
       {
         id: ubicationId ?? "",
+        spaceId: spaceId?.toString() ?? "",
       },
-      { refetchOnWindowFocus: false },
+      { refetchOnWindowFocus: false, enabled: !!spaceId && !!ubicationId },
     );
 
   const changeUbication = api.food.changeUbication.useMutation({
