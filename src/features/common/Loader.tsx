@@ -1,6 +1,6 @@
 import { Dot } from "lucide-react";
 
-export default function Loader({ size = 56 }: { size?: number }) {
+export function Loader({ size = 56 }: { size?: number }) {
   return (
     <div className="flex h-full w-full items-center justify-center gap-2">
       <Dot

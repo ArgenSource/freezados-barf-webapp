@@ -1,6 +1,7 @@
 import { test, expect } from "vitest";
-import Ubication from "./Ubication";
 import { type Ubication as TUbication } from "@prisma/client";
+
+import Ubication from "./Ubication";
 import { render, screen } from "~/utils/test/test-utils";
 
 const mockUbication: TUbication = {
@@ -13,5 +14,6 @@ const mockUbication: TUbication = {
 
 test("should render the ubication name", () => {
   render(<Ubication data={mockUbication} />);
+
   expect(screen.getByText("Ubication Test")).toBeDefined();
 });

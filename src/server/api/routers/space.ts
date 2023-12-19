@@ -6,7 +6,6 @@ import {
   joinWithInvitationRequest,
   setPrivacy,
 } from "~/utils/schemas/space";
-
 import {
   createTRPCRouter,
   protectedProcedure,

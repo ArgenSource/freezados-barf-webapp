@@ -1,7 +1,7 @@
 import { type Ubication as TUbication } from "@prisma/client";
+import Link from "next/link";
 
 import Ubication from "./Ubication";
-import Link from "next/link";
 
 interface IProps {
   ubications?: TUbication[];
@@ -10,6 +10,7 @@ interface IProps {
 
 export default function UbicationList({ ubications, spaceId }: IProps) {
   if (!ubications) return null;
+
   return (
     <div className="mb-4">
       <h2 className="text-xl">Ubicaciones: </h2>

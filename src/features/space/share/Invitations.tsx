@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { api } from "~/utils/api";
-import Loader from "~/features/common/Loader";
 import { Copy } from "lucide-react";
+
+import { api } from "~/utils/api";
+import { Loader } from "~/features/common";
 
 export default function Invitations() {
   const router = useRouter();
@@ -24,6 +25,7 @@ export default function Invitations() {
       })
       .catch((err) => console.log(err));
   };
+
   return (
     <div className="flex w-full grow flex-col items-center justify-center gap-2">
       <p className="p-4 text-center text-sm text-yellow-500">

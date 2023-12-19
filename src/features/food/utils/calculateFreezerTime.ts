@@ -1,6 +1,7 @@
 import { FoodTypes } from "@prisma/client";
 import { formatDistanceToNowStrict, isFuture } from "date-fns";
 import { es } from "date-fns/locale";
+
 import { FREEZE_STATES } from "../components/Food/constants";
 
 type PausedState = {
@@ -21,6 +22,7 @@ const daysInMilliseconds = (days: number) => days * 24 * 60 * 60 * 1000;
 
 const getReadyDate = (foodType: FoodTypes, freezedAt: Date): Date => {
   let freezeTime = 0;
+
   switch (foodType) {
     case FoodTypes.COW:
     case FoodTypes.CHICKEN:
@@ -35,6 +37,7 @@ const getReadyDate = (foodType: FoodTypes, freezedAt: Date): Date => {
     default:
       freezeTime - Infinity;
   }
+
   return new Date(freezedAt.getTime() + freezeTime);
 };
 

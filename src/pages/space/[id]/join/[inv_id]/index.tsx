@@ -1,8 +1,8 @@
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import Container from "~/features/common/Container";
+
 import QueryErrorBoundary from "~/features/common/Error/QueryErrorBoundary";
-import Loader from "~/features/common/Loader";
+import { Loader, Container } from "~/features/common";
 import { api } from "~/utils/api";
 
 export default function JoinWithIvitation() {
@@ -31,6 +31,7 @@ export default function JoinWithIvitation() {
         .catch((err) => console.error(err));
     }
   };
+
   return (
     <Container>
       <QueryErrorBoundary error={error?.data} refetch={refetch}>

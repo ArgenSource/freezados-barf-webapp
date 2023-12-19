@@ -1,7 +1,8 @@
+import type { Food as TFood } from "@prisma/client";
+import { test, expect, vi } from "vitest";
+
 import { render, screen } from "~/utils/test/test-utils";
 import { Food } from "./Food";
-import { type Food as TFood } from "@prisma/client";
-import { test, expect, vi } from "vitest";
 
 const mockFoodData: TFood = {
   id: "1",
@@ -27,6 +28,7 @@ test("should render Food name and amount", () => {
     },
   }));
   render(<Food foodData={mockFoodData} />);
+
   expect(screen.getByText(/cornalitos 100g/i)).toBeDefined();
   expect(screen.getByTestId("fish-icon")).toBeDefined();
 });

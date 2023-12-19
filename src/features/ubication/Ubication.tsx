@@ -1,11 +1,10 @@
 import { type Ubication as TUbication } from "@prisma/client";
-
 import { PlusCircle, ThermometerSnowflake } from "lucide-react";
+import Link from "next/link";
 
-import Loader from "../common/Loader";
 import { api } from "~/utils/api";
 import FoodList from "../food/components/FoodList";
-import Link from "next/link";
+import { Loader } from "../common";
 
 export default function Ubication({ data }: { data: TUbication }) {
   const { data: foods, status } = api.food.getFromUbication.useQuery(

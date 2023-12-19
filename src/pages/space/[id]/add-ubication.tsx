@@ -2,8 +2,7 @@ import { type FormEvent } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import Container from "~/features/common/Container";
-
+import { Container } from "~/features/common";
 import { createUbication as createSchema } from "~/utils/schemas/ubication";
 import { api } from "~/utils/api";
 
@@ -16,12 +15,14 @@ export default function AddUbication() {
     e.preventDefault();
     if (!spaceId) return;
     const formData = new FormData(e.currentTarget);
+
     try {
       const input = createSchema.parse({
         ...Object.fromEntries(formData.entries()),
         isFreezer: formData.get("isFreezer") == "on",
         spaceId: spaceId.toString(),
       });
+
       createUbication
         .mutateAsync(input)
         .then(() => router.push(`/space/${spaceId.toString()}`))
@@ -30,6 +31,7 @@ export default function AddUbication() {
       console.error(err);
     }
   };
+
   return (
     <>
       <Head>

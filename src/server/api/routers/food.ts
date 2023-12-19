@@ -5,7 +5,6 @@ import {
   publicProcedure,
   protectedProcedure,
 } from "~/server/api/trpc";
-
 import {
   getFoods,
   getFoodById,
@@ -23,6 +22,7 @@ export const foodRouter = createTRPCRouter({
         where: { id: input.ubicationId },
         select: { isFreezer: true },
       });
+
       return ctx.db.food.create({
         data: {
           ...input,
@@ -34,6 +34,7 @@ export const foodRouter = createTRPCRouter({
       });
     }),
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getByid: publicProcedure.input(getFoodById).query(({ input, ctx }) => null),
 
   getFromUbication: protectedProcedure.input(getFoods).query(({ input, ctx }) =>
@@ -59,6 +60,7 @@ export const foodRouter = createTRPCRouter({
           },
         },
       });
+
       if (updated.ammount == 0) {
         await ctx.db.food.update({
           where: { id: updated.id },
@@ -76,6 +78,7 @@ export const foodRouter = createTRPCRouter({
           },
         });
       }
+
       return true;
     }),
 
@@ -106,14 +109,17 @@ export const foodRouter = createTRPCRouter({
         });
 
       let newFreezedTime = freezedAt;
+
       if (!isFreezer) {
         const freezeStatus = calculateFreezerTime({ foodType, freezedAt });
+
         if (freezeStatus.state != FREEZE_STATES.READY) {
           newFreezedTime = null;
         }
       } else if (!freezedAt) {
         newFreezedTime = new Date();
       }
+
       return ctx.db.food.update({
         where: {
           id: input.id,

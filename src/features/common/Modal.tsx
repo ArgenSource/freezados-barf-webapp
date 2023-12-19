@@ -4,7 +4,6 @@ import {
   useRef,
   type HTMLAttributes,
 } from "react";
-
 import { twMerge } from "tailwind-merge";
 
 type ModalProps = {
@@ -12,7 +11,7 @@ type ModalProps = {
   onClickOutside?: () => void;
 };
 
-export default function Modal({
+export function Modal({
   children,
   open,
   onClickOutside,
@@ -20,6 +19,7 @@ export default function Modal({
   ...props
 }: PropsWithChildren<ModalProps & HTMLAttributes<HTMLDivElement>>) {
   const modalRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleClickOutside = (ev: PointerEvent) => {
       if (onClickOutside == undefined) return;
@@ -30,11 +30,14 @@ export default function Modal({
         onClickOutside();
       }
     };
+
     document.addEventListener("pointerdown", handleClickOutside);
+
     return () => {
       document.removeEventListener("pointerdown", handleClickOutside);
     };
   }, [modalRef, onClickOutside]);
+
   if (!open) return undefined;
 
   return (

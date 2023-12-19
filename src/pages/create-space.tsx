@@ -1,11 +1,10 @@
 import { type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Head from "next/head";
-
 import { Container as ContainerIcon } from "lucide-react";
 
 import { api } from "~/utils/api";
-import Container from "~/features/common/Container";
+import { Container } from "~/features/common";
 import { createSpace } from "~/utils/schemas/space";
 
 export default function CreateSpace() {
@@ -16,10 +15,12 @@ export default function CreateSpace() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+
     try {
       const { name } = createSpace.parse(
         Object.fromEntries(formData.entries()),
       );
+
       create
         .mutateAsync({ name: name })
         .then((res) => router.push(`space/${res.id}`))

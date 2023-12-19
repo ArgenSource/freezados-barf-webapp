@@ -1,7 +1,8 @@
-import { render, screen } from "~/utils/test/test-utils";
-import { Space } from "./Space";
 import { type Space as TSpace } from "@prisma/client";
 import { test, expect } from "vitest";
+
+import { render, screen } from "~/utils/test/test-utils";
+import { Space } from "./Space";
 
 const mockSpaceData: TSpace = {
   id: "1548451516",
@@ -12,6 +13,7 @@ const mockSpaceData: TSpace = {
 
 test("should render Space name and link to space page", () => {
   render(<Space data={mockSpaceData} />);
+
   expect(screen.getByText(mockSpaceData.name)).toBeDefined();
   expect(
     screen.getByRole("link", { name: mockSpaceData.name }),

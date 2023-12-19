@@ -1,10 +1,11 @@
 import { useState, useCallback } from "react";
 import { type Food as TFood } from "@prisma/client";
+import { useQueryClient } from "@tanstack/react-query";
+import { getQueryKey } from "@trpc/react-query";
+import { twMerge } from "tailwind-merge";
 
 import { FOOD_ICONS } from "~/features/food/utils/foodStyleIcons";
 import { api } from "~/utils/api";
-import { useQueryClient } from "@tanstack/react-query";
-import { getQueryKey } from "@trpc/react-query";
 import type { ActionNames } from "./types";
 import { ACTIONS, FREEZE_STATES } from "./constants";
 import {
@@ -14,7 +15,6 @@ import {
   ConsumeFood,
 } from "./components";
 import { calculateFreezerTime } from "../../utils/calculateFreezerTime";
-import { twMerge } from "tailwind-merge";
 
 export function Food({ foodData }: { foodData: TFood }) {
   const [selectedAction, setSelectedAction] = useState<ActionNames>(
@@ -77,6 +77,7 @@ export function Food({ foodData }: { foodData: TFood }) {
 
         {actionComponents.map((action) => {
           const { Component, action: actionName } = action;
+
           return (
             <Component
               key={actionName}

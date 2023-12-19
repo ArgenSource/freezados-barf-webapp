@@ -2,6 +2,7 @@ import type { PropsWithChildren } from "react";
 import { type DefaultErrorShape } from "@trpc/server/dist/error/formatter";
 import { type typeToFlattenedError } from "zod";
 import { type TRPC_ERROR_CODE_KEY } from "@trpc/server/rpc";
+
 import AuthError from "./AuthError";
 
 type ErrorProps = {
@@ -33,6 +34,7 @@ export default function QueryErrorBoundary({
     const handleRefetch = () => {
       refetch().catch((err) => console.error(err));
     };
+
     return (
       renderErrorData(error.code) || (
         <div>

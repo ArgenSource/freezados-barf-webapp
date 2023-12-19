@@ -1,4 +1,5 @@
 import { type Food as TFood } from "@prisma/client";
+
 import { Food } from "./Food";
 
 export default function FoodList({ foods }: { foods: TFood[] }) {

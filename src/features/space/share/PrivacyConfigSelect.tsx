@@ -3,6 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
 import { Mail, Globe, Lock } from "lucide-react";
 import { type ReactNode, useState } from "react";
+
 import { api } from "~/utils/api";
 
 type ShareProps = {
@@ -50,6 +51,7 @@ export default function PrivacyConfigSelect({ space }: ShareProps) {
       privacy.mutate({ id: space.id, config: val });
     }
   };
+
   return (
     <>
       <h2 className="my-2 text-center">
