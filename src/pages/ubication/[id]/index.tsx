@@ -1,11 +1,8 @@
 import { useRouter } from "next/router";
 
 import Ubication from "~/features/ubication/Ubication";
-import Loader from "~/features/common/Loader";
-
 import { api } from "~/utils/api";
-import Container from "~/features/common/Container";
-import { Error as FormError } from "~/features/common/Form/Error";
+import { Container, Loader, Error as FormError } from "~/features/common";
 import QueryErrorBoundary from "~/features/common/Error/QueryErrorBoundary";
 
 export default function UbicationPage() {
@@ -31,12 +28,10 @@ export default function UbicationPage() {
     }
   };
   return (
-    <>
-      <main>
-        <QueryErrorBoundary error={error?.data} refetch={refetch}>
-          <Container>{renderData()}</Container>
-        </QueryErrorBoundary>
-      </main>
-    </>
+    <main>
+      <QueryErrorBoundary error={error?.data} refetch={refetch}>
+        <Container>{renderData()}</Container>
+      </QueryErrorBoundary>
+    </main>
   );
 }

@@ -25,6 +25,31 @@ const config = {
     ],
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     "arrow-body-style": ["error", "as-needed"],
+
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        groups: [
+          "external",
+          ["builtin", "index", "internal", "parent", "sibling"],
+        ],
+        pathGroups: [
+          {
+            pattern: "@(react*)",
+            group: "external",
+          },
+          {
+            pattern:
+              "{pages,vendors,assets,components,hooks,services,utils,features}/**",
+            group: "internal",
+          },
+        ],
+        pathGroupsExcludedImportTypes: ["react"],
+        warnOnUnassignedImports: true,
+        distinctGroup: true,
+      },
+    ],
   },
 };
 

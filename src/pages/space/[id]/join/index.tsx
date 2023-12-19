@@ -1,9 +1,9 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import Container from "~/features/common/Container";
-import Loader from "~/features/common/Loader";
-import { api } from "~/utils/api";
 import { signIn } from "next-auth/react";
+
+import { Container, Loader } from "~/features/common";
+import { api } from "~/utils/api";
 import QueryErrorBoundary from "~/features/common/Error/QueryErrorBoundary";
 
 export default function Join() {

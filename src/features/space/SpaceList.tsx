@@ -1,5 +1,4 @@
-import Loader from "../common/Loader";
-
+import { Loader } from "../common";
 import { api } from "~/utils/api";
 import { Error } from "../common/Form/Error";
 import { Space } from "./components/Space";

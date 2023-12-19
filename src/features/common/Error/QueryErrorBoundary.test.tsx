@@ -1,6 +1,7 @@
+import { describe, test, expect, vi } from "vitest";
+
 import { fireEvent, render, screen } from "~/utils/test/test-utils";
 import QueryErrorBoundary from "./QueryErrorBoundary";
-import { describe, test, expect, vi } from "vitest";
 
 describe("Query Error Boundary", () => {
   test("should render default error page and have refetch button", () => {

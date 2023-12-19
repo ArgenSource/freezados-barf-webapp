@@ -1,6 +1,7 @@
 import { type RenderOptions, render } from "@testing-library/react";
-import { api } from "../api";
 import type { FC, PropsWithChildren, ReactElement } from "react";
+
+import { api } from "../api";
 
 const AllTheProviders: FC<PropsWithChildren> = ({ children }) => (
   <div>{children}</div>

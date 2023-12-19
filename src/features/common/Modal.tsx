@@ -4,7 +4,6 @@ import {
   useRef,
   type HTMLAttributes,
 } from "react";
-
 import { twMerge } from "tailwind-merge";
 
 type ModalProps = {
@@ -12,7 +11,7 @@ type ModalProps = {
   onClickOutside?: () => void;
 };
 
-export default function Modal({
+export function Modal({
   children,
   open,
   onClickOutside,

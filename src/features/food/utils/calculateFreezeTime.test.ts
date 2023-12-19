@@ -1,5 +1,6 @@
-import { calculateFreezerTime } from "./calculateFreezerTime";
 import { expect, describe, test } from "vitest";
+
+import { calculateFreezerTime } from "./calculateFreezerTime";
 import { FREEZE_STATES } from "../components/Food/constants";
 
 type CalcFreezeTimeParam = Parameters<typeof calculateFreezerTime>[0];

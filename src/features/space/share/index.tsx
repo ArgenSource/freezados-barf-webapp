@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { AlertTriangle, Share as ShareIcon, XCircle } from "lucide-react";
 import { useRouter } from "next/router";
+
 import { api } from "~/utils/api";
-import Modal from "~/features/common/Modal";
 import PrivacyConfigSelect from "./PrivacyConfigSelect";
 import PublicLink from "./PublicLink";
 import Invitations from "./Invitations";
-import Loader from "~/features/common/Loader";
+import { Loader, Modal } from "~/features/common";
 
 export default function Share() {
   const [open, setOpen] = useState<boolean>(false);

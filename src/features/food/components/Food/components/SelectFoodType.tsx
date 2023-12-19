@@ -1,4 +1,5 @@
 import type { HTMLAttributes, PropsWithChildren } from "react";
+
 import { FOOD_ICONS, type FType } from "~/features/food/utils/foodStyleIcons";
 
 type SelectProps = {

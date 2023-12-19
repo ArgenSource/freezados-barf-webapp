@@ -1,16 +1,19 @@
 import { type FormEvent } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-
-import Container from "~/features/common/Container";
 import { ChevronLeftCircle } from "lucide-react";
 
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
-import { Input, FormInput, Textarea } from "~/features/common/Form";
 import { SelectFoodType } from "~/features/food/components/Food/components";
-
 import useFormErrors from "~/utils/hooks/useFormErrors";
+import {
+  PageWrapper,
+  Input,
+  FormInput,
+  Container,
+  Textarea,
+} from "~/features/common";
 
 export default function AddFood() {
   const router = useRouter();
@@ -42,7 +45,7 @@ export default function AddFood() {
       <Head>
         <title>Add new food</title>
       </Head>
-      <main>
+      <PageWrapper>
         <Container>
           <button onClick={() => router.back()}>
             <ChevronLeftCircle size={32} />
@@ -109,7 +112,7 @@ export default function AddFood() {
             </button>
           </form>
         </Container>
-      </main>
+      </PageWrapper>
     </>
   );
 }

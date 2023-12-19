@@ -1,5 +1,6 @@
 import { type HTMLProps } from "react";
 import { twMerge } from "tailwind-merge";
+
 import { Label, Input, Error } from "./index";
 
 // Quizas corresponda a algo mas general?
@@ -31,7 +32,7 @@ export const FormInput = ({
   required = false,
   ...props
 }: FormInputProps) => {
-  const styles = twMerge("", props.className);
+  const styles = twMerge("flex flex-col", props.className);
   return (
     <div className={styles}>
       {elements?.label ?? (

@@ -1,13 +1,11 @@
 import { useState, type FC } from "react";
 import { Replace, XCircle, ThermometerSnowflake } from "lucide-react";
+import { useRouter } from "next/router";
 
 import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
-import { Error } from "~/features/common/Form/Error";
-import Loader from "~/features/common/Loader";
-import Modal from "~/features/common/Modal";
-import { useRouter } from "next/router";
+import { Loader, Modal, Error } from "~/features/common";
 
 type RelocateStatus = "idle" | "processing" | "error";
 

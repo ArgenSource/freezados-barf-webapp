@@ -1,6 +1,7 @@
 import { test, expect } from "vitest";
-import Ubication from "./Ubication";
 import { type Ubication as TUbication } from "@prisma/client";
+
+import Ubication from "./Ubication";
 import { render, screen } from "~/utils/test/test-utils";
 
 const mockUbication: TUbication = {

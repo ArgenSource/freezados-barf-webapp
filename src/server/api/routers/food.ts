@@ -5,7 +5,6 @@ import {
   publicProcedure,
   protectedProcedure,
 } from "~/server/api/trpc";
-
 import {
   getFoods,
   getFoodById,
@@ -34,6 +33,7 @@ export const foodRouter = createTRPCRouter({
       });
     }),
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getByid: publicProcedure.input(getFoodById).query(({ input, ctx }) => null),
 
   getFromUbication: protectedProcedure.input(getFoods).query(({ input, ctx }) =>

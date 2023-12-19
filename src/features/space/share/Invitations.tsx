@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { api } from "~/utils/api";
-import Loader from "~/features/common/Loader";
 import { Copy } from "lucide-react";
+
+import { api } from "~/utils/api";
+import { Loader } from "~/features/common";
 
 export default function Invitations() {
   const router = useRouter();

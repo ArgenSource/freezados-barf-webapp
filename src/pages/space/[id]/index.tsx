@@ -1,17 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import Head from "next/head";
 import { Container as ContainerIcon } from "lucide-react";
 
-import Container from "~/features/common/Container";
-import Loader from "~/features/common/Loader";
 import UbicationList from "~/features/ubication/UbicationList";
-
 import { api } from "~/utils/api";
-import Head from "next/head";
-
 import QueryErrorBoundary from "~/features/common/Error/QueryErrorBoundary";
 import Share from "~/features/space/share";
+import { Loader, PageWrapper, Container } from "~/features/common";
 
 export default function Space() {
   const router = useRouter();
@@ -34,7 +30,7 @@ export default function Space() {
       <Head>
         <title>{space ? `Espacio - ${space?.name}` : "Freezados BARF"}</title>
       </Head>
-      <main className="h-screen bg-zinc-900 text-violet-300">
+      <PageWrapper>
         <Container>
           {status == "loading" && <Loader />}
           <QueryErrorBoundary error={error?.data} refetch={refetch}>
@@ -73,7 +69,7 @@ export default function Space() {
             )}
           </QueryErrorBoundary>
         </Container>
-      </main>
+      </PageWrapper>
     </>
   );
 }

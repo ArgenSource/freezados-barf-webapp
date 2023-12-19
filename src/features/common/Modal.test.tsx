@@ -1,5 +1,6 @@
-import Modal from "./Modal";
 import { expect, describe, test, vi, beforeEach } from "vitest";
+
+import { Modal } from "./Modal";
 import { render, screen, cleanup, fireEvent } from "~/utils/test/test-utils";
 
 describe("Modal component", () => {

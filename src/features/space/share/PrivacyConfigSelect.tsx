@@ -3,6 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
 import { Mail, Globe, Lock } from "lucide-react";
 import { type ReactNode, useState } from "react";
+
 import { api } from "~/utils/api";
 
 type ShareProps = {

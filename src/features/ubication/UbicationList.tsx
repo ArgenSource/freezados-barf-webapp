@@ -1,7 +1,7 @@
 import { type Ubication as TUbication } from "@prisma/client";
+import Link from "next/link";
 
 import Ubication from "./Ubication";
-import Link from "next/link";
 
 interface IProps {
   ubications?: TUbication[];
