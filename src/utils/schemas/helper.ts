@@ -8,7 +8,9 @@ export function notValidError(name: string) {
 
 export function outOfBoundsError(name: string, min?: number, max?: number) {
   let range = "";
+
   if (min !== undefined) range += `\n- mínimo: ${min}`;
   if (max !== undefined) range += `\n- máximo: ${max}`;
+
   return `${name} fuera de rango.${range}`;
 }

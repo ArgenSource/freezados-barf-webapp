@@ -13,6 +13,7 @@ const mockSpaceData: TSpace = {
 
 test("should render Space name and link to space page", () => {
   render(<Space data={mockSpaceData} />);
+
   expect(screen.getByText(mockSpaceData.name)).toBeDefined();
   expect(
     screen.getByRole("link", { name: mockSpaceData.name }),

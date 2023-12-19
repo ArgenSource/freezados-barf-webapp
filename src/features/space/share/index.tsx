@@ -44,6 +44,7 @@ export default function Share() {
         );
     }
   };
+
   return (
     <div>
       <button onClick={() => setOpen(true)}>

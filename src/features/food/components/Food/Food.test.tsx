@@ -28,6 +28,7 @@ test("should render Food name and amount", () => {
     },
   }));
   render(<Food foodData={mockFoodData} />);
+
   expect(screen.getByText(/cornalitos 100g/i)).toBeDefined();
   expect(screen.getByTestId("fish-icon")).toBeDefined();
 });

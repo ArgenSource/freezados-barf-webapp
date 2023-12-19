@@ -31,6 +31,7 @@ export default function JoinWithIvitation() {
         .catch((err) => console.error(err));
     }
   };
+
   return (
     <Container>
       <QueryErrorBoundary error={error?.data} refetch={refetch}>

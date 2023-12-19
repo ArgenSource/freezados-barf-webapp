@@ -27,6 +27,7 @@ export default function UbicationPage() {
         return <FormError />;
     }
   };
+
   return (
     <main>
       <QueryErrorBoundary error={error?.data} refetch={refetch}>

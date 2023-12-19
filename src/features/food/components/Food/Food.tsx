@@ -77,6 +77,7 @@ export function Food({ foodData }: { foodData: TFood }) {
 
         {actionComponents.map((action) => {
           const { Component, action: actionName } = action;
+
           return (
             <Component
               key={actionName}

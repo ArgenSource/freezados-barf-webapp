@@ -33,6 +33,7 @@ export const FormInput = ({
   ...props
 }: FormInputProps) => {
   const styles = twMerge("flex flex-col", props.className);
+
   return (
     <div className={styles}>
       {elements?.label ?? (

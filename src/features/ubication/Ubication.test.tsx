@@ -14,5 +14,6 @@ const mockUbication: TUbication = {
 
 test("should render the ubication name", () => {
   render(<Ubication data={mockUbication} />);
+
   expect(screen.getByText("Ubication Test")).toBeDefined();
 });

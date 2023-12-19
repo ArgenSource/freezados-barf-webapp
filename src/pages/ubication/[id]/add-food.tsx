@@ -27,10 +27,12 @@ export default function AddFood() {
     e.preventDefault();
     if (!ubicationId) return;
     const formData = new FormData(e.currentTarget);
+
     formData.append("ubicationId", ubicationId.toString());
     try {
       parseErrors(Object.fromEntries(formData.entries()));
       const input = createFood.parse(Object.fromEntries(formData.entries()));
+
       addFood
         .mutateAsync(input)
         .then(() => router.back())

@@ -21,6 +21,7 @@ type HookReturn = ReturnType<typeof useFormErrors<typeof mockSchema.shape>>;
 
 describe("Use form errors", () => {
   let hook: RenderHookResult<HookReturn, unknown>;
+
   beforeEach(() => {
     hook = renderHook(() => useFormErrors(mockSchema));
   });
@@ -32,6 +33,7 @@ describe("Use form errors", () => {
   describe("when passed a valid object", () => {
     test("should return true", () => {
       const parsed = hook.result.current.parseErrors(mockConforms);
+
       expect(parsed).toBe(true);
       expect(hook.result.current.errors).toBeUndefined();
     });
@@ -44,8 +46,11 @@ describe("Use form errors", () => {
         positive_num: -100,
         any_num: "string",
       });
+
       expect(parsed).toBe(false);
+
       hook.rerender();
+
       expect(hook.result.current.errors).toBeDefined();
       expect(hook.result.current.errors).toBeTypeOf("object");
       expect(hook.result.current.errors).toHaveProperty("name");

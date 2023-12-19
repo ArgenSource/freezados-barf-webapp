@@ -15,10 +15,12 @@ export default function CreateSpace() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+
     try {
       const { name } = createSpace.parse(
         Object.fromEntries(formData.entries()),
       );
+
       create
         .mutateAsync({ name: name })
         .then((res) => router.push(`space/${res.id}`))

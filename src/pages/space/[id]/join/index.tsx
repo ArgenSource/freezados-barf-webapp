@@ -27,6 +27,7 @@ export default function Join() {
   const handleJoin = () => {
     if (space) {
       const id = space.id;
+
       join
         .mutateAsync({ spaceId: id })
         .then((res) => {
@@ -35,6 +36,7 @@ export default function Join() {
         .catch((err) => console.error(err));
     }
   };
+
   return (
     <Container>
       <QueryErrorBoundary error={error?.data} refetch={refetch}>

@@ -19,6 +19,7 @@ export function Modal({
   ...props
 }: PropsWithChildren<ModalProps & HTMLAttributes<HTMLDivElement>>) {
   const modalRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleClickOutside = (ev: PointerEvent) => {
       if (onClickOutside == undefined) return;
@@ -29,11 +30,14 @@ export function Modal({
         onClickOutside();
       }
     };
+
     document.addEventListener("pointerdown", handleClickOutside);
+
     return () => {
       document.removeEventListener("pointerdown", handleClickOutside);
     };
   }, [modalRef, onClickOutside]);
+
   if (!open) return undefined;
 
   return (

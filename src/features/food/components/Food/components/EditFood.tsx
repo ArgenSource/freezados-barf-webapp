@@ -23,11 +23,13 @@ export const EditFood: React.FC<ActionProps> = ({
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+
     try {
       const input = editFood.parse({
         ...Object.fromEntries(formData.entries()),
         id: food.id,
       });
+
       edit
         .mutateAsync(input)
         .then(async (res) => {

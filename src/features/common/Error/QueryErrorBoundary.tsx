@@ -34,6 +34,7 @@ export default function QueryErrorBoundary({
     const handleRefetch = () => {
       refetch().catch((err) => console.error(err));
     };
+
     return (
       renderErrorData(error.code) || (
         <div>

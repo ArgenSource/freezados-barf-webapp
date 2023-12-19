@@ -19,11 +19,13 @@ export default function useFormErrors<T extends ZodRawShape>(
 
   const parseErrors = (inputs: unknown) => {
     const parsed = schema.safeParse(inputs);
+
     if (parsed.success) {
       // TODO: Cambiar porque devuelva parsed.data ? -> deberia ser el objeto todo OK
       return true;
     } else {
       setErrors(parsed.error.format());
+
       // TODO: Cambiar por un throw? Conviene manejarlo con bool o directamente en el catch?
       return false;
     }

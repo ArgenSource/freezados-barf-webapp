@@ -25,6 +25,7 @@ export default function Invitations() {
       })
       .catch((err) => console.log(err));
   };
+
   return (
     <div className="flex w-full grow flex-col items-center justify-center gap-2">
       <p className="p-4 text-center text-sm text-yellow-500">

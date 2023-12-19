@@ -15,12 +15,14 @@ export default function AddUbication() {
     e.preventDefault();
     if (!spaceId) return;
     const formData = new FormData(e.currentTarget);
+
     try {
       const input = createSchema.parse({
         ...Object.fromEntries(formData.entries()),
         isFreezer: formData.get("isFreezer") == "on",
         spaceId: spaceId.toString(),
       });
+
       createUbication
         .mutateAsync(input)
         .then(() => router.push(`/space/${spaceId.toString()}`))
@@ -29,6 +31,7 @@ export default function AddUbication() {
       console.error(err);
     }
   };
+
   return (
     <>
       <Head>

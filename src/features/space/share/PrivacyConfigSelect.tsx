@@ -51,6 +51,7 @@ export default function PrivacyConfigSelect({ space }: ShareProps) {
       privacy.mutate({ id: space.id, config: val });
     }
   };
+
   return (
     <>
       <h2 className="my-2 text-center">

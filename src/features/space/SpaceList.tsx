@@ -26,6 +26,7 @@ export default function SpaceList() {
         return <Error />;
     }
   };
+
   return (
     <div className="flex flex-col gap-2">
       {spaces && spaces.length > 0 && <h3>Tus espacios: </h3>}

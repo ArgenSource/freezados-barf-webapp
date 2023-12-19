@@ -7,6 +7,7 @@ type LabelProps = {
 
 export const Label = ({ text, ...props }: LabelProps) => {
   const styles = twMerge("", props.className);
+
   return (
     <label {...props} className={styles}>
       {text}

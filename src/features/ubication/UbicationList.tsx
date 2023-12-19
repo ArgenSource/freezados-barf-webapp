@@ -10,6 +10,7 @@ interface IProps {
 
 export default function UbicationList({ ubications, spaceId }: IProps) {
   if (!ubications) return null;
+
   return (
     <div className="mb-4">
       <h2 className="text-xl">Ubicaciones: </h2>
