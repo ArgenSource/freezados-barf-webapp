@@ -1,4 +1,4 @@
-import { type Food as TFood } from "@prisma/client";
+import type { Food as TFood } from "@prisma/client";
 import { test, expect, vi } from "vitest";
 
 import { render, screen } from "~/utils/test/test-utils";
