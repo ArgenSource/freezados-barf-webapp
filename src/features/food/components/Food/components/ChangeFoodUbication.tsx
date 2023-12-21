@@ -1,6 +1,7 @@
 import { useState, type FC } from "react";
 import { Replace, XCircle, ThermometerSnowflake } from "lucide-react";
 import { useRouter } from "next/router";
+import { type Ubication } from "@prisma/client";
 
 import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
@@ -10,8 +11,10 @@ import { Error } from "~/features/common/components/Form";
 
 type RelocateStatus = "idle" | "processing" | "error";
 
+type OtherUbication = Pick<Ubication, "id" | "name" | "isFreezer">;
+
 export const ChangeFoodUbication: FC<ActionProps> = ({
-  data: { id, ubicationId },
+  data: { id: foodId, ubicationId },
   active,
   refetchFunction,
   setSelect,
@@ -24,6 +27,13 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
 
   const openModal = () => setSelect(ACTIONS.MOVE);
   const closeModal = () => setSelect(ACTIONS.NONE);
+
+  const { data } = api.ubication.getById.useQuery(
+    { id: ubicationId ?? "" },
+    { enabled: !!ubicationId },
+  );
+
+  const isCurrentUbicationFreezer = data?.isFreezer ?? false;
 
   const { data: otherUbications, status: statusOtherUbications } =
     api.ubication.getOthers.useQuery(
@@ -43,9 +53,19 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
     },
   });
 
-  const handleSelectNewUbication = (ubId: string) => {
+  const handleSelectNewUbication = (newUbication: OtherUbication) => {
+    if (isCurrentUbicationFreezer && !newUbication.isFreezer) {
+      if (
+        !confirm(
+          "Esta comida actualmente se encuentra en el freezer y la nueva ubicacion no es un freezer. Confirmar de todas formas?",
+        )
+      ) {
+        return;
+      }
+    }
+
     changeUbication
-      .mutateAsync({ id, newUbicationId: ubId })
+      .mutateAsync({ id: foodId, newUbicationId: newUbication.id })
       .then(async (res) => {
         await refetchFunction(res.ubicationId ?? undefined);
         await refetchFunction(ubicationId ?? undefined);
@@ -69,7 +89,7 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
                   <li key={ubication.id}>
                     <button
                       className="my-2 flex items-center gap-1 rounded-md bg-cyan-200 p-2 text-black"
-                      onClick={() => handleSelectNewUbication(ubication.id)}
+                      onClick={() => handleSelectNewUbication(ubication)}
                     >
                       {ubication.name}
                       <ThermometerSnowflake
@@ -103,7 +123,7 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
           <button onClick={closeModal} className="absolute right-2 top-2">
             <XCircle size={20} />
           </button>
-          <h6 className="font-bold text-white">Choose the new ubication</h6>
+          <h6 className="font-bold text-white">Elegir la nueva ubicacion</h6>
           {renderUbicationOptions()}
         </Modal>
         <button onClick={openModal}>
