@@ -6,6 +6,8 @@ import {
   Container,
   PageWrapper,
   BackButton,
+  FormInput,
+  Textarea,
 } from "~/features/common/components";
 import { createUbication as createSchema } from "~/utils/schemas/ubication";
 import { api } from "~/utils/api";
@@ -47,33 +49,35 @@ export default function AddUbication() {
           <h1 className="text-center text-2xl font-bold">Crea tu ubicacion</h1>
           <form
             onSubmit={handleSubmit}
-            className="mt-8 flex w-full flex-col items-center gap-4"
+            className="mt-8 flex w-full flex-col gap-4"
           >
-            <label htmlFor="name">
-              <p>Nombre</p>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                required
-                className="rounded-md border-2 p-1"
-              />
-            </label>
-            <label htmlFor="description">
-              <p>Descripcion (opcional)</p>
-              <textarea
-                name="description"
-                id="description"
-                className="rounded-md border-2 p-1"
-              />
-            </label>
-            <label htmlFor="isFreezer" className="justify-apart flex gap-4">
-              <p>Es un freezer?</p>
-              <input type="checkbox" name="isFreezer" id="isFreezer" />
-            </label>
+            <FormInput fieldName="name" displayName="Nombre" required />
+            <FormInput
+              fieldName="description"
+              displayName="Descripcion (opcional)"
+              required
+              elements={{
+                input: <Textarea name="description" id="description" />,
+              }}
+            />
+            <FormInput
+              fieldName="isFreezer"
+              displayName="Es un freezer?"
+              required
+              elements={{
+                label: <></>,
+                input: (
+                  <label className="flex gap-4">
+                    Es un freezer?
+                    <input type="checkbox" name="isFreezer" id="isFreezer" />
+                  </label>
+                ),
+              }}
+            />
+
             <button
               type="submit"
-              className="flex items-center gap-2 rounded-md bg-cyan-600 p-4 text-xl font-bold text-gray-100"
+              className="flex items-center justify-center gap-2 rounded-md bg-violet-500 p-4 text-xl font-bold text-gray-100"
             >
               Crear
             </button>
