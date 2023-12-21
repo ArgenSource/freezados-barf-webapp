@@ -123,7 +123,7 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
           <button onClick={closeModal} className="absolute right-2 top-2">
             <XCircle size={20} />
           </button>
-          <h6 className="font-bold text-white">Choose the new ubication</h6>
+          <h6 className="font-bold text-white">Elegir la nueva ubicacion</h6>
           {renderUbicationOptions()}
         </Modal>
         <button onClick={openModal}>
