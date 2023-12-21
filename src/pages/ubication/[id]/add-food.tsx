@@ -5,13 +5,9 @@ import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
 import { SelectFoodType } from "~/features/food/components/Food/components";
 import useFormErrors from "~/utils/hooks/useFormErrors";
-import {
-  Input,
-  FormInput,
-  Textarea,
-  BackButton,
-} from "~/features/common/components";
+import { BackButton } from "~/features/common/components";
 import { PageLayout } from "~/features/common/components/layout";
+import { FormInput, Input, Textarea } from "~/features/common/components/Form";
 
 export default function AddFood() {
   const router = useRouter();

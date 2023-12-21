@@ -1,8 +1,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
-import { Container } from "~/features/common/components";
-import { PageLayout } from "~/features/common/components/layout";
+import { PageLayout, Container } from "~/features/common/components/layout";
 import SpaceList from "~/features/space/SpaceList";
 
 export default function Home() {

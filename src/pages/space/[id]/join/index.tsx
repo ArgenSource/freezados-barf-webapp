@@ -2,7 +2,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 
-import { Container, Loader } from "~/features/common/components";
+import { Loader } from "~/features/common/components";
+import { Container } from "~/features/common/components/layout";
 import { api } from "~/utils/api";
 import QueryErrorBoundary from "~/features/common/components/Error/QueryErrorBoundary";
 

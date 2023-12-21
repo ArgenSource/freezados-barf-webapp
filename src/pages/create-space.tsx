@@ -3,9 +3,10 @@ import { useRouter } from "next/navigation";
 import { Container } from "lucide-react";
 
 import { api } from "~/utils/api";
-import { BackButton, FormInput } from "~/features/common/components";
+import { BackButton } from "~/features/common/components";
 import { createSpace } from "~/utils/schemas/space";
 import { PageLayout } from "~/features/common/components/layout";
+import { FormInput } from "~/features/common/components/Form";
 
 export default function CreateSpace() {
   const router = useRouter();

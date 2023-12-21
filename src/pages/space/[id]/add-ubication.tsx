@@ -1,10 +1,11 @@
 import { type FormEvent } from "react";
 import { useRouter } from "next/router";
 
-import { BackButton, FormInput, Textarea } from "~/features/common/components";
+import { BackButton } from "~/features/common/components";
 import { createUbication as createSchema } from "~/utils/schemas/ubication";
 import { api } from "~/utils/api";
 import { PageLayout } from "~/features/common/components/layout";
+import { FormInput, Textarea } from "~/features/common/components/Form";
 
 export default function AddUbication() {
   const createUbication = api.ubication.create.useMutation();
