@@ -14,6 +14,7 @@ import {
   Container,
   Textarea,
 } from "~/features/common";
+import { Datetime } from "~/features/common/Form/Datetime";
 
 export default function AddFood() {
   const router = useRouter();
@@ -104,6 +105,13 @@ export default function AddFood() {
                     className="rounded-md border-2 p-1"
                   />
                 ),
+              }}
+            />
+            <FormInput
+              fieldName="date"
+              displayName="Fecha"
+              elements={{
+                input: <Datetime />,
               }}
             />
             <button
