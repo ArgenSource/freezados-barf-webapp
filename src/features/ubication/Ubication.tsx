@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { api } from "~/utils/api";
 import FoodList from "../food/components/FoodList";
-import { Loader } from "../common";
+import { Loader } from "../common/components";
 
 export default function Ubication({ data }: { data: TUbication }) {
   const { data: foods, status } = api.food.getFromUbication.useQuery(

@@ -1,20 +1,18 @@
 import { type FormEvent } from "react";
 import { useRouter } from "next/router";
-import Head from "next/head";
-import { ChevronLeftCircle } from "lucide-react";
 
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
 import { SelectFoodType } from "~/features/food/components/Food/components";
 import useFormErrors from "~/utils/hooks/useFormErrors";
+import { BackButton } from "~/features/common/components";
+import { PageLayout } from "~/features/common/components/layout";
 import {
-  PageWrapper,
-  Input,
   FormInput,
-  Container,
+  Input,
   Textarea,
-} from "~/features/common";
-import { Datetime } from "~/features/common/Form/Datetime";
+  Datetime,
+} from "~/features/common/components/Form";
 
 export default function AddFood() {
   const router = useRouter();
@@ -44,86 +42,68 @@ export default function AddFood() {
   };
 
   return (
-    <>
-      <Head>
-        <title>Add new food</title>
-      </Head>
-      <PageWrapper>
-        <Container>
-          <button onClick={() => router.back()}>
-            <ChevronLeftCircle size={32} />
-          </button>
-          <h1 className="text-center text-2xl font-bold">Add new food</h1>
-          <form
-            onSubmit={handleSubmit}
-            className="mt-8 flex w-full flex-col items-center gap-4"
-          >
-            <FormInput
-              fieldName="name"
-              displayName="Nombre"
-              required
-              errors={errors?.name}
-            />
-            <FormInput
-              fieldName="type"
-              displayName="Tipo"
-              required
-              errors={errors?.type}
-              elements={{
-                input: <SelectFoodType />,
-              }}
-            />
-            <FormInput
-              fieldName="ammount"
-              displayName="Cantidad"
-              errors={errors?.ammount}
-              elements={{
-                input: (
-                  <div>
-                    <Input
-                      type="number"
-                      name="ammount"
-                      id="ammount"
-                      min={1}
-                      className="text-right"
-                      required
-                    />
-                    <span className="ml-2">g</span>
-                  </div>
-                ),
-              }}
-            />
-            <FormInput
-              fieldName="description"
-              displayName="Descripcion (opcional)"
-              errors={errors?.description}
-              elements={{
-                input: (
-                  <Textarea
-                    name="description"
-                    id="description"
-                    className="rounded-md border-2 p-1"
-                  />
-                ),
-              }}
-            />
-            <FormInput
-              fieldName="date"
-              displayName="Fecha"
-              errors={errors?.date}
-              elements={{
-                input: <Datetime name="date" id="date" />,
-              }}
-            />
-            <button
-              type="submit"
-              className="flex items-center gap-2 rounded-md bg-cyan-600 p-4 text-xl font-bold text-gray-100"
-            >
-              Crear
-            </button>
-          </form>
-        </Container>
-      </PageWrapper>
-    </>
+    <PageLayout headTitle="Freezados - Add new food">
+      <BackButton />
+      <h1 className="text-center text-2xl font-bold">Add new food</h1>
+      <form onSubmit={handleSubmit} className="mt-8 flex w-full flex-col gap-4">
+        <FormInput
+          fieldName="name"
+          displayName="Nombre"
+          required
+          errors={errors?.name}
+        />
+        <FormInput
+          fieldName="type"
+          displayName="Tipo"
+          required
+          errors={errors?.type}
+          elements={{
+            input: <SelectFoodType />,
+          }}
+        />
+        <FormInput
+          fieldName="ammount"
+          displayName="Cantidad"
+          errors={errors?.ammount}
+          elements={{
+            input: (
+              <div>
+                <Input
+                  type="number"
+                  name="ammount"
+                  id="ammount"
+                  min={1}
+                  className="text-right"
+                  required
+                />
+                <span className="ml-2">g</span>
+              </div>
+            ),
+          }}
+        />
+        <FormInput
+          fieldName="description"
+          displayName="Descripcion (opcional)"
+          errors={errors?.description}
+          elements={{
+            input: <Textarea name="description" id="description" />,
+          }}
+        />
+        <FormInput
+          fieldName="date"
+          displayName="Fecha"
+          errors={errors?.date}
+          elements={{
+            input: <Datetime name="date" id="date" />,
+          }}
+        />
+        <button
+          type="submit"
+          className="flex items-center justify-center gap-2 rounded-md bg-violet-500 p-4 text-xl font-bold text-gray-100"
+        >
+          Crear
+        </button>
+      </form>
+    </PageLayout>
   );
 }
