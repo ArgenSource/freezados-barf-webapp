@@ -95,13 +95,7 @@ export default function AddFood() {
               displayName="Descripcion (opcional)"
               errors={errors?.description}
               elements={{
-                input: (
-                  <Textarea
-                    name="description"
-                    id="description"
-                    className="rounded-md border-2 p-1"
-                  />
-                ),
+                input: <Textarea name="description" id="description" />,
               }}
             />
             <button
