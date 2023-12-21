@@ -3,13 +3,18 @@ import { type PropsWithChildren } from "react";
 
 import { PageWrapper } from "./PageWrapper";
 import { Container } from "./Container";
+
 interface Props {
-  title: string;
+  headTitle: string;
 }
-export const PageLayout = ({ title, children }: PropsWithChildren<Props>) => (
+
+export const PageLayout = ({
+  headTitle,
+  children,
+}: PropsWithChildren<Props>) => (
   <>
     <Head>
-      <title>{title}</title>
+      <title>{headTitle}</title>
       <meta
         name="description"
         content="App para gestionar tiempos de freezado en dietas BARF"

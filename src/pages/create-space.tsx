@@ -31,7 +31,7 @@ export default function CreateSpace() {
   };
 
   return (
-    <PageLayout title="Freezados - Crear espacio">
+    <PageLayout headTitle="Freezados - Crear espacio">
       <BackButton />
       <h1 className="text-center text-2xl">Crea tu espacio</h1>
       <form onSubmit={handleSubmit} className="mt-8 flex w-full flex-col gap-4">

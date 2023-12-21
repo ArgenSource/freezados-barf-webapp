@@ -41,7 +41,7 @@ export default function AddFood() {
   };
 
   return (
-    <PageLayout title="Freezados - Add new food">
+    <PageLayout headTitle="Freezados - Add new food">
       <BackButton />
       <h1 className="text-center text-2xl font-bold">Add new food</h1>
       <form onSubmit={handleSubmit} className="mt-8 flex w-full flex-col gap-4">

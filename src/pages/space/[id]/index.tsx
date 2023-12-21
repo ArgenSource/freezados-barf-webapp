@@ -26,7 +26,9 @@ export default function Space() {
   );
 
   return (
-    <PageLayout title={space ? `Espacio - ${space?.name}` : "Freezados BARF"}>
+    <PageLayout
+      headTitle={space ? `Espacio - ${space?.name}` : "Freezados BARF"}
+    >
       {status == "loading" && <Loader />}
       <QueryErrorBoundary error={error?.data} refetch={refetch}>
         {status == "success" && space && (

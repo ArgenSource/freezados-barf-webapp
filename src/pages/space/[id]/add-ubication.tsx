@@ -33,7 +33,7 @@ export default function AddUbication() {
   };
 
   return (
-    <PageLayout title="Freezados - Add new ubication">
+    <PageLayout headTitle="Freezados - Add new ubication">
       <BackButton />
       <h1 className="text-center text-2xl font-bold">Crea tu ubicacion</h1>
       <form onSubmit={handleSubmit} className="mt-8 flex w-full flex-col gap-4">
