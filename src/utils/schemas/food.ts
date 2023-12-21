@@ -84,6 +84,8 @@ export const editFood = z.object({
   description: description.optional(),
   ammount: ammount.optional(),
   type: type,
+  freezeDate: date,
+  storeDate: date,
 });
 
 export const getFoodById = z.object({

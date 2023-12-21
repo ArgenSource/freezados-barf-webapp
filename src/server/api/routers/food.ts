@@ -92,6 +92,8 @@ export const foodRouter = createTRPCRouter({
         type: input.type,
         name: input.name,
         description: input.description,
+        freezedAt: input.freezeDate,
+        storedAt: input.storeDate,
       },
     }),
   ),

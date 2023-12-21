@@ -11,15 +11,22 @@ function convertToDateTimeLocalString(date: Date) {
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
-export const Datetime = (props: HTMLProps<HTMLInputElement>) => {
+type DatetimeProps = {
+  defaultDate?: Date | null;
+} & HTMLProps<HTMLInputElement>;
+
+export const Datetime = ({ defaultDate = null, ...props }: DatetimeProps) => {
   const styles = twMerge("rounded-md border-2 p-1", props.className);
+  const defaultVal = defaultDate
+    ? convertToDateTimeLocalString(defaultDate)
+    : convertToDateTimeLocalString(new Date());
 
   return (
     <input
       type="datetime-local"
       {...props}
       className={styles}
-      defaultValue={convertToDateTimeLocalString(new Date())}
+      defaultValue={defaultVal}
     />
   );
 };
