@@ -36,7 +36,7 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
   const isCurrentUbicationFreezer = data?.isFreezer ?? false;
 
   const { data: otherUbications, status: statusOtherUbications } =
-    api.ubication.getOthers.useQuery<OtherUbication[]>(
+    api.ubication.getOthers.useQuery(
       {
         id: ubicationId ?? "",
         spaceId: spaceId?.toString() ?? "",
