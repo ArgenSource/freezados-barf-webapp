@@ -68,7 +68,7 @@ export function Food({ foodData }: { foodData: TFood }) {
           </p>
         </div>
         {freezeStatus.state == FREEZE_STATES.COUNTING && (
-          <p> `${freezeStatus.time} pendientes`</p>
+          <p> {freezeStatus.time} pendientes</p>
         )}
       </div>
       <div className="flex flex-nowrap items-center gap-2 overflow-hidden rounded-lg bg-violet-800/5 p-1">
