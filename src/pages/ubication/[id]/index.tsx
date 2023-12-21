@@ -2,8 +2,12 @@ import { useRouter } from "next/router";
 
 import Ubication from "~/features/ubication/Ubication";
 import { api } from "~/utils/api";
-import { Container, Loader, Error as FormError } from "~/features/common";
-import QueryErrorBoundary from "~/features/common/Error/QueryErrorBoundary";
+import {
+  Container,
+  Loader,
+  Error as FormError,
+} from "~/features/common/components";
+import QueryErrorBoundary from "~/features/common/components/Error/QueryErrorBoundary";
 
 export default function UbicationPage() {
   const router = useRouter();

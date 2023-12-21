@@ -2,7 +2,11 @@ import { type FormEvent } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import { Container } from "~/features/common";
+import {
+  Container,
+  PageWrapper,
+  BackButton,
+} from "~/features/common/components";
 import { createUbication as createSchema } from "~/utils/schemas/ubication";
 import { api } from "~/utils/api";
 
@@ -37,8 +41,9 @@ export default function AddUbication() {
       <Head>
         <title>Freezados - Add new ubication</title>
       </Head>
-      <main>
+      <PageWrapper>
         <Container>
+          <BackButton />
           <h1 className="text-center text-2xl font-bold">Crea tu ubicacion</h1>
           <form
             onSubmit={handleSubmit}
@@ -74,7 +79,7 @@ export default function AddUbication() {
             </button>
           </form>
         </Container>
-      </main>
+      </PageWrapper>
     </>
   );
 }

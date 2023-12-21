@@ -5,9 +5,9 @@ import { Container as ContainerIcon } from "lucide-react";
 
 import UbicationList from "~/features/ubication/UbicationList";
 import { api } from "~/utils/api";
-import QueryErrorBoundary from "~/features/common/Error/QueryErrorBoundary";
+import QueryErrorBoundary from "~/features/common/components/Error/QueryErrorBoundary";
 import Share from "~/features/space/share";
-import { Loader, PageWrapper, Container } from "~/features/common";
+import { Loader, PageWrapper, Container } from "~/features/common/components";
 
 export default function Space() {
   const router = useRouter();

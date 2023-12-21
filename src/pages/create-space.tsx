@@ -4,7 +4,7 @@ import Head from "next/head";
 import { Container as ContainerIcon } from "lucide-react";
 
 import { api } from "~/utils/api";
-import { Container } from "~/features/common";
+import { Container } from "~/features/common/components";
 import { createSpace } from "~/utils/schemas/space";
 
 export default function CreateSpace() {

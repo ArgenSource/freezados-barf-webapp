@@ -1,8 +1,8 @@
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import QueryErrorBoundary from "~/features/common/Error/QueryErrorBoundary";
-import { Loader, Container } from "~/features/common";
+import QueryErrorBoundary from "~/features/common/components/Error/QueryErrorBoundary";
+import { Loader, Container } from "~/features/common/components";
 import { api } from "~/utils/api";
 
 export default function JoinWithIvitation() {

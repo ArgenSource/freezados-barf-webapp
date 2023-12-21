@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
-import { Loader, Modal, Error } from "~/features/common";
+import { Loader, Modal, Error } from "~/features/common/components";
 
 type RelocateStatus = "idle" | "processing" | "error";
 

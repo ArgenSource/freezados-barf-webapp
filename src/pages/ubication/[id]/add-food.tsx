@@ -1,7 +1,6 @@
 import { type FormEvent } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { ChevronLeftCircle } from "lucide-react";
 
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
@@ -13,7 +12,8 @@ import {
   FormInput,
   Container,
   Textarea,
-} from "~/features/common";
+  BackButton,
+} from "~/features/common/components";
 
 export default function AddFood() {
   const router = useRouter();
@@ -49,13 +49,11 @@ export default function AddFood() {
       </Head>
       <PageWrapper>
         <Container>
-          <button onClick={() => router.back()}>
-            <ChevronLeftCircle size={32} />
-          </button>
+          <BackButton />
           <h1 className="text-center text-2xl font-bold">Add new food</h1>
           <form
             onSubmit={handleSubmit}
-            className="mt-8 flex w-full flex-col items-center gap-4"
+            className="mt-8 flex w-full flex-col gap-4"
           >
             <FormInput
               fieldName="name"
@@ -108,7 +106,7 @@ export default function AddFood() {
             />
             <button
               type="submit"
-              className="flex items-center gap-2 rounded-md bg-cyan-600 p-4 text-xl font-bold text-gray-100"
+              className="flex items-center justify-center gap-2 rounded-md bg-violet-500 p-4 text-xl font-bold text-gray-100"
             >
               Crear
             </button>

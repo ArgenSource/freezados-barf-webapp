@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Copy } from "lucide-react";
 
 import { api } from "~/utils/api";
-import { Loader } from "~/features/common";
+import { Loader } from "~/features/common/components";
 
 export default function Invitations() {
   const router = useRouter();

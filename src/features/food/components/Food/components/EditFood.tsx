@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 import { editFood } from "~/utils/schemas/food";
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
-import { Modal, Input, Textarea } from "~/features/common";
+import { Modal, Input, Textarea } from "~/features/common/components";
 import { SelectFoodType } from "./SelectFoodType";
 
 export const EditFood: React.FC<ActionProps> = ({

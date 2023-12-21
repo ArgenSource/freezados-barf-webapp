@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 import PrivacyConfigSelect from "./PrivacyConfigSelect";
 import PublicLink from "./PublicLink";
 import Invitations from "./Invitations";
-import { Loader, Modal } from "~/features/common";
+import { Loader, Modal } from "~/features/common/components";
 
 export default function Share() {
   const [open, setOpen] = useState<boolean>(false);
