@@ -110,8 +110,9 @@ export default function AddFood() {
             <FormInput
               fieldName="date"
               displayName="Fecha"
+              errors={errors?.date}
               elements={{
-                input: <Datetime />,
+                input: <Datetime name="date" id="date" />,
               }}
             />
             <button
