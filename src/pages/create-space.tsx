@@ -1,11 +1,11 @@
 import { type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import Head from "next/head";
-import { Container as ContainerIcon } from "lucide-react";
+import { Container } from "lucide-react";
 
 import { api } from "~/utils/api";
-import { Container } from "~/features/common/components";
+import { BackButton, FormInput } from "~/features/common/components";
 import { createSpace } from "~/utils/schemas/space";
+import { PageLayout } from "~/features/common/components/layout";
 
 export default function CreateSpace() {
   const router = useRouter();
@@ -31,43 +31,18 @@ export default function CreateSpace() {
   };
 
   return (
-    <>
-      <Head>
-        <title>Freezados - Crear espacio</title>
-        <meta
-          name="description"
-          content="App para gestionar tiempos de freezado en dietas BARF"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main>
-        <Container>
-          <h1 className="text-center text-2xl">Crea tu espacio</h1>
-          <section className="mt-8 w-full">
-            <form
-              onSubmit={handleSubmit}
-              className="flex w-full flex-col items-center gap-4"
-            >
-              <label htmlFor="name">
-                <p>Nombre: </p>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  className="rounded-md border-2 p-1"
-                  autoComplete="none"
-                />
-              </label>
-              <button
-                type="submit"
-                className="flex items-center gap-2 rounded-md bg-cyan-600 p-4 text-xl font-bold text-gray-100"
-              >
-                Crear <ContainerIcon />
-              </button>
-            </form>
-          </section>
-        </Container>
-      </main>
-    </>
+    <PageLayout title="Freezados - Crear espacio">
+      <BackButton />
+      <h1 className="text-center text-2xl">Crea tu espacio</h1>
+      <form onSubmit={handleSubmit} className="mt-8 flex w-full flex-col gap-4">
+        <FormInput fieldName="name" displayName="Nombre" required />
+        <button
+          type="submit"
+          className="flex items-center justify-center gap-2 rounded-md bg-cyan-600 p-4 text-xl font-bold text-gray-100"
+        >
+          Crear <Container />
+        </button>
+      </form>
+    </PageLayout>
   );
 }
