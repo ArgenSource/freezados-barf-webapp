@@ -7,7 +7,12 @@ import { SelectFoodType } from "~/features/food/components/Food/components";
 import useFormErrors from "~/utils/hooks/useFormErrors";
 import { BackButton } from "~/features/common/components";
 import { PageLayout } from "~/features/common/components/layout";
-import { FormInput, Input, Textarea } from "~/features/common/components/Form";
+import {
+  FormInput,
+  Input,
+  Textarea,
+  Datetime,
+} from "~/features/common/components/Form";
 
 export default function AddFood() {
   const router = useRouter();
@@ -82,6 +87,14 @@ export default function AddFood() {
           errors={errors?.description}
           elements={{
             input: <Textarea name="description" id="description" />,
+          }}
+        />
+        <FormInput
+          fieldName="date"
+          displayName="Fecha"
+          errors={errors?.date}
+          elements={{
+            input: <Datetime name="date" id="date" />,
           }}
         />
         <button

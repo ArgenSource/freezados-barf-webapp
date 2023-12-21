@@ -8,7 +8,7 @@ import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
 import { Modal } from "~/features/common/components";
 import { SelectFoodType } from "./SelectFoodType";
-import { Input, Textarea } from "~/features/common/components/Form";
+import { Input, Textarea, Datetime } from "~/features/common/components/Form";
 
 export const EditFood: React.FC<ActionProps> = ({
   data: food,
@@ -62,6 +62,12 @@ export const EditFood: React.FC<ActionProps> = ({
           <Input type="number" defaultValue={food.ammount} name="ammount" />
           <SelectFoodType defaultOpt={food.type} />
           <Textarea name="description" defaultValue={food.description} />
+          <div className="hidden">
+            <Datetime name="freezeDate" defaultDate={food.freezedAt} />
+          </div>
+          <div className="hidden">
+            <Datetime name="storeDate" defaultDate={food.storedAt} />
+          </div>
           <button type="submit">GUARDAR</button>
         </form>
       </Modal>

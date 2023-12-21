@@ -10,6 +10,7 @@ const FIELD_NAMES = {
   DESCRIPTION: "Descripción",
   TYPE: "Tipo",
   ID: "ID",
+  DATE: "Fecha",
 };
 
 // ----- BASE SCHEMAS -----
@@ -54,6 +55,13 @@ const id = z
   })
   .min(1, { message: requiredError(FIELD_NAMES.ID) });
 
+const date = z
+  .date({
+    invalid_type_error: notValidError(FIELD_NAMES.DATE),
+    coerce: true,
+  })
+  .optional();
+
 // --------------------------
 
 // ----- ACTUAL SCHEMAS -----
@@ -67,6 +75,7 @@ export const createFood = z.object({
   description: description.nullish(),
   ammount: ammount,
   type: type,
+  date: date,
 });
 
 export const editFood = z.object({
@@ -75,6 +84,8 @@ export const editFood = z.object({
   description: description.optional(),
   ammount: ammount.optional(),
   type: type,
+  freezeDate: date,
+  storeDate: date,
 });
 
 export const getFoodById = z.object({
