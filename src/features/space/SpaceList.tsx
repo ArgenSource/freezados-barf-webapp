@@ -1,6 +1,6 @@
-import { Loader } from "../common";
+import { Loader } from "../common/components";
 import { api } from "~/utils/api";
-import { Error } from "../common/Form/Error";
+import { Error } from "../common/components/Form/Error";
 import { Space } from "./components/Space";
 
 export default function SpaceList() {

@@ -68,13 +68,10 @@ export function Food({ foodData }: { foodData: TFood }) {
           </p>
         </div>
         {freezeStatus.state == FREEZE_STATES.COUNTING && (
-          <p> `${freezeStatus.time} pendientes`</p>
+          <p> {freezeStatus.time} pendientes</p>
         )}
       </div>
       <div className="flex flex-nowrap items-center gap-2 overflow-hidden rounded-lg bg-violet-800/5 p-1">
-        {/* TODO: Fix? -> Cuando una accion es seleccionada en un alimento los demas de la ubicacion siguen
-          mostrando su seleccion */}
-
         {actionComponents.map((action) => {
           const { Component, action: actionName } = action;
 
