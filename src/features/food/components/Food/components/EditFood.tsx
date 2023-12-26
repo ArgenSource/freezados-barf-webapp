@@ -33,21 +33,24 @@ export const EditFood: React.FC<ActionProps> = ({
     const formData = new FormData(e.currentTarget);
 
     try {
-      parseErrors({ ...Object.fromEntries(formData.entries()), id: food.id });
-      const input = editFood.parse({
-        ...Object.fromEntries(formData.entries()),
-        id: food.id,
-      });
+      if (
+        parseErrors({ ...Object.fromEntries(formData.entries()), id: food.id })
+      ) {
+        const input = editFood.parse({
+          ...Object.fromEntries(formData.entries()),
+          id: food.id,
+        });
 
-      edit
-        .mutateAsync(input)
-        .then(async (res) => {
-          if (res.ubicationId) {
-            await refetchFunction(res.ubicationId);
-            closeModal();
-          }
-        })
-        .catch((err) => console.error(err));
+        edit
+          .mutateAsync(input)
+          .then(async (res) => {
+            if (res.ubicationId) {
+              await refetchFunction(res.ubicationId);
+              closeModal();
+            }
+          })
+          .catch((err) => console.error(err));
+      }
     } catch (err) {
       if (err instanceof ZodError) {
         console.log(err);
@@ -80,7 +83,7 @@ export const EditFood: React.FC<ActionProps> = ({
                 <Input
                   type="number"
                   defaultValue={food.ammount}
-                  min={0}
+                  min={1}
                   name="ammount"
                   id="ammount"
                 />
