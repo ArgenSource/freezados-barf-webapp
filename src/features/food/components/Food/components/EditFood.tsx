@@ -8,7 +8,12 @@ import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
 import { Modal } from "~/features/common/components";
 import { SelectFoodType } from "./SelectFoodType";
-import { Input, Textarea, Datetime } from "~/features/common/components/Form";
+import {
+  Input,
+  Textarea,
+  Datetime,
+  FormInput,
+} from "~/features/common/components/Form";
 
 export const EditFood: React.FC<ActionProps> = ({
   data: food,
@@ -58,10 +63,42 @@ export const EditFood: React.FC<ActionProps> = ({
           <XCircle size={20} />
         </button>
         <form className="flex flex-col gap-2" onSubmit={onSubmit}>
-          <Input name="name" defaultValue={food.name} type="text" />
-          <Input type="number" defaultValue={food.ammount} name="ammount" />
-          <SelectFoodType defaultOpt={food.type} />
-          <Textarea name="description" defaultValue={food.description} />
+          <FormInput
+            fieldName="name"
+            displayName="Nombre"
+            defaultValue={food.name}
+          />
+          <FormInput
+            fieldName="ammount"
+            displayName="Cantidad"
+            elements={{
+              input: (
+                <Input
+                  type="number"
+                  defaultValue={food.ammount}
+                  min={0}
+                  name="ammount"
+                  id="ammount"
+                />
+              ),
+            }}
+          />
+          <FormInput
+            fieldName="type"
+            displayName="Tipo"
+            elements={{
+              input: <SelectFoodType defaultOpt={food.type} />,
+            }}
+          />
+          <FormInput
+            fieldName="description"
+            displayName="Descripción"
+            elements={{
+              input: (
+                <Textarea name="description" defaultValue={food.description} />
+              ),
+            }}
+          />
           <div className="hidden">
             <Datetime name="freezeDate" defaultDate={food.freezedAt} />
           </div>

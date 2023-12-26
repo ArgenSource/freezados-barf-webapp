@@ -29,6 +29,8 @@ export const FormInput = ({
   displayName,
   errors,
   elements,
+  defaultValue,
+  type = "text",
   required = false,
   ...props
 }: FormInputProps) => {
@@ -41,10 +43,11 @@ export const FormInput = ({
       )}
       {elements?.input ?? (
         <Input
-          type="text"
+          type={type}
           id={fieldName}
           name={fieldName}
           required={required}
+          defaultValue={defaultValue}
         />
       )}
       {/* Si el usuario pasa uno se renderiza solo ese? Agregar la posibilidad de pasar una lista de componentes de errores? */}
