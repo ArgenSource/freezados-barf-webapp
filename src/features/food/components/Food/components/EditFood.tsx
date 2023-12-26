@@ -14,6 +14,7 @@ import {
   Datetime,
   FormInput,
 } from "~/features/common/components/Form";
+import useFormErrors from "~/utils/hooks/useFormErrors";
 
 export const EditFood: React.FC<ActionProps> = ({
   data: food,
@@ -25,12 +26,14 @@ export const EditFood: React.FC<ActionProps> = ({
   const closeModal = () => setSelect(ACTIONS.NONE);
 
   const edit = api.food.editFoodData.useMutation();
+  const { errors, parseErrors } = useFormErrors(editFood);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
     try {
+      parseErrors({ ...Object.fromEntries(formData.entries()), id: food.id });
       const input = editFood.parse({
         ...Object.fromEntries(formData.entries()),
         id: food.id,
@@ -67,6 +70,7 @@ export const EditFood: React.FC<ActionProps> = ({
             fieldName="name"
             displayName="Nombre"
             defaultValue={food.name}
+            errors={errors?.name}
           />
           <FormInput
             fieldName="ammount"
@@ -82,6 +86,7 @@ export const EditFood: React.FC<ActionProps> = ({
                 />
               ),
             }}
+            errors={errors?.ammount}
           />
           <FormInput
             fieldName="type"
@@ -89,6 +94,7 @@ export const EditFood: React.FC<ActionProps> = ({
             elements={{
               input: <SelectFoodType defaultOpt={food.type} />,
             }}
+            errors={errors?.type}
           />
           <FormInput
             fieldName="description"
@@ -98,6 +104,7 @@ export const EditFood: React.FC<ActionProps> = ({
                 <Textarea name="description" defaultValue={food.description} />
               ),
             }}
+            errors={errors?.description}
           />
           <div className="hidden">
             <Datetime name="freezeDate" defaultDate={food.freezedAt} />
