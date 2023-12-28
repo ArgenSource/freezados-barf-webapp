@@ -6,11 +6,13 @@ import { createUbication as createSchema } from "~/utils/schemas/ubication";
 import { api } from "~/utils/api";
 import { PageLayout } from "~/features/common/components/layout";
 import { FormInput, Textarea } from "~/features/common/components/Form";
+import useFormErrors from "~/utils/hooks/useFormErrors";
 
 export default function AddUbication() {
   const createUbication = api.ubication.create.useMutation();
   const router = useRouter();
   const { id: spaceId } = router.query;
+  const { errors, parseErrors } = useFormErrors(createSchema);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,16 +20,24 @@ export default function AddUbication() {
     const formData = new FormData(e.currentTarget);
 
     try {
-      const input = createSchema.parse({
-        ...Object.fromEntries(formData.entries()),
-        isFreezer: formData.get("isFreezer") == "on",
-        spaceId: spaceId.toString(),
-      });
+      if (
+        parseErrors({
+          ...Object.fromEntries(formData.entries()),
+          isFreezer: formData.get("isFreezer") == "on",
+          spaceId: spaceId.toString(),
+        })
+      ) {
+        const input = createSchema.parse({
+          ...Object.fromEntries(formData.entries()),
+          isFreezer: formData.get("isFreezer") == "on",
+          spaceId: spaceId.toString(),
+        });
 
-      createUbication
-        .mutateAsync(input)
-        .then(() => router.push(`/space/${spaceId.toString()}`))
-        .catch((err) => console.error(err));
+        createUbication
+          .mutateAsync(input)
+          .then(() => router.push(`/space/${spaceId.toString()}`))
+          .catch((err) => console.error(err));
+      }
     } catch (err) {
       console.error(err);
     }
@@ -38,7 +48,12 @@ export default function AddUbication() {
       <BackButton />
       <h1 className="text-center text-2xl font-bold">Crea tu ubicacion</h1>
       <form onSubmit={handleSubmit} className="mt-8 flex w-full flex-col gap-4">
-        <FormInput fieldName="name" displayName="Nombre" required />
+        <FormInput
+          fieldName="name"
+          displayName="Nombre"
+          required
+          errors={errors?.name}
+        />
         <FormInput
           fieldName="description"
           displayName="Descripcion (opcional)"
@@ -46,6 +61,7 @@ export default function AddUbication() {
           elements={{
             input: <Textarea name="description" id="description" />,
           }}
+          errors={errors?.description}
         />
         <FormInput
           fieldName="isFreezer"
@@ -60,6 +76,7 @@ export default function AddUbication() {
               </label>
             ),
           }}
+          errors={errors?.isFreezer}
         />
 
         <button

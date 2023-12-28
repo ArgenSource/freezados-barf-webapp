@@ -29,13 +29,14 @@ export default function AddFood() {
 
     formData.append("ubicationId", ubicationId.toString());
     try {
-      parseErrors(Object.fromEntries(formData.entries()));
-      const input = createFood.parse(Object.fromEntries(formData.entries()));
+      if (parseErrors(Object.fromEntries(formData.entries()))) {
+        const input = createFood.parse(Object.fromEntries(formData.entries()));
 
-      addFood
-        .mutateAsync(input)
-        .then(() => router.back())
-        .catch((err) => console.error(err));
+        addFood
+          .mutateAsync(input)
+          .then(() => router.back())
+          .catch((err) => console.error(err));
+      }
     } catch (err) {
       console.error(err);
     }

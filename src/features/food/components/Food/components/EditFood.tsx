@@ -8,7 +8,13 @@ import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
 import { Modal } from "~/features/common/components";
 import { SelectFoodType } from "./SelectFoodType";
-import { Input, Textarea, Datetime } from "~/features/common/components/Form";
+import {
+  Input,
+  Textarea,
+  Datetime,
+  FormInput,
+} from "~/features/common/components/Form";
+import useFormErrors from "~/utils/hooks/useFormErrors";
 
 export const EditFood: React.FC<ActionProps> = ({
   data: food,
@@ -20,26 +26,31 @@ export const EditFood: React.FC<ActionProps> = ({
   const closeModal = () => setSelect(ACTIONS.NONE);
 
   const edit = api.food.editFoodData.useMutation();
+  const { errors, parseErrors } = useFormErrors(editFood);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
     try {
-      const input = editFood.parse({
-        ...Object.fromEntries(formData.entries()),
-        id: food.id,
-      });
+      if (
+        parseErrors({ ...Object.fromEntries(formData.entries()), id: food.id })
+      ) {
+        const input = editFood.parse({
+          ...Object.fromEntries(formData.entries()),
+          id: food.id,
+        });
 
-      edit
-        .mutateAsync(input)
-        .then(async (res) => {
-          if (res.ubicationId) {
-            await refetchFunction(res.ubicationId);
-            closeModal();
-          }
-        })
-        .catch((err) => console.error(err));
+        edit
+          .mutateAsync(input)
+          .then(async (res) => {
+            if (res.ubicationId) {
+              await refetchFunction(res.ubicationId);
+              closeModal();
+            }
+          })
+          .catch((err) => console.error(err));
+      }
     } catch (err) {
       if (err instanceof ZodError) {
         console.log(err);
@@ -58,10 +69,46 @@ export const EditFood: React.FC<ActionProps> = ({
           <XCircle size={20} />
         </button>
         <form className="flex flex-col gap-2" onSubmit={onSubmit}>
-          <Input name="name" defaultValue={food.name} type="text" />
-          <Input type="number" defaultValue={food.ammount} name="ammount" />
-          <SelectFoodType defaultOpt={food.type} />
-          <Textarea name="description" defaultValue={food.description} />
+          <FormInput
+            fieldName="name"
+            displayName="Nombre"
+            defaultValue={food.name}
+            errors={errors?.name}
+          />
+          <FormInput
+            fieldName="ammount"
+            displayName="Cantidad"
+            elements={{
+              input: (
+                <Input
+                  type="number"
+                  defaultValue={food.ammount}
+                  min={1}
+                  name="ammount"
+                  id="ammount"
+                />
+              ),
+            }}
+            errors={errors?.ammount}
+          />
+          <FormInput
+            fieldName="type"
+            displayName="Tipo"
+            elements={{
+              input: <SelectFoodType defaultOpt={food.type} />,
+            }}
+            errors={errors?.type}
+          />
+          <FormInput
+            fieldName="description"
+            displayName="Descripción"
+            elements={{
+              input: (
+                <Textarea name="description" defaultValue={food.description} />
+              ),
+            }}
+            errors={errors?.description}
+          />
           <div className="hidden">
             <Datetime name="freezeDate" defaultDate={food.freezedAt} />
           </div>
