@@ -6,7 +6,7 @@ import { createFood } from "~/utils/schemas/food";
 import { SelectFoodType } from "~/features/food/components/Food/components";
 import useFormErrors from "~/utils/hooks/useFormErrors";
 import { PageLayout } from "~/features/common/components/layout";
-import { BackButton, Button } from "~/features/common/components/Buttons";
+import { BackButton, SubmitButton } from "~/features/common/components/Buttons";
 import {
   FormInput,
   Input,
@@ -34,6 +34,7 @@ export default function AddFood() {
 
         addFood
           .mutateAsync(input)
+          .then(() => addFood.reset())
           .then(() => router.back())
           .catch((err) => console.error(err));
       }
@@ -98,9 +99,13 @@ export default function AddFood() {
             input: <Datetime name="date" id="date" />,
           }}
         />
-        <Button type="submit" bigFont>
+        <SubmitButton
+          status={addFood.status}
+          errorMessage={addFood.error?.message}
+          bigFont
+        >
           Crear
-        </Button>
+        </SubmitButton>
       </form>
     </PageLayout>
   );
