@@ -98,7 +98,7 @@ export default function AddFood() {
             input: <Datetime name="date" id="date" />,
           }}
         />
-        <Button type="submit" className="p-4 text-xl font-bold text-gray-100">
+        <Button type="submit" bigFont>
           Crear
         </Button>
       </form>
