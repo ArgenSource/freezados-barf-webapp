@@ -5,6 +5,7 @@ import Link from "next/link";
 import { api } from "~/utils/api";
 import FoodList from "../food/components/FoodList";
 import { Loader } from "../common/components";
+import { Button } from "../common/components/Buttons";
 
 export default function Ubication({ data }: { data: TUbication }) {
   const { data: foods, status } = api.food.getFromUbication.useQuery(
@@ -19,10 +20,9 @@ export default function Ubication({ data }: { data: TUbication }) {
       <div>
         <h3 className="flex items-center justify-end gap-2 pr-2 text-2xl">
           {data.name}{" "}
-          <ThermometerSnowflake
-            size={20}
-            className={data.isFreezer ? "text-cyan-600" : "text-gray-400"}
-          />
+          {data.isFreezer && (
+            <ThermometerSnowflake size={20} className="text-cyan-600" />
+          )}
         </h3>
       </div>
       {status === "success" ? (
@@ -30,11 +30,10 @@ export default function Ubication({ data }: { data: TUbication }) {
           {foods.length > 0 ? (
             <>
               <FoodList foods={foods} />
-              <Link
-                href={`/ubication/${data.id}/add-food`}
-                className="my-2 flex w-full items-center justify-center rounded-lg bg-fuchsia-700/50 py-2 text-white"
-              >
-                <PlusCircle size={32} />
+              <Link href={`/ubication/${data.id}/add-food`}>
+                <Button>
+                  <PlusCircle size={32} />
+                </Button>
               </Link>
             </>
           ) : (
@@ -42,11 +41,8 @@ export default function Ubication({ data }: { data: TUbication }) {
               <h6 className="text-lg text-gray-600">
                 Esta ubicacion esta vacia
               </h6>
-              <Link
-                href={`/ubication/${data.id}/add-food`}
-                className="rounded-md bg-cyan-200/50 p-4"
-              >
-                Ingresa un alimento
+              <Link href={`/ubication/${data.id}/add-food`}>
+                <Button gray>Ingresa un alimento</Button>
               </Link>
             </div>
           )}

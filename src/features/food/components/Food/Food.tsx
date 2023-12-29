@@ -22,6 +22,7 @@ export function Food({ foodData }: { foodData: TFood }) {
   );
   const queryClient = useQueryClient();
 
+  console.log(selectedAction);
   const refetchUbicationData = useCallback(
     (ubId?: string) =>
       queryClient.refetchQueries({
@@ -57,14 +58,16 @@ export function Food({ foodData }: { foodData: TFood }) {
     <div
       className={twMerge(
         "flex w-full justify-between rounded-md border-2 border-slate-500 p-2",
-        isFoodReady ? "border-green-200 bg-green-100" : "bg-slate-600",
+        isFoodReady
+          ? "border-green-200 bg-green-200 text-black"
+          : "bg-slate-600",
       )}
     >
       <div className="flex flex-col justify-center gap-2">
         <div className="flex gap-2">
           {FOOD_ICONS.get(foodData.type)}
           <p>
-            {foodData.name} {foodData.ammount}g
+            {foodData.name} {foodData.ammount}g {isFoodReady && "✅"}
           </p>
         </div>
         {freezeStatus.state == FREEZE_STATES.COUNTING && (

@@ -1,5 +1,5 @@
 import { type FormEvent } from "react";
-import { XCircle, Pencil } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { ZodError } from "zod";
 
 import { api } from "~/utils/api";
@@ -15,6 +15,7 @@ import {
   FormInput,
 } from "~/features/common/components/Form";
 import useFormErrors from "~/utils/hooks/useFormErrors";
+import { Button } from "~/features/common/components/Buttons";
 
 export const EditFood: React.FC<ActionProps> = ({
   data: food,
@@ -65,9 +66,6 @@ export const EditFood: React.FC<ActionProps> = ({
         onClickOutside={closeModal}
         className="flex w-full max-w-md flex-col items-center justify-center rounded-md bg-gray-500 p-4"
       >
-        <button onClick={closeModal} className="absolute right-2 top-2">
-          <XCircle size={20} />
-        </button>
         <form className="flex flex-col gap-2" onSubmit={onSubmit}>
           <FormInput
             fieldName="name"
@@ -115,7 +113,7 @@ export const EditFood: React.FC<ActionProps> = ({
           <div className="hidden">
             <Datetime name="storeDate" defaultDate={food.storedAt} />
           </div>
-          <button type="submit">GUARDAR</button>
+          <Button type="submit">GUARDAR</Button>
         </form>
       </Modal>
       <button onClick={openModal}>

@@ -3,11 +3,11 @@ import { useRouter } from "next/navigation";
 import { Container } from "lucide-react";
 
 import { api } from "~/utils/api";
-import { BackButton } from "~/features/common/components";
 import { createSpace } from "~/utils/schemas/space";
 import { PageLayout } from "~/features/common/components/layout";
 import { FormInput } from "~/features/common/components/Form";
 import useFormErrors from "~/utils/hooks/useFormErrors";
+import { Button, BackButton } from "~/features/common/components/Buttons";
 
 export default function CreateSpace() {
   const router = useRouter();
@@ -46,12 +46,9 @@ export default function CreateSpace() {
           required
           errors={errors?.name}
         />
-        <button
-          type="submit"
-          className="flex items-center justify-center gap-2 rounded-md bg-cyan-600 p-4 text-xl font-bold text-gray-100"
-        >
+        <Button type="submit" bigFont>
           Crear <Container />
-        </button>
+        </Button>
       </form>
     </PageLayout>
   );

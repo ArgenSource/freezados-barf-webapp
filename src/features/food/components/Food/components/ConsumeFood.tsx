@@ -5,6 +5,7 @@ import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
 import { Modal } from "~/features/common/components";
+import { Button } from "~/features/common/components/Buttons";
 
 export const ConsumeFood: FC<ActionProps> = ({
   data: { ammount, id, ubicationId },
@@ -34,6 +35,7 @@ export const ConsumeFood: FC<ActionProps> = ({
           closeModal();
         })
         .catch((err) => console.error(err));
+      // TODO: ADD TOAST WITH CONFIRMATION OR ERROR
     }
   };
 
@@ -54,11 +56,13 @@ export const ConsumeFood: FC<ActionProps> = ({
             min={0}
             value={ammountToConsume}
             onChange={(e) => setAmmountToConsume(parseInt(e.target.value))}
-            className="text w-16 px-1 text-right"
+            className="text w-16  rounded-sm px-1 text-right text-lg"
           />
           <span className="ml-1">g</span>
         </label>
-        <button onClick={consumeFood}>Consumir</button>
+        <Button secondary onClick={consumeFood}>
+          Consumir
+        </Button>
       </Modal>
       <button onClick={consumeFood}>
         <ArrowBigDownDash
