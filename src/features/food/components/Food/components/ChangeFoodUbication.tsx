@@ -88,18 +88,9 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
               ) : (
                 otherUbications.map((ubication) => (
                   <li key={ubication.id}>
-                    <Button
-                      secondary
-                      onClick={() => handleSelectNewUbication(ubication)}
-                    >
+                    <Button onClick={() => handleSelectNewUbication(ubication)}>
                       {ubication.name}
-                      <ThermometerSnowflake
-                        className={
-                          ubication.isFreezer
-                            ? "text-cyan-600"
-                            : "text-gray-400"
-                        }
-                      />
+                      {ubication.isFreezer && <ThermometerSnowflake />}
                     </Button>
                   </li>
                 ))
