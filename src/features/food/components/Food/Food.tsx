@@ -22,7 +22,6 @@ export function Food({ foodData }: { foodData: TFood }) {
   );
   const queryClient = useQueryClient();
 
-  console.log(selectedAction);
   const refetchUbicationData = useCallback(
     (ubId?: string) =>
       queryClient.refetchQueries({
