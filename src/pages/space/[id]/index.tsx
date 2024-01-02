@@ -25,6 +25,16 @@ export default function Space() {
     },
   );
 
+  const { data: history } = api.space.getHistory.useQuery(
+    { id: spaceId?.toString() ?? "" },
+    {
+      enabled: !!spaceId,
+      refetchOnWindowFocus: false,
+    },
+  );
+
+  console.log(history);
+
   return (
     <PageLayout
       headTitle={space ? `Espacio - ${space?.name}` : "Freezados BARF"}

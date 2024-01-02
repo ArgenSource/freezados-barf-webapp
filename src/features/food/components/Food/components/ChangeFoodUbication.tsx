@@ -1,5 +1,5 @@
 import { useState, type FC } from "react";
-import { Replace, XCircle, ThermometerSnowflake } from "lucide-react";
+import { Replace, ThermometerSnowflake } from "lucide-react";
 import { useRouter } from "next/router";
 import { type Ubication } from "@prisma/client";
 
@@ -8,6 +8,7 @@ import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
 import { Loader, Modal } from "~/features/common/components";
 import { Error } from "~/features/common/components/Form";
+import { Button } from "~/features/common/components/Buttons";
 
 type RelocateStatus = "idle" | "processing" | "error";
 
@@ -87,19 +88,10 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
               ) : (
                 otherUbications.map((ubication) => (
                   <li key={ubication.id}>
-                    <button
-                      className="my-2 flex items-center gap-1 rounded-md bg-cyan-200 p-2 text-black"
-                      onClick={() => handleSelectNewUbication(ubication)}
-                    >
+                    <Button onClick={() => handleSelectNewUbication(ubication)}>
                       {ubication.name}
-                      <ThermometerSnowflake
-                        className={
-                          ubication.isFreezer
-                            ? "text-cyan-600"
-                            : "text-gray-400"
-                        }
-                      />
-                    </button>
+                      {ubication.isFreezer && <ThermometerSnowflake />}
+                    </Button>
                   </li>
                 ))
               )}
@@ -120,9 +112,6 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
           onClickOutside={closeModal}
           className="flex w-full max-w-md flex-col items-center justify-center rounded-md bg-gray-500 p-4"
         >
-          <button onClick={closeModal} className="absolute right-2 top-2">
-            <XCircle size={20} />
-          </button>
           <h6 className="font-bold text-white">Elegir la nueva ubicacion</h6>
           {renderUbicationOptions()}
         </Modal>

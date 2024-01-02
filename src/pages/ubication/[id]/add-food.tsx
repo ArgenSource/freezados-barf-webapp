@@ -5,8 +5,8 @@ import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
 import { SelectFoodType } from "~/features/food/components/Food/components";
 import useFormErrors from "~/utils/hooks/useFormErrors";
-import { BackButton } from "~/features/common/components";
 import { PageLayout } from "~/features/common/components/layout";
+import { BackButton, SubmitButton } from "~/features/common/components/Buttons";
 import {
   FormInput,
   Input,
@@ -34,6 +34,7 @@ export default function AddFood() {
 
         addFood
           .mutateAsync(input)
+          .then(() => addFood.reset())
           .then(() => router.back())
           .catch((err) => console.error(err));
       }
@@ -98,12 +99,13 @@ export default function AddFood() {
             input: <Datetime name="date" id="date" />,
           }}
         />
-        <button
-          type="submit"
-          className="flex items-center justify-center gap-2 rounded-md bg-violet-500 p-4 text-xl font-bold text-gray-100"
+        <SubmitButton
+          status={addFood.status}
+          errorMessage={addFood.error?.message}
+          bigFont
         >
           Crear
-        </button>
+        </SubmitButton>
       </form>
     </PageLayout>
   );

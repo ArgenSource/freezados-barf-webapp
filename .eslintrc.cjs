@@ -37,8 +37,9 @@ const config = {
         next: ["const", "let"],
       },
     ],
-
+    "no-console": ["warn"],
     "jest-formatting/padding-around-expect-groups": 1,
+
     "import/order": [
       "error",
       {

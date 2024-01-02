@@ -1,7 +1,11 @@
 import { type FormEvent } from "react";
 import { useRouter } from "next/router";
 
-import { BackButton } from "~/features/common/components";
+import {
+  BackButton,
+  Button,
+  SubmitButton,
+} from "~/features/common/components/Buttons";
 import { createUbication as createSchema } from "~/utils/schemas/ubication";
 import { api } from "~/utils/api";
 import { PageLayout } from "~/features/common/components/layout";
@@ -79,12 +83,13 @@ export default function AddUbication() {
           errors={errors?.isFreezer}
         />
 
-        <button
-          type="submit"
-          className="flex items-center justify-center gap-2 rounded-md bg-violet-500 p-4 text-xl font-bold text-gray-100"
+        <SubmitButton
+          status={createUbication.status}
+          errorMessage={createUbication.error?.message}
+          bigFont
         >
           Crear
-        </button>
+        </SubmitButton>
       </form>
     </PageLayout>
   );
