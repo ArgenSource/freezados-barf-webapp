@@ -50,7 +50,7 @@ export default function Space() {
             </div>
             <Link
               href="/"
-              className="mb-4 w-fit text-gray-400 hover:text-gray-600"
+              className="mb-4 w-fit text-gray-400 hover:text-gray-300"
             >
               Volver al listado de espacios
             </Link>
@@ -75,6 +75,13 @@ export default function Space() {
           </>
         )}
       </QueryErrorBoundary>
+
+      <Link
+        href={`/space/${spaceId?.toString()}/history`}
+        className="text-center hover:text-violet-200"
+      >
+        Ir al historial de este espacio
+      </Link>
     </PageLayout>
   );
 }
