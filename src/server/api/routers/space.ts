@@ -118,4 +118,20 @@ export const spaceRouter = createTRPCRouter({
         },
       }),
     ),
+
+  getHistory: protectedProcedure.input(getSpace).query(({ ctx, input }) =>
+    ctx.db.food.findMany({
+      where: {
+        ubication: {
+          spaceId: input.id,
+        },
+        usedAt: {
+          not: null,
+        },
+      },
+      orderBy: {
+        storedAt: "desc",
+      },
+    }),
+  ),
 });
