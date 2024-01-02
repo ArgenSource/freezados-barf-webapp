@@ -11,10 +11,10 @@ export default function Home() {
       <Container>
         <h1 className="mb-6 text-center text-6xl font-bold">Freezados BARF</h1>
         <SpaceList />
-        <div className="mt-8 rounded-md border-2 bg-violet-600/30 p-4">
+        <div className="mt-8 rounded-md bg-violet-500 p-4 text-white">
           <Link href="/create-space" target="_self">
             <h3 className="text-xl font-bold">Crear nuevo espacio</h3>
-            <div className="text-base italic text-gray-300">
+            <div className="text-base italic">
               Un espacio te permitira gestionar distintas ubicaciones de
               guardado como freezers y heladeras.
             </div>

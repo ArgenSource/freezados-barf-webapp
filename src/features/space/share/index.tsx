@@ -51,16 +51,10 @@ export default function Share() {
         <ShareIcon />
       </button>
       <Modal
-        className="flex aspect-video w-full max-w-2xl flex-col items-center justify-between gap-2 rounded-lg border-2 border-slate-200 bg-slate-950 py-4 sm:py-0 md:py-6"
+        className="flex aspect-video w-full max-w-2xl flex-col items-center justify-between gap-2 rounded-lg border-2 border-slate-200 bg-slate-950 p-4 py-4 sm:py-0 md:py-6"
         open={open}
         onClickOutside={() => setOpen(false)}
       >
-        <button
-          className="absolute right-1 top-1 md:right-2 md:top-2"
-          onClick={() => setOpen(false)}
-        >
-          <XCircle size={20} />
-        </button>
         {!!space ? (
           <>
             {isConfig ? <PrivacyConfigSelect space={space} /> : renderShare()}
