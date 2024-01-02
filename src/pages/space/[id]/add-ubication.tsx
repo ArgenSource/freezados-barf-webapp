@@ -1,11 +1,7 @@
 import { type FormEvent } from "react";
 import { useRouter } from "next/router";
 
-import {
-  BackButton,
-  Button,
-  SubmitButton,
-} from "~/features/common/components/Buttons";
+import { BackButton, SubmitButton } from "~/features/common/components/Buttons";
 import { createUbication as createSchema } from "~/utils/schemas/ubication";
 import { api } from "~/utils/api";
 import { PageLayout } from "~/features/common/components/layout";
