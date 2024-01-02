@@ -1,5 +1,6 @@
 import { type FormEvent } from "react";
 import { useRouter } from "next/router";
+import { toast } from "sonner";
 
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
@@ -28,18 +29,17 @@ export default function AddFood() {
     const formData = new FormData(e.currentTarget);
 
     formData.append("ubicationId", ubicationId.toString());
-    try {
-      if (parseErrors(Object.fromEntries(formData.entries()))) {
-        const input = createFood.parse(Object.fromEntries(formData.entries()));
+    if (parseErrors(Object.fromEntries(formData.entries()))) {
+      const input = createFood.parse(Object.fromEntries(formData.entries()));
 
-        addFood
-          .mutateAsync(input)
-          .then(() => addFood.reset())
-          .then(() => router.back())
-          .catch((err) => console.error(err));
-      }
-    } catch (err) {
-      console.error(err);
+      addFood
+        .mutateAsync(input)
+        .then(() => {
+          addFood.reset();
+          toast.success("Comida agregada correctamente");
+        })
+        .then(() => router.back())
+        .catch(() => toast.error("Error al agregar comida"));
     }
   };
 
