@@ -22,11 +22,15 @@ export const EditFood: React.FC<ActionProps> = ({
   active,
   setSelect,
 }) => {
+  const { errors, parseErrors, resetErrors } = useFormErrors(editFood);
+
   const openModal = () => setSelect(ACTIONS.EDIT);
-  const closeModal = () => setSelect(ACTIONS.NONE);
+  const closeModal = () => {
+    resetErrors();
+    setSelect(ACTIONS.NONE);
+  };
 
   const edit = api.food.editFoodData.useMutation();
-  const { errors, parseErrors } = useFormErrors(editFood);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
