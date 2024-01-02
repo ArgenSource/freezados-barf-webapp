@@ -15,7 +15,7 @@ import {
   FormInput,
 } from "~/features/common/components/Form";
 import useFormErrors from "~/utils/hooks/useFormErrors";
-import { Button } from "~/features/common/components/Buttons";
+import { Button, SubmitButton } from "~/features/common/components/Buttons";
 
 export const EditFood: React.FC<ActionProps> = ({
   data: food,
@@ -28,7 +28,6 @@ export const EditFood: React.FC<ActionProps> = ({
 
   const edit = api.food.editFoodData.useMutation();
   const { errors, parseErrors } = useFormErrors(editFood);
-
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -113,7 +112,9 @@ export const EditFood: React.FC<ActionProps> = ({
           <div className="hidden">
             <Datetime name="storeDate" defaultDate={food.storedAt} />
           </div>
-          <Button type="submit">GUARDAR</Button>
+          <SubmitButton status={edit.status} errorMessage={edit.error?.message}>
+            GUARDAR
+          </SubmitButton>
         </form>
       </Modal>
       <button onClick={openModal}>

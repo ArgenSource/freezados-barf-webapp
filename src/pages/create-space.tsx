@@ -7,7 +7,11 @@ import { createSpace } from "~/utils/schemas/space";
 import { PageLayout } from "~/features/common/components/layout";
 import { FormInput } from "~/features/common/components/Form";
 import useFormErrors from "~/utils/hooks/useFormErrors";
-import { Button, BackButton } from "~/features/common/components/Buttons";
+import {
+  Button,
+  BackButton,
+  SubmitButton,
+} from "~/features/common/components/Buttons";
 
 export default function CreateSpace() {
   const router = useRouter();
@@ -46,9 +50,13 @@ export default function CreateSpace() {
           required
           errors={errors?.name}
         />
-        <Button type="submit" bigFont>
+        <SubmitButton
+          status={create.status}
+          errorMessage={create.error?.message}
+          bigFont
+        >
           Crear <Container />
-        </Button>
+        </SubmitButton>
       </form>
     </PageLayout>
   );
