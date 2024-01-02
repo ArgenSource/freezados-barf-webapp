@@ -57,5 +57,20 @@ describe("Use form errors", () => {
       expect(hook.result.current.errors).toHaveProperty("positive_num");
       expect(hook.result.current.errors).toHaveProperty("any_num");
     });
+
+    test("should clean errors", () => {
+      const parsed = hook.result.current.parseErrors({
+        name: undefined,
+        positive_num: -100,
+        any_num: "string",
+      });
+
+      expect(parsed).toBe(false);
+
+      hook.result.current.resetErrors();
+      hook.rerender();
+
+      expect(hook.result.current.errors).toBeUndefined();
+    });
   });
 });
