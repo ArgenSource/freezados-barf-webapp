@@ -14,8 +14,8 @@ type SubmitButtonProps = {
 
 const DEFAULT_STATE_STYLES = {
   errorStyle: "bg-red-500",
-  loadingStyle: "w-2/3 m-auto",
-  successStyle: "w-2/3 m-auto bg-green-600",
+  loadingStyle: "",
+  successStyle: "bg-green-600",
 };
 
 export const SubmitButton = ({
@@ -50,7 +50,12 @@ export const SubmitButton = ({
   }
 
   return (
-    <Button type="submit" className={twMerge(className, style)} {...props}>
+    <Button
+      type="submit"
+      className={twMerge(className, style)}
+      disabled={status !== "idle"}
+      {...props}
+    >
       {state}
     </Button>
   );
