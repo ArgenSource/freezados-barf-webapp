@@ -19,7 +19,7 @@ export default function Ubication({ data }: { data: TUbication }) {
     <section className="w-full py-2">
       <div>
         <h3 className="flex items-center justify-end gap-2 pr-2 text-2xl">
-          {data.name}{" "}
+          <Link href={`/ubication/${data.id}`}>{data.name}</Link>{" "}
           {data.isFreezer && (
             <ThermometerSnowflake size={20} className="text-cyan-600" />
           )}
