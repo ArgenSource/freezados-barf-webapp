@@ -34,4 +34,10 @@ export const ubicationRouter = createTRPCRouter({
       },
     }),
   ),
+
+  delete: protectedProcedure
+    .input(getUbicationById)
+    .mutation(({ ctx, input }) =>
+      ctx.db.ubication.delete({ where: { id: input.id } }),
+    ),
 });
