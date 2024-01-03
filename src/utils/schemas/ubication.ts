@@ -25,9 +25,9 @@ const name = z
   .trim()
   .min(1, { message: requiredError(FIELD_NAMES.NAME) });
 
-const description = z
-  .string({ invalid_type_error: notValidError(FIELD_NAMES.DESCRIPTION) })
-  .nullish();
+const description = z.string({
+  invalid_type_error: notValidError(FIELD_NAMES.DESCRIPTION),
+});
 
 const spaceId = z
   .string({
@@ -36,17 +36,15 @@ const spaceId = z
   })
   .min(1, { message: requiredError(FIELD_NAMES.SPACE_ID) });
 
-const isFreezer = z
-  .boolean({
-    invalid_type_error: notValidError(FIELD_NAMES.IS_FREEZER),
-  })
-  .nullish();
+const isFreezer = z.boolean({
+  invalid_type_error: notValidError(FIELD_NAMES.IS_FREEZER),
+});
 // --------------------------
 
 // ----- ACTUAL SCHEMAS -----
 export const createUbication = z.object({
   name: name,
-  description: description,
+  description: description.optional(),
   spaceId: spaceId,
   isFreezer: isFreezer,
 });
@@ -55,7 +53,6 @@ export const editUbication = z.object({
   id: id,
   name: name.optional(),
   description: description.optional(),
-  spaceId: spaceId.optional(),
   isFreezer: isFreezer.optional(),
 });
 

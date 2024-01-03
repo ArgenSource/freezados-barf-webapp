@@ -1,6 +1,6 @@
 import { expect, describe, test } from "vitest";
 
-import { calculateFreezerTime } from "./calculateFreezerTime";
+import { calculateFreezerTime, getReadyDate } from "./calculateFreezerTime";
 import { FREEZE_STATES } from "../components/Food/constants";
 
 type CalcFreezeTimeParam = Parameters<typeof calculateFreezerTime>[0];
@@ -57,5 +57,21 @@ describe("Calculate freezer time helper function", () => {
     test("state should be stopped", () => {
       expect(res.state).toBe(FREEZE_STATES.STOPPED);
     });
+  });
+});
+
+describe("Get ready time helper function", () => {
+  test("Should return date in future", () => {
+    const now = new Date();
+
+    expect(getReadyDate("CHICKEN", now).getTime()).toBeGreaterThan(Date.now());
+  });
+
+  test("Should return date in the past", () => {
+    const now = new Date();
+
+    expect(getReadyDate("CHICKEN", now, false).getTime()).toBeLessThan(
+      Date.now(),
+    );
   });
 });

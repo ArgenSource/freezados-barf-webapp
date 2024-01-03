@@ -20,7 +20,11 @@ type FreezeStatus = PausedState | ActiveState | ReadyState;
 
 const daysInMilliseconds = (days: number) => days * 24 * 60 * 60 * 1000;
 
-const getReadyDate = (foodType: FoodTypes, freezedAt: Date): Date => {
+export const getReadyDate = (
+  foodType: FoodTypes,
+  freezedAt: Date,
+  future = true,
+): Date => {
   let freezeTime = 0;
 
   switch (foodType) {
@@ -38,7 +42,9 @@ const getReadyDate = (foodType: FoodTypes, freezedAt: Date): Date => {
       freezeTime - Infinity;
   }
 
-  return new Date(freezedAt.getTime() + freezeTime);
+  return new Date(
+    freezedAt.getTime() + (future ? freezeTime : freezeTime * -1),
+  );
 };
 
 export const calculateFreezerTime = ({
