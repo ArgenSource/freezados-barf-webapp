@@ -10,50 +10,60 @@ const FIELD_NAMES = {
   ID: "ID",
 };
 
-export const createUbication = z.object({
-  name: z
-    .string({
-      required_error: requiredError(FIELD_NAMES.NAME),
-      invalid_type_error: notValidError(FIELD_NAMES.NAME),
-    })
-    .trim()
-    .min(1, { message: requiredError(FIELD_NAMES.NAME) }),
-  description: z
-    .string({ invalid_type_error: notValidError(FIELD_NAMES.DESCRIPTION) })
-    .nullish(),
-  spaceId: z
-    .string({
-      required_error: requiredError(FIELD_NAMES.SPACE_ID),
-      invalid_type_error: notValidError(FIELD_NAMES.SPACE_ID),
-    })
-    .min(1, { message: requiredError(FIELD_NAMES.SPACE_ID) }),
-  isFreezer: z
-    .boolean({
-      invalid_type_error: notValidError(FIELD_NAMES.IS_FREEZER),
-    })
-    .nullish(),
-});
-
-export const getUbicationById = z.object({
-  id: z
-    .string({
-      required_error: requiredError(FIELD_NAMES.ID),
-      invalid_type_error: notValidError(FIELD_NAMES.ID),
-    })
-    .min(1, { message: requiredError(FIELD_NAMES.ID) }),
-});
-
-export const getOthersFromSpace = z.object({
-  id: z
+// ----- BASE SCHEMAS -----
+const id = z
   .string({
     required_error: requiredError(FIELD_NAMES.ID),
     invalid_type_error: notValidError(FIELD_NAMES.ID),
   })
-  .min(1, { message: requiredError(FIELD_NAMES.ID) }),
-  spaceId: z
+  .min(1, { message: requiredError(FIELD_NAMES.ID) });
+const name = z
+  .string({
+    required_error: requiredError(FIELD_NAMES.NAME),
+    invalid_type_error: notValidError(FIELD_NAMES.NAME),
+  })
+  .trim()
+  .min(1, { message: requiredError(FIELD_NAMES.NAME) });
+
+const description = z
+  .string({ invalid_type_error: notValidError(FIELD_NAMES.DESCRIPTION) })
+  .nullish();
+
+const spaceId = z
   .string({
     required_error: requiredError(FIELD_NAMES.SPACE_ID),
     invalid_type_error: notValidError(FIELD_NAMES.SPACE_ID),
   })
-  .min(1, { message: requiredError(FIELD_NAMES.SPACE_ID) }),
-})
+  .min(1, { message: requiredError(FIELD_NAMES.SPACE_ID) });
+
+const isFreezer = z
+  .boolean({
+    invalid_type_error: notValidError(FIELD_NAMES.IS_FREEZER),
+  })
+  .nullish();
+// --------------------------
+
+// ----- ACTUAL SCHEMAS -----
+export const createUbication = z.object({
+  name: name,
+  description: description,
+  spaceId: spaceId,
+  isFreezer: isFreezer,
+});
+
+export const editUbication = z.object({
+  id: id,
+  name: name.optional(),
+  description: description.optional(),
+  spaceId: spaceId.optional(),
+  isFreezer: isFreezer.optional(),
+});
+
+export const getUbicationById = z.object({
+  id: id,
+});
+
+export const getOthersFromSpace = z.object({
+  id: id,
+  spaceId: spaceId,
+});
