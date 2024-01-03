@@ -1,7 +1,4 @@
-import {
-  calculateFreezerTime,
-  getReadyDate,
-} from "~/features/food/utils/calculateFreezerTime";
+import { getReadyDate } from "~/features/food/utils/calculateFreezerTime";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 import {
   createUbication,
