@@ -15,7 +15,7 @@ import {
   FormInput,
 } from "~/features/common/components/Form";
 import useFormErrors from "~/utils/hooks/useFormErrors";
-import { Button, SubmitButton } from "~/features/common/components/Buttons";
+import { SubmitButton } from "~/features/common/components/Buttons";
 
 export const EditFood: React.FC<ActionProps> = ({
   data: food,
@@ -24,14 +24,14 @@ export const EditFood: React.FC<ActionProps> = ({
   setSelect,
 }) => {
   const { errors, parseErrors, resetErrors } = useFormErrors(editFood);
+  const edit = api.food.editFoodData.useMutation();
 
   const openModal = () => setSelect(ACTIONS.EDIT);
   const closeModal = () => {
     resetErrors();
+    edit.reset();
     setSelect(ACTIONS.NONE);
   };
-
-  const edit = api.food.editFoodData.useMutation();
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
