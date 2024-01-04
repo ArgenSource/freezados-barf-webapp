@@ -56,13 +56,11 @@ export const HistoryTable = () => {
     }),
     columnHelper.accessor("usedAt", {
       header: () => <span>Fecha consumo</span>,
-      cell: (info) =>
-        info.renderValue() ? format(info.renderValue()!, "dd/MM/yyyy") : "",
+      cell: (info) => format(info.renderValue()!, "dd/MM/yyyy"),
     }),
     columnHelper.accessor("storedAt", {
       header: () => <span>Fecha guardado</span>,
-      cell: (info) =>
-        info.renderValue() ? format(info.renderValue()!, "dd/MM/yyyy") : "",
+      cell: (info) => format(info.renderValue()!, "dd/MM/yyyy"),
     }),
     columnHelper.accessor("ubicationId", {
       header: () => <span>Ultima ubicacion</span>,
