@@ -37,11 +37,6 @@ export const HistoryTable = () => {
   const columnHelper = createColumnHelper<SpaceHistory>();
 
   const columns = [
-    // columnHelper.accessor("id", {
-    //   id: "id",
-    //   cell: (info) => <i>{info.getValue()}</i>,
-    //   header: () => <span>ID</span>,
-    // }),
     columnHelper.accessor("name", {
       cell: (info) => <i>{info.getValue()}</i>,
       header: () => <span>Name</span>,
