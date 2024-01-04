@@ -1,5 +1,6 @@
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { toast } from "sonner";
 
 import QueryErrorBoundary from "~/features/common/components/Error/QueryErrorBoundary";
 import { Loader } from "~/features/common/components";
@@ -29,7 +30,11 @@ export default function JoinWithIvitation() {
           invitationId: invitationId.toString() ?? "",
         })
         .then((res) => router.push(`/space/${res.id}`))
-        .catch((err) => console.error(err));
+        .catch((err) =>
+          toast.error(
+            err instanceof Error ? err.message : "Error al unirse al espacio",
+          ),
+        );
     }
   };
 

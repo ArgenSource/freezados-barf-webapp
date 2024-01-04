@@ -32,7 +32,7 @@ export default function QueryErrorBoundary({
 }: ErrorProps) {
   if (error) {
     const handleRefetch = () => {
-      refetch().catch((err) => console.error(err));
+      refetch().catch((err) => console.error(err)); // TODO: Revisar como manejar este error
     };
 
     return (

@@ -1,5 +1,6 @@
 import { useState, type FC } from "react";
 import { ArrowBigDownDash } from "lucide-react";
+import { toast } from "sonner";
 
 import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
@@ -30,12 +31,15 @@ export const ConsumeFood: FC<ActionProps> = ({
           id: id,
           ammount: Math.min(ammountToConsume, ammount),
         })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          toast.success("Alimento consumido");
           closeModal();
         })
-        .catch((err) => console.error(err));
-      // TODO: ADD TOAST WITH CONFIRMATION OR ERROR
+        .catch((err) => {
+          toast.error(
+            err instanceof Error ? err.message : "Error al consumir alimento",
+          );
+        });
     }
   };
 

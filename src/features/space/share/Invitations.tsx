@@ -23,7 +23,7 @@ export default function Invitations() {
       .then((res) => {
         setLink(window.location.origin + router.asPath + "/join/" + res.id);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)); // TODO: Definir como manejar este error
   };
 
   return (

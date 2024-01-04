@@ -1,5 +1,6 @@
 import { type FC } from "react";
 import { Trash2 } from "lucide-react";
+import { toast } from "sonner";
 
 import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
@@ -19,7 +20,14 @@ export const DeleteFood: FC<ActionProps> = ({
 
   const confirmDelete = () => {
     if (active) {
-      deleteFood.mutateAsync({ id: id }).catch((err) => console.error(err));
+      deleteFood
+        .mutateAsync({ id: id })
+        .then(() => toast.success("Alimento eliminado"))
+        .catch((err) =>
+          toast.error(
+            err instanceof Error ? err.message : "Error al eliminar alimento",
+          ),
+        );
     }
   };
 

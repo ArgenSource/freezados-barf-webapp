@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
+import { toast } from "sonner";
 
 import { Loader } from "~/features/common/components";
 import { Container } from "~/features/common/components/layout";
@@ -34,7 +35,11 @@ export default function Join() {
         .then((res) => {
           if (res.id) return router.push(`/space/${id}`);
         })
-        .catch((err) => console.error(err));
+        .catch((err) =>
+          toast.error(
+            err instanceof Error ? err.message : "Error al unirse al espacio",
+          ),
+        );
     }
   };
 

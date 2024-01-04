@@ -39,7 +39,11 @@ export default function AddFood() {
           toast.success("Comida agregada correctamente");
         })
         .then(() => router.back())
-        .catch(() => toast.error("Error al agregar comida"));
+        .catch((err) =>
+          toast.error(
+            err instanceof Error ? err.message : "Error al agregar comida",
+          ),
+        );
     }
   };
 

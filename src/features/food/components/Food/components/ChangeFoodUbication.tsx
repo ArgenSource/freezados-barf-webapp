@@ -2,6 +2,7 @@ import { useState, type FC } from "react";
 import { Replace, ThermometerSnowflake } from "lucide-react";
 import { useRouter } from "next/router";
 import { type Ubication } from "@prisma/client";
+import { toast } from "sonner";
 
 import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
@@ -47,10 +48,12 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
 
   const changeUbication = api.food.changeUbication.useMutation({
     onMutate: () => setRelocateStatus("processing"),
-    onError: (error) => {
+    onError: () => {
       setRelocateStatus("error");
-      // TODO: handle error data
-      console.error(error);
+    },
+    onSuccess: () => {
+      toast.success("Alimento movido");
+      setRelocateStatus("idle");
     },
   });
 
@@ -72,7 +75,7 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
         await refetchFunction(ubicationId ?? undefined);
         closeModal();
       })
-      .catch((err) => console.error(err));
+      .catch(() => toast.error("Error al consumir alimento"));
   };
 
   const renderUbicationOptions = () => {

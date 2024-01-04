@@ -1,5 +1,6 @@
 import { type FormEvent } from "react";
 import { useRouter } from "next/router";
+import { toast } from "sonner";
 
 import { BackButton, SubmitButton } from "~/features/common/components/Buttons";
 import { createUbication as createSchema } from "~/utils/schemas/ubication";
@@ -19,27 +20,27 @@ export default function AddUbication() {
     if (!spaceId) return;
     const formData = new FormData(e.currentTarget);
 
-    try {
-      if (
-        parseErrors({
-          ...Object.fromEntries(formData.entries()),
-          isFreezer: formData.get("isFreezer") == "on",
-          spaceId: spaceId.toString(),
-        })
-      ) {
-        const input = createSchema.parse({
-          ...Object.fromEntries(formData.entries()),
-          isFreezer: formData.get("isFreezer") == "on",
-          spaceId: spaceId.toString(),
-        });
+    if (
+      parseErrors({
+        ...Object.fromEntries(formData.entries()),
+        isFreezer: formData.get("isFreezer") == "on",
+        spaceId: spaceId.toString(),
+      })
+    ) {
+      const input = createSchema.parse({
+        ...Object.fromEntries(formData.entries()),
+        isFreezer: formData.get("isFreezer") == "on",
+        spaceId: spaceId.toString(),
+      });
 
-        createUbication
-          .mutateAsync(input)
-          .then(() => router.push(`/space/${spaceId.toString()}`))
-          .catch((err) => console.error(err));
-      }
-    } catch (err) {
-      console.error(err);
+      createUbication
+        .mutateAsync(input)
+        .then(() => router.push(`/space/${spaceId.toString()}`))
+        .catch((err) => {
+          toast.error(
+            err instanceof Error ? err.message : "Error al agregar ubicacion",
+          );
+        });
     }
   };
 
