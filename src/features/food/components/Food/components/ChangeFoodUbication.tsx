@@ -10,6 +10,7 @@ import { ACTIONS } from "../constants";
 import { Loader, Modal } from "~/features/common/components";
 import { Error } from "~/features/common/components/Form";
 import { Button } from "~/features/common/components/Buttons";
+import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
 
 type RelocateStatus = "idle" | "processing" | "error";
 
@@ -77,7 +78,7 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
         await refetchFunction(ubicationId ?? undefined);
         closeModal();
       })
-      .catch(() => toast.error("Error al consumir alimento"));
+      .catch((err) => renderErrorToast(err, "Error al cambiar ubicacion"));
   };
 
   const renderUbicationOptions = () => {

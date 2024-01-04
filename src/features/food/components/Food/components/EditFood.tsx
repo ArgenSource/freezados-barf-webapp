@@ -16,6 +16,7 @@ import {
 } from "~/features/common/components/Form";
 import useFormErrors from "~/utils/hooks/useFormErrors";
 import { SubmitButton } from "~/features/common/components/Buttons";
+import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
 
 export const EditFood: React.FC<ActionProps> = ({
   data: food,
@@ -54,11 +55,7 @@ export const EditFood: React.FC<ActionProps> = ({
             closeModal();
           }
         })
-        .catch((err) => {
-          toast.error(
-            err instanceof Error ? err.message : "Error al editar alimento",
-          );
-        });
+        .catch((err) => renderErrorToast(err, "Error al editar alimento"));
     }
   };
 

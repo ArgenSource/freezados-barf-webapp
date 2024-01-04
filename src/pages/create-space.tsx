@@ -13,6 +13,7 @@ import {
   BackButton,
   SubmitButton,
 } from "~/features/common/components/Buttons";
+import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
 
 export default function CreateSpace() {
   const router = useRouter();
@@ -35,11 +36,7 @@ export default function CreateSpace() {
           toast.success("Espacio creado");
           router.push(`space/${res.id}`);
         })
-        .catch((err) =>
-          toast.error(
-            err instanceof Error ? err.message : "Error al crear el espacio",
-          ),
-        );
+        .catch((err) => renderErrorToast(err, "Error al crear espacio"));
     }
   };
 

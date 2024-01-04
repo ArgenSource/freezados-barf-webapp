@@ -14,6 +14,7 @@ import {
   Textarea,
   Datetime,
 } from "~/features/common/components/Form";
+import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
 
 export default function AddFood() {
   const router = useRouter();
@@ -39,11 +40,7 @@ export default function AddFood() {
           toast.success("Comida agregada correctamente");
         })
         .then(() => router.back())
-        .catch((err) =>
-          toast.error(
-            err instanceof Error ? err.message : "Error al agregar comida",
-          ),
-        );
+        .catch((err) => renderErrorToast(err, "Error al agregar comida"));
     }
   };
 

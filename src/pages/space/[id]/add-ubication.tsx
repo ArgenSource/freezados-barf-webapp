@@ -8,6 +8,7 @@ import { api } from "~/utils/api";
 import { PageLayout } from "~/features/common/components/layout";
 import { FormInput, Textarea } from "~/features/common/components/Form";
 import useFormErrors from "~/utils/hooks/useFormErrors";
+import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
 
 export default function AddUbication() {
   const createUbication = api.ubication.create.useMutation();
@@ -41,11 +42,7 @@ export default function AddUbication() {
 
           toast.success(`Nueva ubicacion: ${newUbicationName}`);
         })
-        .catch((err) => {
-          toast.error(
-            err instanceof Error ? err.message : "Error al agregar ubicacion",
-          );
-        });
+        .catch((err) => renderErrorToast(err, "Error al crear ubicacion"));
     }
   };
 

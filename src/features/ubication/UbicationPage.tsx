@@ -11,6 +11,7 @@ import Ubication from "./Ubication";
 import { BackButton, Button, SubmitButton } from "../common/components/Buttons";
 import useFormErrors from "~/utils/hooks/useFormErrors";
 import { FormInput, Textarea } from "../common/components/Form";
+import { renderErrorToast } from "../common/utils/renderErrorToast";
 
 const DELETE_WARNING =
   "¿Estás seguro que quieres eliminar esta ubicación?\n" +
@@ -33,11 +34,7 @@ export function UbicationPage({ data }: { data: TUbication }) {
           toast.success("Ubicacion eliminada");
           await router.push(`/space/${data.spaceId}`);
         })
-        .catch((err) => {
-          toast.error(
-            err instanceof Error ? err.message : "Error al eliminar ubicacion",
-          );
-        });
+        .catch((err) => renderErrorToast(err, "Error al eliminar ubicacion"));
     }
   };
 
@@ -86,9 +83,7 @@ export function UbicationPage({ data }: { data: TUbication }) {
           editUbication.reset();
         })
         .catch((err) =>
-          toast.error(
-            err instanceof Error ? err.message : "Error al eliminar ubicacion",
-          ),
+          renderErrorToast(err, "Error al editar ubicacion"),
         );
     }
   };
