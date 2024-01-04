@@ -76,6 +76,7 @@ export const HistoryTable = () => {
   });
 
   return (
+    // TODO: Style table. Make mobile.
     <div className="p-2">
       <table>
         <thead>
