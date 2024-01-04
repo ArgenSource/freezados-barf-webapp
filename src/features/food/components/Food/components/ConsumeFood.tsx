@@ -32,6 +32,9 @@ export const ConsumeFood: FC<ActionProps> = ({
           ammount: Math.min(ammountToConsume, ammount),
         })
         .then(() => {
+          // TODO: Set conditional toast message.
+          // If ammountToConsume === ammount, then "Alimento consumido"
+          // else "Consumiste x gramos de alimento (o del nombre)"
           toast.success("Alimento consumido");
           closeModal();
         })
