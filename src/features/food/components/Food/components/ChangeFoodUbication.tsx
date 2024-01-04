@@ -52,6 +52,8 @@ export const ChangeFoodUbication: FC<ActionProps> = ({
       setRelocateStatus("error");
     },
     onSuccess: () => {
+      // TODO: Dar mas informacion sobre el alimento movido
+      // "Alimento movido de X a Y"
       toast.success("Alimento movido");
       setRelocateStatus("idle");
     },
