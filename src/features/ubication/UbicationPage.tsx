@@ -45,10 +45,10 @@ export function UbicationPage({ data }: { data: TUbication }) {
   const editUbication = api.ubication.edit.useMutation({
     onSuccess: () =>
       Promise.all([
-        queryClient.refetchQueries({
+        queryClient.invalidateQueries({
           queryKey: getQueryKey(api.ubication.getById, { id: data.id }),
         }),
-        queryClient.refetchQueries({
+        queryClient.invalidateQueries({
           queryKey: getQueryKey(api.food.getFromUbication, {
             ubicationId: data.id,
           }),
