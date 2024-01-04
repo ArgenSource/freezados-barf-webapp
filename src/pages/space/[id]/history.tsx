@@ -24,7 +24,6 @@ export default function SpaceHistory() {
       <div className="mb-4 flex w-full items-center justify-center gap-2 text-2xl font-bold text-gray-300">
         <h1>Historial de {spaceName}</h1>
       </div>
-      {/* TODO: Agregar titulo - Historial de nombre del espacio... */}
       <HistoryTable />
     </PageLayout>
   );
