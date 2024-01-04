@@ -36,6 +36,11 @@ export default function AddUbication() {
       createUbication
         .mutateAsync(input)
         .then(() => router.push(`/space/${spaceId.toString()}`))
+        .then(() => {
+          const newUbicationName = formData.get("name")?.toString();
+
+          toast.success(`Nueva ubicacion: ${newUbicationName}`);
+        })
         .catch((err) => {
           toast.error(
             err instanceof Error ? err.message : "Error al agregar ubicacion",
