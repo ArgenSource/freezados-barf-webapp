@@ -8,6 +8,7 @@ import QueryErrorBoundary from "~/features/common/components/Error/QueryErrorBou
 import Share from "~/features/space/share";
 import { Loader } from "~/features/common/components";
 import { PageLayout } from "~/features/common/components/layout";
+import { EmptyUbications } from "~/features/ubication/EmptyUbications";
 
 export default function Space() {
   const router = useRouter();
@@ -60,17 +61,7 @@ export default function Space() {
                 spaceId={spaceId?.toString() ?? ""}
               />
             ) : (
-              <div className="mt-8 flex flex-col items-center gap-6">
-                <h2 className="text-center text-xl font-bold text-gray-600">
-                  No tienes ubicaciones registradas
-                </h2>
-                <Link
-                  href={`/space/${spaceId?.toString()}/add-ubication`}
-                  className="w-fit rounded-md bg-cyan-600 p-4 text-xl font-bold text-gray-100"
-                >
-                  <h3>Crea la primera</h3>
-                </Link>
-              </div>
+              <EmptyUbications spaceId={spaceId?.toString()} />
             )}
           </>
         )}
