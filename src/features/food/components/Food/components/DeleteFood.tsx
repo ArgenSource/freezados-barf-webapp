@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
+import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
 
 export const DeleteFood: FC<ActionProps> = ({
   data: { id, ubicationId },
@@ -23,11 +24,7 @@ export const DeleteFood: FC<ActionProps> = ({
       deleteFood
         .mutateAsync({ id: id })
         .then(() => toast.success("Alimento eliminado"))
-        .catch((err) =>
-          toast.error(
-            err instanceof Error ? err.message : "Error al eliminar alimento",
-          ),
-        );
+        .catch((err) => renderErrorToast(err, "Error al eliminar alimento"));
     }
   };
 

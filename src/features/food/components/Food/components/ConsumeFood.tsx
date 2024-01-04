@@ -7,6 +7,7 @@ import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
 import { Modal } from "~/features/common/components";
 import { Button } from "~/features/common/components/Buttons";
+import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
 
 export const ConsumeFood: FC<ActionProps> = ({
   data: { ammount, id, ubicationId },
@@ -38,11 +39,7 @@ export const ConsumeFood: FC<ActionProps> = ({
           toast.success("Alimento consumido");
           closeModal();
         })
-        .catch((err) => {
-          toast.error(
-            err instanceof Error ? err.message : "Error al consumir alimento",
-          );
-        });
+        .catch((err) => renderErrorToast(err, "Error al consumir alimento"));
     }
   };
 
