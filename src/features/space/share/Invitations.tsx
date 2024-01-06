@@ -4,6 +4,7 @@ import { Copy } from "lucide-react";
 
 import { api } from "~/utils/api";
 import { Loader } from "~/features/common/components";
+import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
 
 export default function Invitations() {
   const router = useRouter();
@@ -23,7 +24,7 @@ export default function Invitations() {
       .then((res) => {
         setLink(window.location.origin + router.asPath + "/join/" + res.id);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => renderErrorToast(err, "Error al enviar la invitacion"));
   };
 
   return (

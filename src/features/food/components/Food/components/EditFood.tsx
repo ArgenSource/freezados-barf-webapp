@@ -1,6 +1,6 @@
 import { type FormEvent } from "react";
 import { Pencil } from "lucide-react";
-import { ZodError } from "zod";
+import { toast } from "sonner";
 
 import { api } from "~/utils/api";
 import { editFood } from "~/utils/schemas/food";
@@ -16,6 +16,7 @@ import {
 } from "~/features/common/components/Form";
 import useFormErrors from "~/utils/hooks/useFormErrors";
 import { SubmitButton } from "~/features/common/components/Buttons";
+import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
 
 export const EditFood: React.FC<ActionProps> = ({
   data: food,
@@ -37,29 +38,24 @@ export const EditFood: React.FC<ActionProps> = ({
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    try {
-      if (
-        parseErrors({ ...Object.fromEntries(formData.entries()), id: food.id })
-      ) {
-        const input = editFood.parse({
-          ...Object.fromEntries(formData.entries()),
-          id: food.id,
-        });
+    if (
+      parseErrors({ ...Object.fromEntries(formData.entries()), id: food.id })
+    ) {
+      const input = editFood.parse({
+        ...Object.fromEntries(formData.entries()),
+        id: food.id,
+      });
 
-        edit
-          .mutateAsync(input)
-          .then(async (res) => {
-            if (res.ubicationId) {
-              await refetchFunction(res.ubicationId);
-              closeModal();
-            }
-          })
-          .catch((err) => console.error(err));
-      }
-    } catch (err) {
-      if (err instanceof ZodError) {
-        console.log(err);
-      }
+      edit
+        .mutateAsync(input)
+        .then(async (res) => {
+          if (res.ubicationId) {
+            await refetchFunction(res.ubicationId);
+            toast.success("Alimento editado");
+            closeModal();
+          }
+        })
+        .catch((err) => renderErrorToast(err, "Error al editar alimento"));
     }
   };
 

@@ -1,11 +1,13 @@
 import { useState, type FC } from "react";
 import { ArrowBigDownDash } from "lucide-react";
+import { toast } from "sonner";
 
 import { api } from "~/utils/api";
 import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
 import { Modal } from "~/features/common/components";
 import { Button } from "~/features/common/components/Buttons";
+import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
 
 export const ConsumeFood: FC<ActionProps> = ({
   data: { ammount, id, ubicationId },
@@ -30,12 +32,14 @@ export const ConsumeFood: FC<ActionProps> = ({
           id: id,
           ammount: Math.min(ammountToConsume, ammount),
         })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          // TODO: Set conditional toast message.
+          // If ammountToConsume === ammount, then "Alimento consumido"
+          // else "Consumiste x gramos de alimento (o del nombre)"
+          toast.success("Alimento consumido");
           closeModal();
         })
-        .catch((err) => console.error(err));
-      // TODO: ADD TOAST WITH CONFIRMATION OR ERROR
+        .catch((err) => renderErrorToast(err, "Error al consumir alimento"));
     }
   };
 

@@ -1,6 +1,7 @@
 import { type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Container } from "lucide-react";
+import { toast } from "sonner";
 
 import { api } from "~/utils/api";
 import { createSpace } from "~/utils/schemas/space";
@@ -12,6 +13,7 @@ import {
   BackButton,
   SubmitButton,
 } from "~/features/common/components/Buttons";
+import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
 
 export default function CreateSpace() {
   const router = useRouter();
@@ -23,19 +25,18 @@ export default function CreateSpace() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    try {
-      if (parseErrors(Object.fromEntries(formData.entries()))) {
-        const { name } = createSpace.parse(
-          Object.fromEntries(formData.entries()),
-        );
+    if (parseErrors(Object.fromEntries(formData.entries()))) {
+      const { name } = createSpace.parse(
+        Object.fromEntries(formData.entries()),
+      );
 
-        create
-          .mutateAsync({ name: name })
-          .then((res) => router.push(`space/${res.id}`))
-          .catch((err) => console.error(err));
-      }
-    } catch (err) {
-      console.error(err);
+      create
+        .mutateAsync({ name: name })
+        .then((res) => {
+          toast.success("Espacio creado");
+          router.push(`space/${res.id}`);
+        })
+        .catch((err) => renderErrorToast(err, "Error al crear espacio"));
     }
   };
 
