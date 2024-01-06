@@ -1,6 +1,6 @@
 import { PageLayout } from "~/features/common/components/layout";
 import { BackButton } from "~/features/common/components/Buttons";
-import { AddFoodForm } from "~/features/food/components/AddFoodForm";
+import { AddFoodForm } from "~/features/food/add/AddFoodForm";
 
 export default function AddFood() {
   return (

@@ -1,7 +1,7 @@
 import { AuthShowcase } from "~/features/auth/AuthShowcase";
 import { PageLayout, Container } from "~/features/common/components/layout";
-import { CreateSpaceLink } from "~/features/space/components/CreateSpaceLink";
-import { SpaceList } from "~/features/space/components/SpaceList";
+import { CreateSpaceLink } from "~/features/space/create/CreateSpaceLink";
+import { SpaceList } from "~/features/space/list/SpaceList";
 
 export default function Home() {
   return (

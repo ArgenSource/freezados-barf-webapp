@@ -13,7 +13,7 @@ import {
   DeleteFood,
   EditFood,
   ConsumeFood,
-} from "./components";
+} from "./actions";
 import { calculateFreezerTime } from "../../utils/calculateFreezerTime";
 
 export function Food({ foodData }: { foodData: TFood }) {

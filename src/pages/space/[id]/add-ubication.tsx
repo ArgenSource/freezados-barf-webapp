@@ -1,6 +1,6 @@
 import { BackButton } from "~/features/common/components/Buttons";
 import { PageLayout } from "~/features/common/components/layout";
-import { AddUbicationForm } from "~/features/ubication/components/AddUbicationForm";
+import { AddUbicationForm } from "~/features/ubication/add/AddUbicationForm";
 
 export default function AddUbication() {
   return (

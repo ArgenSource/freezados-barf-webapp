@@ -3,11 +3,11 @@ import { ArrowBigDownDash } from "lucide-react";
 import { toast } from "sonner";
 
 import { api } from "~/utils/api";
-import type { ActionProps } from "../types";
 import { ACTIONS } from "../constants";
 import { Modal } from "~/features/common/components";
 import { Button } from "~/features/common/components/Buttons";
 import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
+import { type ActionProps } from "../types";
 
 export const ConsumeFood: FC<ActionProps> = ({
   data: { ammount, id, ubicationId },

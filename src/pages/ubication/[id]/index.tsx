@@ -1,11 +1,14 @@
 import { useRouter } from "next/router";
 
-import { UbicationPage as UbicationPageComponent } from "~/features/ubication/components/UbicationPage";
 import { api } from "~/utils/api";
 import { Loader } from "~/features/common/components";
 import QueryErrorBoundary from "~/features/common/components/Error/QueryErrorBoundary";
 import { Error } from "~/features/common/components/Form";
 import { PageLayout } from "~/features/common/components/layout";
+import { BackButton } from "~/features/common/components/Buttons";
+import { Ubication } from "~/features/ubication/list/Ubication";
+import { EditUbicationForm } from "~/features/ubication/edit/EditUbicationForm";
+import { DeleteUbicationButton } from "~/features/ubication/delete/DeleteUbicationButton";
 
 export default function UbicationPage() {
   const router = useRouter();
@@ -22,7 +25,14 @@ export default function UbicationPage() {
         return <Loader />;
       case "success":
         if (data) {
-          return <UbicationPageComponent data={data} />;
+          return (
+            <>
+              <BackButton />
+              <Ubication data={data} />
+              <EditUbicationForm data={data} />
+              <DeleteUbicationButton data={data} />
+            </>
+          );
         }
       case "error":
       default:

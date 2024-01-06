@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 
 import { BackButton } from "~/features/common/components/Buttons";
 import { PageLayout } from "~/features/common/components/layout";
-import { HistoryTable } from "~/features/space/components/HistoryTable";
+import { HistoryTable } from "~/features/space/history/HistoryTable";
 import { api } from "~/utils/api";
 
 export default function SpaceHistory() {

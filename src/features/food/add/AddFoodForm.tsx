@@ -4,7 +4,6 @@ import { toast } from "sonner";
 
 import { api } from "~/utils/api";
 import { createFood } from "~/utils/schemas/food";
-import { SelectFoodType } from "~/features/food/components/Food/components";
 import useFormErrors from "~/utils/hooks/useFormErrors";
 import { SubmitButton } from "~/features/common/components/Buttons";
 import {
@@ -14,6 +13,7 @@ import {
   Datetime,
 } from "~/features/common/components/Form";
 import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
+import { SelectFoodType } from "../list/Food/actions";
 
 export const AddFoodForm = () => {
   const router = useRouter();

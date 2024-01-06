@@ -1,15 +1,13 @@
-import { type Ubication as TUbication } from "@prisma/client";
 import { useRouter } from "next/router";
 import { toast } from "sonner";
+import { type Ubication } from "@prisma/client";
 
-import { api } from "~/utils/api";
-import Ubication from "./Ubication";
-import { BackButton, Button } from "../../common/components/Buttons";
-import { renderErrorToast } from "../../common/utils/renderErrorToast";
-import { EditUbicationForm } from "./EditUbicationForm";
+import { Button } from "~/features/common/components/Buttons";
 import { DELETE_UBICATION_WARNING } from "../constants";
+import { api } from "~/utils/api";
+import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
 
-export function UbicationPage({ data }: { data: TUbication }) {
+export const DeleteUbicationButton = ({ data }: { data: Ubication }) => {
   const router = useRouter();
   const deleteUbication = api.ubication.delete.useMutation();
 
@@ -26,13 +24,8 @@ export function UbicationPage({ data }: { data: TUbication }) {
   };
 
   return (
-    <>
-      <BackButton />
-      <Ubication data={data} />
-      <EditUbicationForm data={data} />
-      <Button bigFont className="bg-red-500" onClick={handleDeletion}>
-        Eliminar
-      </Button>
-    </>
+    <Button bigFont className="bg-red-500" onClick={handleDeletion}>
+      Eliminar
+    </Button>
   );
-}
+};

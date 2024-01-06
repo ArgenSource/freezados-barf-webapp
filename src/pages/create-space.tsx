@@ -1,6 +1,6 @@
 import { PageLayout } from "~/features/common/components/layout";
 import { BackButton } from "~/features/common/components/Buttons";
-import { CreateSpaceForm } from "~/features/space/components/CreateSpaceForm";
+import { CreateSpaceForm } from "~/features/space/create/CreateSpaceForm";
 
 export default function CreateSpace() {
   return (
