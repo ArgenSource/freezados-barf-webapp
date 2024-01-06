@@ -6,3 +6,6 @@ export const DELETE_UBICATION_WARNING =
   "¿Estás seguro que quieres eliminar esta ubicación?\n" +
   "Todos los alimentos que se encuentren en el se borrarán y no podrán ser recuperados.\n" +
   "Cámbialos de ubicación primero si deseas conservarlos";
+
+export const PRIVATE_SPACE_WARNING =
+  "Tu espacio esta configurado como privado, cambia su configuración para poder invitar otros miembros";

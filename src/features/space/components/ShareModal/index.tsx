@@ -7,6 +7,7 @@ import PublicLink from "./PublicLink";
 import Invitations from "./Invitations";
 import { Loader, Modal } from "~/features/common/components";
 import PrivacyConfigSelect from "./PrivacyConfigSelect";
+import { PRIVATE_SPACE_WARNING } from "~/features/ubication/constants";
 
 interface Props {
   space:
@@ -41,8 +42,7 @@ export const ShareModal = ({ isModalOpen, closeModal, space }: Props) => {
                 space.sharedConfig == "PRIVATE" ? "visible" : "invisible"
               }`}
             >
-              Tu espacio esta configurado como privado, cambia su configuración
-              para poder invitar otros miembros
+              {PRIVATE_SPACE_WARNING}
             </p>
           </div>
         );
