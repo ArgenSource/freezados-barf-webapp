@@ -5,10 +5,11 @@ import { Container } from "lucide-react";
 import UbicationList from "~/features/ubication/components/UbicationList";
 import { api } from "~/utils/api";
 import QueryErrorBoundary from "~/features/common/components/Error/QueryErrorBoundary";
-import Share from "~/features/space/share";
 import { Loader } from "~/features/common/components";
 import { PageLayout } from "~/features/common/components/layout";
 import { EmptyUbications } from "~/features/ubication/components/EmptyUbications";
+
+import { ShareSpace } from "~/features/space/components/ShareSpace";
 
 export default function Space() {
   const router = useRouter();
@@ -37,7 +38,7 @@ export default function Space() {
             <div className="mb-4 flex w-full items-center justify-center gap-2 text-2xl font-bold text-gray-300">
               <Container />
               <h1>{space.name}</h1>
-              <Share />
+              <ShareSpace />
             </div>
             <Link
               href="/"
