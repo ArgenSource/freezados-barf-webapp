@@ -7,7 +7,9 @@ import {
 } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
+import { twMerge } from "tailwind-merge";
 
+import { FOOD_ICONS } from "~/features/food/utils/foodStyleIcons";
 import { api } from "~/utils/api";
 
 interface SpaceHistory {
@@ -38,27 +40,24 @@ export const HistoryTable = () => {
 
   const columns = [
     columnHelper.accessor("name", {
-      cell: (info) => <i>{info.getValue()}</i>,
-      header: () => <span>Name</span>,
-    }),
-    columnHelper.accessor("type", {
-      header: () => "Especie",
-      cell: (info) => info.renderValue(),
-    }),
-    columnHelper.accessor("ammount", {
-      header: () => <span>Cantidad</span>,
-      cell: (info) => info.renderValue()?.toString(),
-    }),
-    columnHelper.accessor("usedAt", {
-      header: () => <span>Fecha consumo</span>,
-      cell: (info) => format(info.renderValue()!, "dd/MM/yyyy"),
+      cell: (info) => (
+        <i className="flex items-center gap-1">
+          {FOOD_ICONS.get(info.row.original.type)}
+
+          {info.getValue()}
+          {` ${info.row.original.ammount}g`}
+        </i>
+      ),
     }),
     columnHelper.accessor("storedAt", {
-      header: () => <span>Fecha guardado</span>,
-      cell: (info) => format(info.renderValue()!, "dd/MM/yyyy"),
+      cell: (info) => (
+        <span>
+          {`${format(info.renderValue()!, "dd/MM")} al
+            ${format(info.row.original.usedAt!, "dd/MM")}`}
+        </span>
+      ),
     }),
     columnHelper.accessor("ubicationId", {
-      header: () => <span>Ultima ubicacion</span>,
       cell: (info) => {
         const { data: ubication } = api.ubication.getById.useQuery({
           id: info.getValue() ?? "",
@@ -76,54 +75,34 @@ export const HistoryTable = () => {
   });
 
   return (
-    // TODO: Style table. Make mobile.
-    <div className="p-2">
+    <div className="flex justify-center p-2">
       <table>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
+              {row.getVisibleCells().map((cell) => {
+                const isFirstCell = cell.column.id === "name";
+                const isLastCell = cell.column.id === "ubicationId";
+                const isMiddleCell = !isFirstCell && !isLastCell;
+
+                return (
+                  <td
+                    key={cell.id}
+                    className={twMerge(
+                      "w-fit py-1",
+                      isFirstCell ? "pr-1" : "",
+                      isLastCell ? "pl-1" : "",
+                      isMiddleCell ? "px-1" : "",
+                    )}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>
-        <tfoot>
-          {table.getFooterGroups().map((footerGroup) => (
-            <tr key={footerGroup.id}>
-              {footerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.footer,
-                        header.getContext(),
-                      )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </tfoot>
       </table>
-      <div className="h-4" />
     </div>
   );
 };
