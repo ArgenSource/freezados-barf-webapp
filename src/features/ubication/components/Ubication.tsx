@@ -3,9 +3,9 @@ import { PlusCircle, ThermometerSnowflake } from "lucide-react";
 import Link from "next/link";
 
 import { api } from "~/utils/api";
-import FoodList from "../food/components/FoodList";
-import { Loader } from "../common/components";
-import { Button } from "../common/components/Buttons";
+import FoodList from "../../food/components/FoodList";
+import { Loader } from "../../common/components";
+import { Button } from "../../common/components/Buttons";
 
 export default function Ubication({ data }: { data: TUbication }) {
   const { data: foods, status } = api.food.getFromUbication.useQuery(

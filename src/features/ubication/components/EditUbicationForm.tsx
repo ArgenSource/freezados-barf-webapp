@@ -7,13 +7,10 @@ import { type Ubication as TUbication } from "@prisma/client";
 import { api } from "~/utils/api";
 import { editUbication as editUbicationSchema } from "~/utils/schemas/ubication";
 import useFormErrors from "~/utils/hooks/useFormErrors";
-import { renderErrorToast } from "../common/utils/renderErrorToast";
-import { FormInput, Textarea } from "../common/components/Form";
-import { SubmitButton } from "../common/components/Buttons";
-
-const FREEZER_RESET_WARNING =
-  "¿Estás seguro que la ubicación no es un freezer?\n" +
-  "Si tienes alimentos en periodo de congelado su progreso se reiniciará";
+import { renderErrorToast } from "../../common/utils/renderErrorToast";
+import { FormInput, Textarea } from "../../common/components/Form";
+import { SubmitButton } from "../../common/components/Buttons";
+import { FREEZER_RESET_WARNING } from "../constants";
 
 export const EditUbicationForm = ({ data }: { data: TUbication }) => {
   const { errors, parseErrors } = useFormErrors(editUbicationSchema);

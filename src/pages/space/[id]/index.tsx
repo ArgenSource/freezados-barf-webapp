@@ -2,13 +2,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Container } from "lucide-react";
 
-import UbicationList from "~/features/ubication/UbicationList";
+import UbicationList from "~/features/ubication/components/UbicationList";
 import { api } from "~/utils/api";
 import QueryErrorBoundary from "~/features/common/components/Error/QueryErrorBoundary";
 import Share from "~/features/space/share";
 import { Loader } from "~/features/common/components";
 import { PageLayout } from "~/features/common/components/layout";
-import { EmptyUbications } from "~/features/ubication/EmptyUbications";
+import { EmptyUbications } from "~/features/ubication/components/EmptyUbications";
 
 export default function Space() {
   const router = useRouter();

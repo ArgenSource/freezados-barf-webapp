@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import { UbicationPage as UbicationPageComponent } from "~/features/ubication/UbicationPage";
+import { UbicationPage as UbicationPageComponent } from "~/features/ubication/components/UbicationPage";
 import { api } from "~/utils/api";
 import { Loader } from "~/features/common/components";
 import QueryErrorBoundary from "~/features/common/components/Error/QueryErrorBoundary";
