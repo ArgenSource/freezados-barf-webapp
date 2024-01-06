@@ -1,7 +1,7 @@
-import { Loader } from "../common/components";
+import { Loader } from "../../common/components";
 import { api } from "~/utils/api";
-import { Error } from "../common/components/Form/Error";
-import { Space } from "./components/Space";
+import { Error } from "../../common/components/Form/Error";
+import { SpaceListItem } from "./SpaceListItem";
 
 export default function SpaceList() {
   const { data: spaces, status } = api.space.getAll.useQuery();
@@ -16,7 +16,7 @@ export default function SpaceList() {
             <ul className="flex flex-col gap-2">
               {spaces.map((space) => (
                 <li key={space.id}>
-                  <Space data={space} />
+                  <SpaceListItem data={space} />
                 </li>
               ))}
             </ul>
