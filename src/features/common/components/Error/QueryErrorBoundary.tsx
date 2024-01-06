@@ -21,7 +21,7 @@ const renderErrorData = (code: TRPC_ERROR_CODE_KEY) => {
     case "UNAUTHORIZED":
       return <AuthError />;
     default:
-      return false;
+      return null;
   }
 };
 
@@ -31,12 +31,10 @@ export default function QueryErrorBoundary({
   children,
 }: ErrorProps) {
   if (error) {
-    const handleRefetch = () => {
-      refetch().catch((err) => console.error(err)); // TODO: Revisar como manejar este error
-    };
+    const handleRefetch = () => void refetch();
 
     return (
-      renderErrorData(error.code) || (
+      renderErrorData(error.code) ?? (
         <div>
           <h2>Algo no funciono correctamente</h2>
           <p>{error.code}</p>
