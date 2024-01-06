@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AlertTriangle, Share as ShareIcon, XCircle } from "lucide-react";
+import { AlertTriangle, Share as ShareIcon } from "lucide-react";
 import { useRouter } from "next/router";
 
 import { api } from "~/utils/api";

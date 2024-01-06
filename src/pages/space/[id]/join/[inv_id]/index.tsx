@@ -1,6 +1,5 @@
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { toast } from "sonner";
 
 import QueryErrorBoundary from "~/features/common/components/Error/QueryErrorBoundary";
 import { Loader } from "~/features/common/components";
