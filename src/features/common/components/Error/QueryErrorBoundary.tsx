@@ -3,7 +3,7 @@ import { type DefaultErrorShape } from "@trpc/server/dist/error/formatter";
 import { type typeToFlattenedError } from "zod";
 import { type TRPC_ERROR_CODE_KEY } from "@trpc/server/rpc";
 
-import AuthError from "./AuthError";
+import { AuthError } from "../../../auth/AuthError";
 
 type ErrorProps = {
   error:

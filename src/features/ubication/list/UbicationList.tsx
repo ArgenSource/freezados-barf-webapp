@@ -1,7 +1,8 @@
 import { type Ubication as TUbication } from "@prisma/client";
 import Link from "next/link";
 
-import Ubication from "./Ubication";
+import { Ubication } from "./Ubication";
+import { EmptyUbications } from "./EmptyUbications";
 
 interface IProps {
   ubications?: TUbication[];
@@ -9,7 +10,9 @@ interface IProps {
 }
 
 export default function UbicationList({ ubications, spaceId }: IProps) {
-  if (!ubications) return null;
+  if (!ubications?.length) {
+    return <EmptyUbications spaceId={spaceId?.toString()} />;
+  }
 
   return (
     <div className="mb-4">

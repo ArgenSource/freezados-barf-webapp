@@ -2,13 +2,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Container } from "lucide-react";
 
-import UbicationList from "~/features/ubication/UbicationList";
+import UbicationList from "~/features/ubication/list/UbicationList";
 import { api } from "~/utils/api";
 import QueryErrorBoundary from "~/features/common/components/Error/QueryErrorBoundary";
-import Share from "~/features/space/share";
 import { Loader } from "~/features/common/components";
 import { PageLayout } from "~/features/common/components/layout";
-import { EmptyUbications } from "~/features/ubication/EmptyUbications";
+import { ShareSpace } from "~/features/space/share/ShareSpace";
 
 export default function Space() {
   const router = useRouter();
@@ -37,7 +36,7 @@ export default function Space() {
             <div className="mb-4 flex w-full items-center justify-center gap-2 text-2xl font-bold text-gray-300">
               <Container />
               <h1>{space.name}</h1>
-              <Share />
+              <ShareSpace />
             </div>
             <Link
               href="/"
@@ -45,14 +44,10 @@ export default function Space() {
             >
               Volver al listado de espacios
             </Link>
-            {space.ubications.length > 0 ? (
-              <UbicationList
-                ubications={space?.ubications}
-                spaceId={spaceId?.toString() ?? ""}
-              />
-            ) : (
-              <EmptyUbications spaceId={spaceId?.toString()} />
-            )}
+            <UbicationList
+              ubications={space?.ubications}
+              spaceId={spaceId?.toString() ?? ""}
+            />
           </>
         )}
       </QueryErrorBoundary>
