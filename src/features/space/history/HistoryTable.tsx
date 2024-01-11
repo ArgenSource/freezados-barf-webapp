@@ -50,12 +50,11 @@ export const HistoryTable = () => {
       ),
     }),
     columnHelper.accessor("storedAt", {
-      cell: (info) => (
-        <span>
-          {`${format(info.renderValue()!, "dd/MM")} al
-            ${format(info.row.original.usedAt!, "dd/MM")}`}
-        </span>
-      ),
+      cell: (info) => <span>{`${format(info.renderValue()!, "dd/MM")}`}</span>,
+    }),
+    columnHelper.accessor("usedAt", {
+      cell: (info) => <span>{`${format(info.renderValue()!, "dd/MM")}`}</span>,
+      header: () => <span>Used at</span>,
     }),
     columnHelper.accessor("ubicationId", {
       cell: (info) => {
