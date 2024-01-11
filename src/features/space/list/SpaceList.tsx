@@ -3,7 +3,7 @@ import { api } from "~/utils/api";
 import { Error } from "../../common/components/Form/Error";
 import { SpaceListItem } from "./SpaceListItem";
 
-export default function SpaceList() {
+export function SpaceList() {
   const { data: spaces, status } = api.space.getAll.useQuery();
 
   const renderData = () => {

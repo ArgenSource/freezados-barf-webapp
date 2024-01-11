@@ -1,4 +1,4 @@
-import { FREEZE_STATES } from "~/features/food/components/Food/constants";
+import { FREEZE_STATES } from "~/features/food/list/Food/constants";
 import { calculateFreezerTime } from "~/features/food/utils/calculateFreezerTime";
 import {
   createTRPCRouter,
