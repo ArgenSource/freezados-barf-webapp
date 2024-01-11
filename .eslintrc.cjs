@@ -4,7 +4,7 @@ const config = {
   parserOptions: {
     project: true,
   },
-  plugins: ["@typescript-eslint", "jest-formatting"],
+  plugins: ["@typescript-eslint", "jest-formatting", "unused-imports"],
   extends: [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended-type-checked",
@@ -16,6 +16,7 @@ const config = {
     // Feel free to reconfigure them to your own preference.
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
+    "unused-imports/no-unused-imports": "error",
 
     "@typescript-eslint/consistent-type-imports": [
       "warn",

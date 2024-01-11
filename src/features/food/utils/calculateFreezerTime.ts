@@ -2,7 +2,7 @@ import { FoodTypes } from "@prisma/client";
 import { formatDistanceToNowStrict, isFuture } from "date-fns";
 import { es } from "date-fns/locale";
 
-import { FREEZE_STATES } from "../components/Food/constants";
+import { FREEZE_STATES } from "../list/Food/constants";
 
 type PausedState = {
   state: typeof FREEZE_STATES.STOPPED;

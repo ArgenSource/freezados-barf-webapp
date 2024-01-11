@@ -5,6 +5,7 @@ import QueryErrorBoundary from "~/features/common/components/Error/QueryErrorBou
 import { Loader } from "~/features/common/components";
 import { Container } from "~/features/common/components/layout";
 import { api } from "~/utils/api";
+import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
 
 export default function JoinWithIvitation() {
   const router = useRouter();
@@ -29,7 +30,7 @@ export default function JoinWithIvitation() {
           invitationId: invitationId.toString() ?? "",
         })
         .then((res) => router.push(`/space/${res.id}`))
-        .catch((err) => console.error(err));
+        .catch((err) => renderErrorToast(err, "Error al unirse al espacio"));
     }
   };
 

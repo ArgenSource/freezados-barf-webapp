@@ -3,7 +3,7 @@ import { type DefaultErrorShape } from "@trpc/server/dist/error/formatter";
 import { type typeToFlattenedError } from "zod";
 import { type TRPC_ERROR_CODE_KEY } from "@trpc/server/rpc";
 
-import AuthError from "./AuthError";
+import { AuthError } from "../../../auth/AuthError";
 
 type ErrorProps = {
   error:
@@ -21,7 +21,7 @@ const renderErrorData = (code: TRPC_ERROR_CODE_KEY) => {
     case "UNAUTHORIZED":
       return <AuthError />;
     default:
-      return false;
+      return null;
   }
 };
 
@@ -31,12 +31,10 @@ export default function QueryErrorBoundary({
   children,
 }: ErrorProps) {
   if (error) {
-    const handleRefetch = () => {
-      refetch().catch((err) => console.error(err));
-    };
+    const handleRefetch = () => void refetch();
 
     return (
-      renderErrorData(error.code) || (
+      renderErrorData(error.code) ?? (
         <div>
           <h2>Algo no funciono correctamente</h2>
           <p>{error.code}</p>

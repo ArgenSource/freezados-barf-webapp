@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 
 import { BackButton } from "~/features/common/components/Buttons";
 import { PageLayout } from "~/features/common/components/layout";
-import { HistoryTable } from "~/features/space/components/HistoryTable";
+import { HistoryTable } from "~/features/space/history/HistoryTable";
 import { api } from "~/utils/api";
 
 export default function SpaceHistory() {
@@ -21,9 +21,9 @@ export default function SpaceHistory() {
   return (
     <PageLayout headTitle={`Historial ${space ? `de ${spaceName}` : ""}`}>
       <BackButton>Volver</BackButton>
-      <div className="mb-4 flex w-full items-center justify-center gap-2 text-2xl font-bold text-gray-300">
-        <h1>Historial de {spaceName}</h1>
-      </div>
+      <h1 className="mb-4 text-center text-2xl font-bold text-gray-300">
+        Historial de {spaceName}
+      </h1>
       <HistoryTable />
     </PageLayout>
   );

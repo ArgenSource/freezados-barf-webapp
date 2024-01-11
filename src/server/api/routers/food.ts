@@ -1,4 +1,4 @@
-import { FREEZE_STATES } from "~/features/food/components/Food/constants";
+import { FREEZE_STATES } from "~/features/food/list/Food/constants";
 import { calculateFreezerTime } from "~/features/food/utils/calculateFreezerTime";
 import {
   createTRPCRouter,
@@ -54,31 +54,42 @@ export const foodRouter = createTRPCRouter({
   consume: protectedProcedure
     .input(consume)
     .mutation(async ({ input, ctx }) => {
-      const updated = await ctx.db.food.update({
-        where: { id: input.id, ammount: { gte: input.ammount } },
-        data: {
-          ammount: {
-            decrement: input.ammount,
-          },
-        },
+      const current = await ctx.db.food.findUniqueOrThrow({
+        where: { id: input.id },
       });
 
-      if (updated.ammount == 0) {
+      if (input.ammount >= current.ammount) {
         await ctx.db.food.update({
-          where: { id: updated.id },
+          where: { id: input.id },
           data: {
             usedAt: new Date(),
           },
         });
       } else {
-        await ctx.db.food.create({
-          data: {
-            ...updated,
-            id: undefined,
-            ammount: 0,
-            usedAt: new Date(),
-          },
-        });
+        await ctx.db.$transaction([
+          ctx.db.food.update({
+            where: { id: input.id },
+            data: {
+              ammount: { decrement: input.ammount },
+            },
+          }),
+          ctx.db.food.create({
+            data: {
+              ammount: input.ammount,
+              usedAt: new Date(),
+              name: current.name,
+              description: current.description,
+              type: current.type,
+              storedAt: current.storedAt,
+              freezedAt: current.freezedAt,
+              ubication: {
+                connect: {
+                  id: current.ubicationId?.toString(),
+                },
+              },
+            },
+          }),
+        ]);
       }
 
       return true;
