@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 import { Loader } from "~/features/common/components";
 import { renderErrorToast } from "~/features/common/utils/renderErrorToast";
 
-export default function Invitations() {
+export function Invitations() {
   const router = useRouter();
   const { id } = router.query;
   const [link, setLink] = useState<string>();

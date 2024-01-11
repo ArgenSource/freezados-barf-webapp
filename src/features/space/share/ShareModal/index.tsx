@@ -4,7 +4,7 @@ import { AlertTriangle } from "lucide-react";
 import { type SharedConfig } from "@prisma/client";
 
 import PublicLink from "./PublicLink";
-import Invitations from "./Invitations";
+import { Invitations } from "./Invitations";
 import { Loader, Modal } from "~/features/common/components";
 import PrivacyConfigSelect from "./PrivacyConfigSelect";
 import { PRIVATE_SPACE_WARNING } from "~/features/ubication/constants";
