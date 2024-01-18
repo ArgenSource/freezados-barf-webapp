@@ -9,6 +9,7 @@ import { Loader } from "~/features/common/components";
 import { PageLayout } from "~/features/common/components/layout";
 import { ShareSpace } from "~/features/space/share/ShareSpace";
 import { DeleteSpaceButton } from "~/features/space/delete/DeleteSpaceButton";
+import { EditSpaceForm } from "~/features/space/edit/EditSpaceForm";
 
 export default function Space() {
   const router = useRouter();
@@ -49,16 +50,17 @@ export default function Space() {
               ubications={space?.ubications}
               spaceId={spaceId?.toString() ?? ""}
             />
+
+            <Link
+              href={`/space/${spaceId?.toString()}/history`}
+              className="text-center hover:text-violet-200"
+            >
+              Ir al historial de este espacio
+            </Link>
+            <EditSpaceForm data={space} />
+            <DeleteSpaceButton id={space?.id} />
           </>
         )}
-
-        <Link
-          href={`/space/${spaceId?.toString()}/history`}
-          className="text-center hover:text-violet-200"
-        >
-          Ir al historial de este espacio
-        </Link>
-        {space?.id && <DeleteSpaceButton id={space?.id} />}
       </QueryErrorBoundary>
     </PageLayout>
   );

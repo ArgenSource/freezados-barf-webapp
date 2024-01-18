@@ -145,7 +145,7 @@ export const spaceRouter = createTRPCRouter({
     }),
   ),
 
-  edit: protectedProcedure.input(editSpace).mutation(({ ctx, input }) => {
+  edit: protectedProcedure.input(editSpace).mutation(({ ctx, input }) =>
     ctx.db.space.update({
       where: {
         id: input.id,
@@ -154,6 +154,6 @@ export const spaceRouter = createTRPCRouter({
       data: {
         name: input.name,
       },
-    });
-  }),
+    }),
+  ),
 });
