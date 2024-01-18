@@ -8,6 +8,7 @@ import QueryErrorBoundary from "~/features/common/components/Error/QueryErrorBou
 import { Loader } from "~/features/common/components";
 import { PageLayout } from "~/features/common/components/layout";
 import { ShareSpace } from "~/features/space/share/ShareSpace";
+import { DeleteSpaceButton } from "~/features/space/delete/DeleteSpaceButton";
 
 export default function Space() {
   const router = useRouter();
@@ -50,14 +51,15 @@ export default function Space() {
             />
           </>
         )}
-      </QueryErrorBoundary>
 
-      <Link
-        href={`/space/${spaceId?.toString()}/history`}
-        className="text-center hover:text-violet-200"
-      >
-        Ir al historial de este espacio
-      </Link>
+        <Link
+          href={`/space/${spaceId?.toString()}/history`}
+          className="text-center hover:text-violet-200"
+        >
+          Ir al historial de este espacio
+        </Link>
+        {space?.id && <DeleteSpaceButton id={space?.id} />}
+      </QueryErrorBoundary>
     </PageLayout>
   );
 }
