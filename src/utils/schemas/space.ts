@@ -62,7 +62,7 @@ export const setPrivacy = z.object({
   config: sharedConfig,
 });
 
-export const edit = z.object({
+export const editSpace = z.object({
   id: id,
   name: name.optional(),
 });
