@@ -134,4 +134,13 @@ export const spaceRouter = createTRPCRouter({
       },
     }),
   ),
+
+  delete: protectedProcedure.input(getSpace).mutation(({ ctx, input }) =>
+    ctx.db.space.delete({
+      where: {
+        id: input.id,
+        ownerId: ctx.session.user.id,
+      },
+    }),
+  ),
 });
