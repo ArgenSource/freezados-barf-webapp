@@ -1,5 +1,6 @@
 import {
   createSpace,
+  editSpace,
   getSpace,
   invitation,
   joinRequest,
@@ -131,6 +132,27 @@ export const spaceRouter = createTRPCRouter({
       },
       orderBy: {
         storedAt: "desc",
+      },
+    }),
+  ),
+
+  delete: protectedProcedure.input(getSpace).mutation(({ ctx, input }) =>
+    ctx.db.space.delete({
+      where: {
+        id: input.id,
+        ownerId: ctx.session.user.id,
+      },
+    }),
+  ),
+
+  edit: protectedProcedure.input(editSpace).mutation(({ ctx, input }) =>
+    ctx.db.space.update({
+      where: {
+        id: input.id,
+        ownerId: ctx.session.user.id,
+      },
+      data: {
+        name: input.name,
       },
     }),
   ),

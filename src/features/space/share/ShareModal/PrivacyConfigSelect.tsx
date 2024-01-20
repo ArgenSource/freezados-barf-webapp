@@ -55,7 +55,7 @@ export default function PrivacyConfigSelect({ space }: ShareProps) {
   return (
     <>
       <h2 className="my-2 text-center">
-        Configura la privacidad de tu espacio y compartelo
+        Configura la privacidad de tu espacio
       </h2>
       <div className="grid grid-rows-3 items-center justify-center gap-2 p-2 md:grid-cols-3 md:grid-rows-1">
         {Object.values(SharedConfig).map((val) => (
