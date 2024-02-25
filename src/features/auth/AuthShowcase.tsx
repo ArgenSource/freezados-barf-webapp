@@ -1,6 +1,5 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 
-// TODO: Revisar si necesitamos este componente o si lo borramos
 export function AuthShowcase() {
   const { data: sessionData } = useSession();
 
