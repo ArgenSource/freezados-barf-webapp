@@ -26,8 +26,10 @@ export const EditSpaceForm = ({ data }: { data: Space }) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
+
     form.append("id", data.id);
     const inputs = Object.fromEntries(form.entries());
+
     if (parseErrors(inputs)) {
       editSpace
         .mutateAsync(editSpaceSchema.parse(inputs))
@@ -38,6 +40,7 @@ export const EditSpaceForm = ({ data }: { data: Space }) => {
         .catch((err) => renderErrorToast(err, "Error al editar espacio"));
     }
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <FormInput

@@ -22,6 +22,7 @@ export const DeleteSpaceButton = ({ id }: { id: Space["id"] }) => {
         .catch((err) => renderErrorToast(err, "Error al eliminar espacio"));
     }
   };
+
   return (
     <Button bigFont className="bg-red-500" onClick={handleDeletion}>
       Eliminar espacio
